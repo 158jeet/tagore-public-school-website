@@ -2,16 +2,16 @@
 import { FormEvent, useState } from "react";
 const institutions=["Tagore Bal Niketan","Tagore Smart School","Tagore Vedant Academy","Tagore PG College","Tagore Hostel","General group enquiry"];
 export function GroupEnquiryForm(){
- const [busy,setBusy]=useState(false); const [status,setStatus]=useState("");
+ const [busy,setBusy]=useState(false); const [status,setStatus]=useState(""); const [formStartedAt]=useState(()=>String(Date.now()));
  async function submit(event:FormEvent<HTMLFormElement>){
-  event.preventDefault(); const form=event.currentTarget; const body=Object.fromEntries(new FormData(form).entries());
+  event.preventDefault(); const form=event.currentTarget; const body=Object.fromEntries(new FormData(form).entries());body.form_started_at=formStartedAt;
   setBusy(true);setStatus("");
   try{const response=await fetch("/api/enquiry",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const result=await response.json();if(!response.ok)throw new Error(result.message||"The enquiry service is not configured yet.");form.reset();setStatus("Thank you. Your enquiry has been received.");}
   catch(error){setStatus(error instanceof Error?error.message:"We could not submit the enquiry. Please use the group social channels for now.");}
   finally{setBusy(false);}
  }
  return <form onSubmit={submit} className="group-form">
-  <div className="form-grid">
+  <input type="hidden" name="form_started_at" value={formStartedAt}/><label aria-hidden="true" className="honeypot-field"><span>Leave this field empty</span><input name="website" tabIndex={-1} autoComplete="off"/></label><div className="form-grid">
    <label>Parent / enquirer name<input required name="name" autoComplete="name" maxLength={100} placeholder="Your full name"/></label>
    <label>Mobile number<input required name="mobile" type="tel" inputMode="tel" pattern="[0-9+() -]{8,18}" autoComplete="tel" maxLength={18} placeholder="Your contact number"/></label>
    <label>Email (optional)<input name="email" type="email" autoComplete="email" maxLength={150} placeholder="you@example.com"/></label>
