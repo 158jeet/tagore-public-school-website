@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #f7f5ef; color: #14243a; }
+::selection { background: #c79b45; color: #102a43; }
+.container-shell { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+.eyebrow { letter-spacing: .18em; text-transform: uppercase; font-size: .68rem; font-weight: 700; }
+.section-pad { padding-block: clamp(4rem, 8vw, 7rem); }
