@@ -23,7 +23,6 @@ jobs:
     permissions:
       actions: read
       contents: read
-      security-events: write
     strategy:
       fail-fast: false
       matrix:
@@ -33,15 +32,24 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@33d7b85da1a04171e211befe2c739303b9a4c066
         with:
           languages: ${{ matrix.language }}
           build-mode: none
           queries: security-extended
 
       - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@33d7b85da1a04171e211befe2c739303b9a4c066
         with:
-          output: ../results
+          output: codeql-results
           upload: never
           category: "/language:${{ matrix.language }}"
+
+      - name: Preserve SARIF results as a workflow artifact
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        with:
+          name: codeql-sarif-${{ matrix.language }}
+          path: codeql-results/*.sarif
+          if-no-files-found: warn
+          retention-days: 14
