@@ -1,16 +1,16 @@
 "use client";
 import { FormEvent, useState } from "react";
 export function EnquiryForm() {
- const [status,setStatus]=useState("");const [busy,setBusy]=useState(false);
+ const [status,setStatus]=useState("");const [busy,setBusy]=useState(false);const [formStartedAt]=useState(()=>String(Date.now()));
  async function submit(event:FormEvent<HTMLFormElement>){
-  event.preventDefault();const form=event.currentTarget;const data=Object.fromEntries(new FormData(form).entries());
+  event.preventDefault();const form=event.currentTarget;const data=Object.fromEntries(new FormData(form).entries());data.form_started_at=formStartedAt;
   setBusy(true);setStatus("");
   try{const response=await fetch("/api/enquiry",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const result=await response.json();if(!response.ok)throw new Error(result.message||"We could not submit your enquiry.");form.reset();setStatus("Thank you. Your enquiry has been received.");}
   catch(error){setStatus(error instanceof Error?error.message:"We could not submit your enquiry right now. Please contact the school by phone or WhatsApp.");}
   finally{setBusy(false);}
  }
  return <form onSubmit={submit} className="rounded-3xl bg-white p-7 text-ink shadow-soft sm:p-9">
-  <div className="grid gap-5 sm:grid-cols-2">
+  <input type="hidden" name="form_started_at" value={formStartedAt}/><label aria-hidden="true" className="absolute -left-[10000px] h-px w-px overflow-hidden"><span>Leave this field empty</span><input name="website" tabIndex={-1} autoComplete="off"/></label><div className="grid gap-5 sm:grid-cols-2">
    <label className="text-xs font-semibold text-ink/70">Parent / guardian name<input required name="parent_name" autoComplete="name" maxLength={100} className="mt-2 w-full rounded-xl border border-ink/15 px-4 py-3 text-sm outline-none focus:border-gold" placeholder="Your full name"/></label>
    <label className="text-xs font-semibold text-ink/70">Mobile number<input required name="mobile" type="tel" inputMode="tel" pattern="[0-9+() -]{8,18}" autoComplete="tel" maxLength={18} className="mt-2 w-full rounded-xl border border-ink/15 px-4 py-3 text-sm outline-none focus:border-gold" placeholder="Your contact number"/></label>
    <label className="text-xs font-semibold text-ink/70">Email (optional)<input name="email" type="email" autoComplete="email" maxLength={150} className="mt-2 w-full rounded-xl border border-ink/15 px-4 py-3 text-sm outline-none focus:border-gold" placeholder="you@example.com"/></label>
