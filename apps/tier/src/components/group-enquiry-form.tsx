@@ -11,7 +11,7 @@ export function GroupEnquiryForm(){
   finally{setBusy(false);}
  }
  return <form onSubmit={submit} className="group-form">
-  <input type="hidden" name="form_started_at" value={formStartedAt}/><label aria-hidden="true" className="honeypot-field"><span>Leave this field empty</span><input name="website" tabIndex={-1} autoComplete="off"/></label><div className="form-grid">
+  <input type="hidden" name="form_started_at" value={formStartedAt}/><label aria-hidden="true" style={{position:"absolute",left:"-10000px",width:1,height:1,overflow:"hidden"}}><span>Leave this field empty</span><input name="website" tabIndex={-1} autoComplete="off"/></label><div className="form-grid">
    <label>Parent / enquirer name<input required name="name" autoComplete="name" maxLength={100} placeholder="Your full name"/></label>
    <label>Mobile number<input required name="mobile" type="tel" inputMode="tel" pattern="[0-9+() -]{8,18}" autoComplete="tel" maxLength={18} placeholder="Your contact number"/></label>
    <label>Email (optional)<input name="email" type="email" autoComplete="email" maxLength={150} placeholder="you@example.com"/></label>
