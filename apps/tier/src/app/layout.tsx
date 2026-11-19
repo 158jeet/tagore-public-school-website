@@ -1,0 +1,3 @@
+import "./globals.css";
+export const metadata={metadataBase:new URL(process.env.NEXT_PUBLIC_SITE_URL||"https://www.tieredu.org"),title:{default:"Tagore Group | Education, Community & Future",template:"%s | Tagore Group"},description:"Explore the Tagore Group education ecosystem in Gudha Gorji, Rajasthan—schools, higher education, competitive learning and student life."};
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}</body></html>}
