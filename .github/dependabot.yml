@@ -1,0 +1,36 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      production-and-development:
+        patterns:
+          - "*"
+    labels:
+      - dependencies
+      - security
+
+  - package-ecosystem: npm
+    directory: "/apps/tier"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      tier-dependencies:
+        patterns:
+          - "*"
+    labels:
+      - dependencies
+      - security
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    labels:
+      - dependencies
+      - security
