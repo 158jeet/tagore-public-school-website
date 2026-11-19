@@ -1,20 +1,19 @@
 import { NextResponse } from "next/server";
 
 const MAX_BODY_BYTES = 8_192;
-const MAX_FIELD_LENGTH = 1_500;
 
 function rejectCrossOrigin(request: Request) {
   const origin = request.headers.get("origin");
   if (!origin) return true;
   try {
-    return new URL(origin).host !== new URL(request.url).host;
+    return new URL(origin).origin !== new URL(request.url).origin;
   } catch {
     return true;
   }
 }
 
 async function readBoundedBody(request: Request, maxBytes: number): Promise<string | null> {
-  if (!request.body) return null;
+  if (!request.body) return "";
   const reader = request.body.getReader();
   const chunks: Uint8Array[] = [];
   let total = 0;
@@ -71,7 +70,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Invalid form submission." }, { status: 400 });
   }
 
-  // Honeypot: silently accept automated submissions without forwarding them.
   if (typeof data.website === "string" && data.website.trim()) {
     return NextResponse.json({ success: true });
   }
@@ -88,7 +86,7 @@ export async function POST(request: Request) {
   const time = typeof data.preferred_time === "string" ? data.preferred_time : "";
   const allowedClasses = new Set(["Nursery", "LKG", "UKG", ...Array.from({ length: 12 }, (_, i) => "Class " + (i + 1))]);
 
-  if (parent.length < 2 || parent.length > 100 || !/^[0-9+() -]{8,18}$/.test(mobile) || !allowedClasses.has(schoolClass) || data.contact_consent !== "yes") {
+  if ((data.enquiry_type !== undefined && !["admission", "campus_visit"].includes(String(data.enquiry_type))) || parent.length < 2 || parent.length > 100 || !/^[0-9+() -]{8,18}$/.test(mobile) || !allowedClasses.has(schoolClass) || data.contact_consent !== "yes") {
     return NextResponse.json({ message: "Please check the required fields and try again." }, { status: 400 });
   }
   if (email && (email.length > 150 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {

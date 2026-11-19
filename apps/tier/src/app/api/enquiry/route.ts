@@ -6,14 +6,14 @@ function rejectCrossOrigin(request: Request) {
   const origin = request.headers.get("origin");
   if (!origin) return true;
   try {
-    return new URL(origin).host !== new URL(request.url).host;
+    return new URL(origin).origin !== new URL(request.url).origin;
   } catch {
     return true;
   }
 }
 
 async function readBoundedBody(request: Request, maxBytes: number): Promise<string | null> {
-  if (!request.body) return null;
+  if (!request.body) return "";
   const reader = request.body.getReader();
   const chunks: Uint8Array[] = [];
   let total = 0;
@@ -66,7 +66,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Invalid form submission." }, { status: 400 });
   }
 
-  // Honeypot: do not forward automated submissions.
   if (typeof data.website === "string" && data.website.trim()) return NextResponse.json({ success: true });
   if (!isHumanTimingValid(data.form_started_at)) return NextResponse.json({ message: "Please wait a moment and try submitting again." }, { status: 400 });
 
