@@ -13,3 +13,6 @@ Institution details are intentionally conservative. Do not publish unverified hi
 
 ## Brand assets
 Replace the typographic placeholder mark with the exact approved Tagore Group logo asset. Do not redraw or distort the logo.
+
+## Group enquiry delivery
+The contact form posts to `/api/enquiry`. Configure `WEB3FORMS_ACCESS_KEY` as a server-only deployment environment variable to enable delivery. Without it, the API returns a clear unavailable response and does not claim the enquiry was received. Do not expose the key through a `NEXT_PUBLIC_` variable.
