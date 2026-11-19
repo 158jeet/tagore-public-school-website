@@ -6,8 +6,9 @@ const apps = [
     name: "TPS",
     limit: 8192,
     post: (await import("../src/app/api/enquiry/route.ts")).POST,
-    valid: () => ({ parent_name: "Test Parent", mobile: "9876543210", email: "", class: "Class 1", contact_consent: "yes", enquiry_type: "admission", form_started_at: String(Date.now() - 2000) }),
+    valid: () => ({ parent_name: "Test Parent", mobile: "9876543210", email: "", class: "Class 1", enquiry_topic: "academics", contact_consent: "yes", enquiry_type: "admission", form_started_at: String(Date.now() - 2000) }),
     invalid: (body) => ({ ...body, class: "Class 99" }),
+    invalidTopic: (body) => ({ ...body, enquiry_topic: "guaranteed-seat" }),
   },
   {
     name: "TIER",
@@ -74,6 +75,7 @@ for (const app of apps) {
     process.env.WEB3FORMS_ACCESS_KEY = "test-key";
     assert.equal((await app.post(makeRequest({ ...app.valid(), form_started_at: String(Date.now()) }))).status, 400);
     assert.equal((await app.post(makeRequest(app.invalid(app.valid())))).status, 400);
+    if (app.invalidTopic) assert.equal((await app.post(makeRequest(app.invalidTopic(app.valid())))).status, 400);
   });
 
   test(app.name + ": fails closed without a provider key and masks provider errors", async () => {
@@ -88,9 +90,14 @@ for (const app of apps) {
 
   test(app.name + ": accepts a valid request only after provider confirmation", async () => {
     process.env.WEB3FORMS_ACCESS_KEY = "test-key";
-    globalThis.fetch = async () => new Response(JSON.stringify({ success: true }), { status: 200, headers: { "content-type": "application/json" } });
+    let forwardedBody;
+    globalThis.fetch = async (_url, options) => {
+      forwardedBody = options.body;
+      return new Response(JSON.stringify({ success: true }), { status: 200, headers: { "content-type": "application/json" } });
+    };
     const response = await app.post(makeRequest(app.valid()));
     assert.equal(response.status, 200);
     assert.deepEqual(await response.json(), { success: true });
+    if (app.name === "TPS") assert.equal(forwardedBody.get("enquiry_topic"), "academics");
   });
 }
