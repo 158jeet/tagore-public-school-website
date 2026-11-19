@@ -12,6 +12,34 @@ function rejectCrossOrigin(request: Request) {
   }
 }
 
+async function readBoundedBody(request: Request, maxBytes: number): Promise<string | null> {
+  if (!request.body) return null;
+  const reader = request.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > maxBytes) {
+        await reader.cancel();
+        return null;
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const combined = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    combined.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return new TextDecoder().decode(combined);
+}
+
 function isHumanTimingValid(value: unknown) {
   if (typeof value !== "string" || !/^\d{13}$/.test(value)) return false;
   const elapsed = Date.now() - Number(value);
@@ -30,9 +58,10 @@ export async function POST(request: Request) {
 
   let data: Record<string, unknown>;
   try {
-    const raw = await request.text();
-    if (new TextEncoder().encode(raw).byteLength > MAX_BODY_BYTES) return NextResponse.json({ message: "The submitted form is too large." }, { status: 413 });
+    const raw = await readBoundedBody(request, MAX_BODY_BYTES);
+    if (raw === null) return NextResponse.json({ message: "The submitted form is too large." }, { status: 413 });
     data = JSON.parse(raw) as Record<string, unknown>;
+    if (!data || typeof data !== "object" || Array.isArray(data)) throw new Error("Invalid payload");
   } catch {
     return NextResponse.json({ message: "Invalid form submission." }, { status: 400 });
   }
