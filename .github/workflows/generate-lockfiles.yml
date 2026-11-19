@@ -1,0 +1,38 @@
+name: Generate npm lockfiles
+
+on:
+  push:
+    branches:
+      - maintenance/generate-lockfiles
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout maintenance branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: true
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: 22
+      - name: Generate TPS lockfile
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Generate TIER lockfile
+        working-directory: apps/tier
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Commit lockfiles
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json apps/tier/package-lock.json
+          if git diff --cached --quiet; then
+            echo "No lockfile changes to commit."
+          else
+            git commit -m "build: generate reproducible npm lockfiles"
+            git push
+          fi
