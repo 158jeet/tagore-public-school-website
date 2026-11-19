@@ -1,4 +1,9 @@
-import { NextResponse } from "next/server";
+function json(body: unknown, init?: ResponseInit) {
+  return new Response(JSON.stringify(body), {
+    ...init,
+    headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store", ...init?.headers },
+  });
+}
 
 const MAX_BODY_BYTES = 8_192;
 
@@ -48,33 +53,33 @@ function isHumanTimingValid(value: unknown) {
 
 export async function POST(request: Request) {
   if (rejectCrossOrigin(request)) {
-    return NextResponse.json({ message: "This request could not be verified." }, { status: 403 });
+    return json({ message: "This request could not be verified." }, { status: 403 });
   }
   const contentLength = Number(request.headers.get("content-length") || 0);
   if (contentLength > MAX_BODY_BYTES) {
-    return NextResponse.json({ message: "The submitted form is too large." }, { status: 413 });
+    return json({ message: "The submitted form is too large." }, { status: 413 });
   }
 
   const key = process.env.WEB3FORMS_ACCESS_KEY;
   if (!key) {
-    return NextResponse.json({ message: "The online enquiry service is not connected yet. Please contact the school by phone or WhatsApp." }, { status: 503 });
+    return json({ message: "The online enquiry service is not connected yet. Please contact the school by phone or WhatsApp." }, { status: 503 });
   }
 
   let data: Record<string, unknown>;
   try {
     const raw = await readBoundedBody(request, MAX_BODY_BYTES);
-    if (raw === null) return NextResponse.json({ message: "The submitted form is too large." }, { status: 413 });
+    if (raw === null) return json({ message: "The submitted form is too large." }, { status: 413 });
     data = JSON.parse(raw) as Record<string, unknown>;
     if (!data || typeof data !== "object" || Array.isArray(data)) throw new Error("Invalid payload");
   } catch {
-    return NextResponse.json({ message: "Invalid form submission." }, { status: 400 });
+    return json({ message: "Invalid form submission." }, { status: 400 });
   }
 
   if (typeof data.website === "string" && data.website.trim()) {
-    return NextResponse.json({ success: true });
+    return json({ success: true });
   }
   if (!isHumanTimingValid(data.form_started_at)) {
-    return NextResponse.json({ message: "Please wait a moment and try submitting again." }, { status: 400 });
+    return json({ message: "Please wait a moment and try submitting again." }, { status: 400 });
   }
 
   const parent = typeof data.parent_name === "string" ? data.parent_name.trim() : "";
@@ -87,15 +92,15 @@ export async function POST(request: Request) {
   const allowedClasses = new Set(["Nursery", "LKG", "UKG", ...Array.from({ length: 12 }, (_, i) => "Class " + (i + 1))]);
 
   if ((data.enquiry_type !== undefined && !["admission", "campus_visit"].includes(String(data.enquiry_type))) || parent.length < 2 || parent.length > 100 || !/^[0-9+() -]{8,18}$/.test(mobile) || !allowedClasses.has(schoolClass) || data.contact_consent !== "yes") {
-    return NextResponse.json({ message: "Please check the required fields and try again." }, { status: 400 });
+    return json({ message: "Please check the required fields and try again." }, { status: 400 });
   }
   if (email && (email.length > 150 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
-    return NextResponse.json({ message: "Please enter a valid email address." }, { status: 400 });
+    return json({ message: "Please enter a valid email address." }, { status: 400 });
   }
   if (type === "campus_visit") {
     const parsedDate = new Date(date + "T00:00:00");
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(parsedDate.getTime()) || parsedDate.toISOString().slice(0, 10) !== date || parsedDate.getTime() < new Date(new Date().toDateString()).getTime() || !["Morning", "Afternoon"].includes(time)) {
-      return NextResponse.json({ message: "Please select a valid preferred visit date and time." }, { status: 400 });
+      return json({ message: "Please select a valid preferred visit date and time." }, { status: 400 });
     }
   }
 
@@ -115,9 +120,9 @@ export async function POST(request: Request) {
   try {
     const response = await fetch("https://api.web3forms.com/submit", { method: "POST", body: payload, cache: "no-store", signal: AbortSignal.timeout(8_000) });
     const result = await response.json();
-    if (!response.ok || !result.success) return NextResponse.json({ message: "We could not deliver your request. Please try again or contact the school directly." }, { status: 502 });
-    return NextResponse.json({ success: true });
+    if (!response.ok || !result.success) return json({ message: "We could not deliver your request. Please try again or contact the school directly." }, { status: 502 });
+    return json({ success: true });
   } catch {
-    return NextResponse.json({ message: "The enquiry service is temporarily unavailable. Please contact the school directly." }, { status: 502 });
+    return json({ message: "The enquiry service is temporarily unavailable. Please contact the school directly." }, { status: 502 });
   }
 }
