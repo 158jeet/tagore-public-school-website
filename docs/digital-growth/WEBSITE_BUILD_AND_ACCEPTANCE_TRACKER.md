@@ -145,6 +145,22 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **GROW-06** Report qualified enquiries, visits requested/confirmed/attended, applications, offers and enrolments from ERP outcomes.
 - [ ] **GROW-07** Define lead-response and campus-visit operational SLAs with accountable staff.
 - [ ] **GROW-08** Establish monthly content/SEO/CRO review based on verified performance data.
+- [ ] **GROW-09** TPS admissions campaign funnel: focused admissions landing page, class/grade pathways, verified proof, parent guide and primary callback/visit conversion.
+- [ ] **GROW-10** TIER segmented group funnel: parent/student, institution partnership, careers and general pathways with correct team routing.
+- [ ] **GROW-11** Conversion assets: approved prospectus, parent admission checklist, campus-visit guide, hostel guide and event registration with transparent gating.
+- [ ] **GROW-12** Campus visit/event conversion: preferred-slot request, staff confirmation, reminders, reschedule path and attendance outcome.
+- [ ] **GROW-13** Callback/contact choice: channel-specific consent for phone/WhatsApp/email, verified contact hours and operational ownership.
+- [ ] **GROW-14** Referral/community acquisition: transparent parent/alumni/community referral attribution, offline QR and short-link campaigns; incentives require separate approval.
+- [ ] **GROW-15** Trust/proof modules: evidence-backed affiliations, leadership, facilities, dated outcomes and permissioned stories/media.
+- [ ] **GROW-16** Local discovery: verified NAP, useful local-intent pages, map/directions, institution SEO and authorised business profiles.
+- [ ] **GROW-17** Campaign attribution: privacy-safe UTM convention, first/last-touch rules and funnel-to-enrolment reporting reconciled with ERP outcomes.
+- [ ] **GROW-18** Ethical enquiry recovery/remarketing: explicit opt-in, suppression and opt-out; no covert abandoned-form identification or unsolicited messaging.
+- [ ] **GROW-19** Lead qualification/routing/SLA: explainable intent-based prioritisation, accountable team assignment, reminders and response dashboard in ERP.
+- [ ] **GROW-20** Conversion optimisation: hypothesis-led A/B testing with approved analytics, guardrails, accessibility and rollback.
+- [ ] **GROW-21** Helpful admissions assistant: source-grounded FAQ and institution routing with human handoff, no child profiling or admission promises.
+- [ ] **GROW-22** Hindi-first/local/offline-to-online reach: reviewed bilingual guides, QR campaigns and low-bandwidth landing-page experience.
+
+Detailed scope, acceptance criteria, safeguards, channel playbook and phased rollout: `docs/digital-growth/TAGORE_GROWTH_FUNNELS_AND_ACQUISITION_SPEC.md`.
 
 ## 10. Deployment, operations and launch
 
