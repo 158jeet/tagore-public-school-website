@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { GroupSiteHeader } from "@/components/site-header";
 import { GroupSiteFooter } from "@/components/site-footer";
+import { MobileQuickActions } from "@/components/mobile-quick-actions";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.tieredu.org";
 const indexingEnabled = process.env.SITE_INDEXING_ENABLED === "true";
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <GroupSiteHeader />
         {children}
         <GroupSiteFooter />
+        <MobileQuickActions />
       </body>
     </html>
   );
