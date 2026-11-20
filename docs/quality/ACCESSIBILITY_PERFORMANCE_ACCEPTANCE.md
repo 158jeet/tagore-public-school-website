@@ -91,3 +91,8 @@ A green Lighthouse score alone is not a substitute for real-device, accessibilit
 - Reports TTFB, FCP, observed LCP, CLS, resource count, total transfer bytes and JavaScript transfer bytes as 14-day artifacts for each app.
 - LCP 2.5s and CLS 0.1 are reported as targets; this first baseline is informational and does not fail CI on metric variance.
 - This is synthetic lab evidence, not 75th-percentile field data. It does not measure INP or produce a Lighthouse score. Real-device testing, representative interaction measurement and field data remain required.
+
+
+## TIER font delivery (PR #52)
+- TIER's DM Sans and Playfair Display families are loaded through `next/font/google` at build time and emitted as local application font assets; browser visits no longer request Google Fonts CSS/font hosts at runtime.
+- Both families use `font-display: swap` and Latin subsets. Build-time font retrieval remains an external build dependency; the CI build validates availability and generated assets.
