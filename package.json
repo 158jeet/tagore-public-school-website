@@ -12,7 +12,8 @@
     "test:config": "node --test tests/site-config.test.mjs",
     "test:forms": "node --test tests/form-contract.test.mjs",
     "test:smoke": "node tests/runtime-smoke.mjs",
-    "test:browser": "node tests/browser-journeys.mjs"
+    "test:browser": "node tests/browser-journeys.mjs",
+    "test:performance": "node tests/performance-audit.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",

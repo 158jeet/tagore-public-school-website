@@ -37,6 +37,18 @@ jobs:
         run: npm run test:smoke
         env:
           SMOKE_APP: tps
+      - name: Measure production-build performance (lab)
+        run: npm run test:performance
+        env:
+          SMOKE_APP: tps
+      - name: Upload TPS performance report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: tps-performance-lab
+          path: artifacts/performance/tps-lab.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Upload visual review screenshots
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -75,6 +87,19 @@ jobs:
         run: npm run test:smoke
         env:
           SMOKE_APP: tier
+      - name: Measure production-build performance (lab)
+        working-directory: ${{ github.workspace }}
+        run: node tests/performance-audit.mjs
+        env:
+          SMOKE_APP: tier
+      - name: Upload TIER performance report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: tier-performance-lab
+          path: artifacts/performance/tier-lab.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Upload visual review screenshots
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
