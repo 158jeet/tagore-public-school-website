@@ -1,5 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
+import Link from "next/link";
 const institutions=["Tagore Bal Niketan","Tagore Smart School","Tagore Vedant Academy","Tagore PG College","Tagore Hostel","General group enquiry"];
 export function GroupEnquiryForm(){
  const [busy,setBusy]=useState(false); const [status,setStatus]=useState(""); const [success,setSuccess]=useState(false); const [formStartedAt]=useState(()=>String(Date.now()));
@@ -20,7 +21,7 @@ export function GroupEnquiryForm(){
   <label className="message-label">How can we help?<textarea required name="message" minLength={8} maxLength={1500} rows={4} placeholder="Tell us what information you need."/></label>
   <label className="consent"><input required type="checkbox" name="consent" value="yes"/> I agree that the Tagore Group may contact me about this enquiry.</label>
   <button className="button" disabled={busy}>{busy?"Sending…":"Send group enquiry ↗"}</button>
-  {success?<div role="status" aria-live="polite" className="form-success-panel"><p style={{fontWeight:700,color:"var(--navy)"}}>Your group enquiry has been sent.</p><p style={{marginTop:8,fontSize:13,lineHeight:1.7,color:"var(--muted)"}}>Keep your phone available for a response using the contact details you provided. A request is not a confirmed admission, appointment or service booking.</p><a href="/institutions" style={{display:"inline-block",marginTop:14,fontSize:12,fontWeight:700,color:"var(--navy)",textDecoration:"underline",textUnderlineOffset:4}}>Explore Tagore institutions</a></div>:status&&<p role="alert" aria-live="assertive" className="form-error-panel form-status">{status}</p>}
+  {success?<div role="status" aria-live="polite" className="form-success-panel"><p style={{fontWeight:700,color:"var(--navy)"}}>Your group enquiry has been sent.</p><p style={{marginTop:8,fontSize:13,lineHeight:1.7,color:"var(--muted)"}}>Keep your phone available for a response using the contact details you provided. A request is not a confirmed admission, appointment or service booking.</p><Link href="/institutions" style={{display:"inline-block",marginTop:14,fontSize:12,fontWeight:700,color:"var(--navy)",textDecoration:"underline",textUnderlineOffset:4}}>Explore Tagore institutions</Link></div>:status&&<p role="alert" aria-live="assertive" className="form-error-panel form-status">{status}</p>}
   <p className="form-note">Please do not include identity numbers, financial details or sensitive medical information.</p>
  </form>;
 }
