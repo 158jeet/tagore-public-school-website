@@ -13,8 +13,8 @@ const appDir = app === "tier" ? path.join(root, "apps", "tier") : root;
 const port = Number(process.env.BROWSER_PORT || (app === "tps" ? 3380 : 3480));
 const origin = `http://127.0.0.1:${port}`;
 const routes = app === "tps"
-  ? ["/", "/parent-guide", "/admissions", "/visit"]
-  : ["/", "/institutions", "/contact"];
+  ? ["/", "/parent-guide", "/admissions", "/visit", "/admissions/funnel"]
+  : ["/", "/institutions", "/contact", "/connect"];
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
   cwd: appDir,
   env: { ...process.env, SITE_INDEXING_ENABLED: "false", PORT: String(port), HOSTNAME: "127.0.0.1" },
@@ -152,6 +152,14 @@ try {
     await page.getByRole("button", { name: /Request a campus visit/i }).click();
     assert.equal(await page.locator('[name="preferred_date"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred date");
     assert.equal(await page.locator('[name="preferred_time"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred time");
+
+    await page.goto(origin + "/admissions/funnel", { waitUntil: "networkidle" });
+    await page.getByRole("heading", { name: /Choose with clarity\. Start with a conversation/i }).waitFor();
+    await page.getByRole("link", { name: /Enquire about admission/i }).click();
+    await page.waitForURL(/\/admissions\/funnel#enquiry$/);
+    assert.equal(await page.locator("#enquiry").count(), 1, "TPS funnel primary CTA must reach the enquiry section");
+    await page.getByRole("link", { name: /Plan a campus visit/i }).click();
+    await page.waitForURL(/\/visit$/);
   } else {
     await page.goto(origin + "/institutions", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: "School", exact: true }).click();
@@ -165,6 +173,14 @@ try {
     await page.getByRole("button", { name: /Send group enquiry/i }).click();
     assert.equal(await page.locator('[name="name"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce contact name");
     assert.equal(await page.locator('[name="mobile"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce mobile");
+
+    await page.goto(origin + "/connect", { waitUntil: "networkidle" });
+    await page.getByRole("heading", { name: /The right conversation starts with the right doorway/i }).waitFor();
+    await page.getByRole("link", { name: /Discuss a partnership/i }).click();
+    await page.waitForURL(/\/contact\?path=partnership#group-enquiry$/);
+    const partnershipMessage = await page.locator('textarea[name="message"]').inputValue();
+    assert.match(partnershipMessage, /Institutional partnership enquiry/, "TIER partnership pathway must prefill the enquiry context");
+    assert.match(partnershipMessage, /Please add details about your enquiry below/, "TIER pathway prefill must retain an editable prompt");
   }
 
   assert.deepEqual(pageErrors, [], `Browser runtime errors detected: ${pageErrors.join(" | ")}`);
