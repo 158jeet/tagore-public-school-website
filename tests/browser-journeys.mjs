@@ -1,0 +1,129 @@
+import assert from "node:assert/strict";
+import { spawn } from "node:child_process";
+import path from "node:path";
+import { setTimeout as delay } from "node:timers/promises";
+import { chromium } from "@playwright/test";
+import axe from "axe-core";
+
+const app = process.env.SMOKE_APP;
+assert.ok(app === "tps" || app === "tier", "Set SMOKE_APP to tps or tier");
+const root = process.cwd();
+const appDir = app === "tier" ? path.join(root, "apps", "tier") : root;
+const port = Number(process.env.BROWSER_PORT || (app === "tps" ? 3380 : 3480));
+const origin = `http://127.0.0.1:${port}`;
+const routes = app === "tps"
+  ? ["/", "/parent-guide", "/admissions", "/visit"]
+  : ["/", "/institutions", "/contact"];
+const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
+  cwd: appDir,
+  env: { ...process.env, SITE_INDEXING_ENABLED: "false", PORT: String(port), HOSTNAME: "127.0.0.1" },
+  stdio: ["ignore", "pipe", "pipe"],
+});
+let serverOutput = "";
+server.stdout.on("data", chunk => { serverOutput += chunk.toString(); });
+server.stderr.on("data", chunk => { serverOutput += chunk.toString(); });
+let browser;
+
+async function stopServer() {
+  if (browser) await browser.close();
+  if (server.exitCode === null) {
+    const exited = new Promise(resolve => server.once("exit", resolve));
+    server.kill("SIGTERM");
+    await Promise.race([exited, delay(5000)]);
+    if (server.exitCode === null) {
+      const forced = new Promise(resolve => server.once("exit", resolve));
+      server.kill("SIGKILL");
+      await Promise.race([forced, delay(2000)]);
+    }
+  }
+}
+
+try {
+  let ready = false;
+  for (let attempt = 0; attempt < 60; attempt += 1) {
+    if (server.exitCode !== null) throw new Error(`Next.js server exited early.\n${serverOutput}`);
+    try {
+      const response = await fetch(origin, { signal: AbortSignal.timeout(2000) });
+      if (response.status === 200) { ready = true; break; }
+    } catch {}
+    await delay(500);
+  }
+  assert.ok(ready, `Next.js server did not become ready.\n${serverOutput}`);
+
+  browser = await chromium.launch({ headless: true });
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const page = await context.newPage();
+  const pageErrors = [];
+  page.on("pageerror", error => pageErrors.push(error.message));
+
+  for (const route of routes) {
+    const response = await page.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
+    assert.equal(response?.status(), 200, `${app.toUpperCase()} browser route ${route} did not return 200`);
+    const dimensions = await page.evaluate(() => ({
+      viewport: document.documentElement.clientWidth,
+      document: document.documentElement.scrollWidth,
+    }));
+    assert.ok(dimensions.document <= dimensions.viewport + 1, `${route} has horizontal overflow on a 390px viewport: ${JSON.stringify(dimensions)}`);
+
+    await page.addScriptTag({ content: axe.source });
+    const audit = await page.evaluate(async () => window.axe.run(document, {
+      runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"] },
+    }));
+    const severe = audit.violations.filter(item => item.impact === "serious" || item.impact === "critical");
+    const moderate = audit.violations.filter(item => item.impact === "moderate" || item.impact === "minor");
+    for (const issue of moderate) console.warn(`A11Y WARNING [${app} ${route}] ${issue.impact}: ${issue.id} — ${issue.help}`);
+    assert.equal(severe.length, 0, `Serious/critical WCAG violations on ${route}: ${severe.map(item => item.id + " (" + item.nodes.length + " nodes)").join(", ")}`);
+
+    if (route === "/") {
+      await page.keyboard.press("Tab");
+      const focused = await page.evaluate(() => {
+        const element = document.activeElement;
+        if (!element || element === document.body) return false;
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return rect.width > 0 && rect.height > 0 && style.visibility !== "hidden";
+      });
+      assert.ok(focused, "Keyboard Tab must move focus to a visible interactive element");
+    }
+  }
+
+  if (app === "tps") {
+    await page.goto(origin + "/parent-guide", { waitUntil: "networkidle" });
+    await page.getByLabel(/Which class are you exploring/i).selectOption("Class 5");
+    await page.getByLabel(/What would you most like to discuss/i).selectOption("academics");
+    await page.getByRole("link", { name: /Continue to admission enquiry/i }).click();
+    await page.waitForURL(/\/admissions\?/);
+    const url = new URL(page.url());
+    assert.equal(url.searchParams.get("class"), "Class 5");
+    assert.equal(url.searchParams.get("topic"), "academics");
+
+    await page.goto(origin + "/admissions", { waitUntil: "networkidle" });
+    await page.getByRole("button", { name: /Submit admission enquiry/i }).click();
+    assert.equal(await page.locator('[name="parent_name"]').evaluate(el => el.validity.valueMissing), true, "Admission form must enforce required parent name");
+    assert.equal(await page.locator('[name="mobile"]').evaluate(el => el.validity.valueMissing), true, "Admission form must enforce required mobile");
+    assert.equal(await page.locator('[name="class"]').evaluate(el => el.validity.valueMissing), true, "Admission form must enforce class selection");
+
+    await page.goto(origin + "/visit", { waitUntil: "networkidle" });
+    await page.getByRole("button", { name: /Request a campus visit/i }).click();
+    assert.equal(await page.locator('[name="preferred_date"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred date");
+    assert.equal(await page.locator('[name="preferred_time"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred time");
+  } else {
+    await page.goto(origin + "/institutions", { waitUntil: "networkidle" });
+    await page.getByRole("button", { name: "School", exact: true }).click();
+    assert.match(await page.locator(".directory-count").innerText(), /Showing 3 of 6 institutions/);
+    await page.getByRole("searchbox", { name: /Search institutions/i }).fill("Tagore Vedant Academy");
+    assert.match(await page.locator(".directory-count").innerText(), /Showing 0 of 6 institutions/);
+    await page.getByRole("button", { name: /Clear filters/i }).click();
+    assert.match(await page.locator(".directory-count").innerText(), /Showing 6 of 6 institutions/);
+
+    await page.goto(origin + "/contact", { waitUntil: "networkidle" });
+    await page.getByRole("button", { name: /Send enquiry/i }).click();
+    assert.equal(await page.locator('[name="name"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce contact name");
+    assert.equal(await page.locator('[name="mobile"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce mobile");
+  }
+
+  assert.deepEqual(pageErrors, [], `Browser runtime errors detected: ${pageErrors.join(" | ")}`);
+  console.log(`PASS: ${app.toUpperCase()} Playwright journeys, mobile reflow, keyboard focus, form validation and WCAG 2.2 AA serious/critical axe checks (${routes.length} routes)`);
+} finally {
+  await stopServer();
+}

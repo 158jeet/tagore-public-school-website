@@ -25,6 +25,14 @@ jobs:
       - run: npm run test:config
       - run: npm run lint
       - run: npm run build
+      - name: Install pinned browser QA tools
+        run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund @playwright/test@1.56.1 axe-core@4.10.3
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run browser journeys and accessibility checks
+        run: npm run test:browser
+        env:
+          SMOKE_APP: tps
       - name: Smoke-test production server
         run: npm run test:smoke
         env:
@@ -44,6 +52,17 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run build
+      - name: Install pinned browser QA tools
+        working-directory: ../..
+        run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund @playwright/test@1.56.1 axe-core@4.10.3
+      - name: Install Chromium
+        working-directory: ../..
+        run: npx playwright install --with-deps chromium
+      - name: Run browser journeys and accessibility checks
+        working-directory: ../..
+        run: npm run test:browser
+        env:
+          SMOKE_APP: tier
       - name: Smoke-test production server
         run: npm run test:smoke
         env:
