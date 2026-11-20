@@ -54,7 +54,16 @@ try {
       const context = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
   const page = await context.newPage();
   const pageErrors = [];
+  const thirdPartyFontRequests = [];
   page.on("pageerror", error => pageErrors.push(error.message));
+  if (app === "tier") {
+    page.on("request", request => {
+      const url = request.url();
+      if (/^https:\/\/(fonts\.googleapis\.com|fonts\.gstatic\.com)\//i.test(url)) {
+        thirdPartyFontRequests.push(url);
+      }
+    });
+  }
 
   for (const route of routes) {
     const response = await page.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
@@ -159,6 +168,9 @@ try {
   }
 
   assert.deepEqual(pageErrors, [], `Browser runtime errors detected: ${pageErrors.join(" | ")}`);
+  if (app === "tier") {
+    assert.deepEqual(thirdPartyFontRequests, [], `TIER must not request Google Fonts at runtime: ${thirdPartyFontRequests.join(", ")}`);
+  }
       console.log(`PASS: ${app.toUpperCase()} ${engineName} journeys, 390px/320px reflow, keyboard focus, form validation and WCAG 2.2 A/AA serious/critical axe checks (${routes.length} routes)`);
     } finally {
       await browser.close();
