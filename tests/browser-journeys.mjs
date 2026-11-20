@@ -63,7 +63,14 @@ try {
       viewport: document.documentElement.clientWidth,
       document: document.documentElement.scrollWidth,
     }));
-    assert.ok(dimensions.document <= dimensions.viewport + 1, `${route} has horizontal overflow on a 390px viewport: ${JSON.stringify(dimensions)}`);
+    if (dimensions.document > dimensions.viewport + 1) {
+      const offenders = await page.evaluate(() => Array.from(document.querySelectorAll("body *")).map(element => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return { tag: element.tagName, className: typeof element.className === "string" ? element.className.slice(0, 100) : "", text: (element.textContent || "").trim().slice(0, 70), left: Math.round(rect.left), right: Math.round(rect.right), width: Math.round(rect.width), position: style.position, overflow: style.overflow };
+      }).filter(item => item.right > document.documentElement.clientWidth + 1 && item.width > 0).sort((a,b) => b.right-a.right).slice(0, 16));
+      assert.ok(false, `${route} has horizontal overflow on a 390px viewport: ${JSON.stringify(dimensions)}. Offenders: ${JSON.stringify(offenders)}`);
+    }
 
     await page.addScriptTag({ content: axe.source });
     const audit = await page.evaluate(async () => window.axe.run(document, {
