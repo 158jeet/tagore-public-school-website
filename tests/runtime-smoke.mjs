@@ -22,10 +22,15 @@ server.stdout.on("data", (chunk) => { serverOutput += chunk.toString(); });
 server.stderr.on("data", (chunk) => { serverOutput += chunk.toString(); });
 
 async function stopServer() {
-  if (server.exitCode === null && !server.killed) {
+  if (server.exitCode === null) {
+    const exited = new Promise((resolve) => server.once("exit", resolve));
     server.kill("SIGTERM");
-    await Promise.race([new Promise((resolve) => server.once("exit", resolve)), delay(5000)]);
-    if (server.exitCode === null) server.kill("SIGKILL");
+    await Promise.race([exited, delay(5000)]);
+    if (server.exitCode === null) {
+      const forceExited = new Promise((resolve) => server.once("exit", resolve));
+      server.kill("SIGKILL");
+      await Promise.race([forceExited, delay(2000)]);
+    }
   }
 }
 
@@ -42,7 +47,7 @@ try {
   assert.ok(ready, `Next.js server did not become ready.\n${serverOutput}`);
 
   for (const path of routes) {
-    const response = await fetch(origin + path, { redirect: "manual" });
+    const response = await fetch(origin + path, { redirect: "manual", signal: AbortSignal.timeout(10000) });
     assert.equal(response.status, 200, `${app.toUpperCase()} route ${path} returned ${response.status}`);
     for (const [header, expected] of [
       ["x-content-type-options", "nosniff"],
@@ -57,13 +62,13 @@ try {
     assert.match(html, /<meta[^>]+name="robots"[^>]+content="noindex, ?nofollow"/i, `${path} must remain noindex in smoke environment`);
   }
 
-  const robotsResponse = await fetch(origin + "/robots.txt");
+  const robotsResponse = await fetch(origin + "/robots.txt", { signal: AbortSignal.timeout(10000) });
   assert.equal(robotsResponse.status, 200);
   const robots = await robotsResponse.text();
   assert.match(robots, /Disallow:\s*\//i, "staging robots.txt must disallow crawling");
   assert.ok(robots.includes(expectedHost), "robots.txt must advertise the correct canonical host sitemap");
 
-  const sitemapResponse = await fetch(origin + "/sitemap.xml");
+  const sitemapResponse = await fetch(origin + "/sitemap.xml", { signal: AbortSignal.timeout(10000) });
   assert.equal(sitemapResponse.status, 200);
   const sitemap = await sitemapResponse.text();
   assert.ok(sitemap.includes(expectedHost), "sitemap must use the app's own canonical host");
