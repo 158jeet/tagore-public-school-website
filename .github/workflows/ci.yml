@@ -37,6 +37,14 @@ jobs:
         run: npm run test:smoke
         env:
           SMOKE_APP: tps
+      - name: Upload visual review screenshots
+        if: always()
+        uses: actions/upload-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: ${{ github.job }}-visual-review
+          path: artifacts/visual-qa/
+          if-no-files-found: warn
+          retention-days: 14
   tier-quality:
     name: TIER website quality
     runs-on: ubuntu-24.04
@@ -67,3 +75,11 @@ jobs:
         run: npm run test:smoke
         env:
           SMOKE_APP: tier
+      - name: Upload visual review screenshots
+        if: always()
+        uses: actions/upload-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: ${{ github.job }}-visual-review
+          path: artifacts/visual-qa/
+          if-no-files-found: warn
+          retention-days: 14

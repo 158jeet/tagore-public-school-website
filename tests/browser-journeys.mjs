@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import path from "node:path";
+import { mkdir } from "node:fs/promises";
 import { setTimeout as delay } from "node:timers/promises";
 import { chromium, firefox, webkit } from "@playwright/test";
 import axe from "axe-core";
@@ -98,6 +99,16 @@ try {
     for (const issue of severe) console.error(`A11Y FAILURE [${app} ${route}] ${issue.impact}: ${issue.id} — ${issue.help}\n${issue.nodes.map(node => `  ${node.target.join(" ")}: ${node.failureSummary}`).join("\n")}`);
     for (const issue of moderate) console.warn(`A11Y WARNING [${app} ${route}] ${issue.impact}: ${issue.id} — ${issue.help}`);
     assert.equal(severe.length, 0, `Serious/critical WCAG violations on ${route}: ${severe.map(item => item.id + " (" + item.nodes.length + " nodes)").join(", ")}`);
+
+    if (engineName === "chromium") {
+      const artifactDir = path.join(root, "artifacts", "visual-qa", app);
+      await mkdir(artifactDir, { recursive: true });
+      const slug = route === "/" ? "home" : route.slice(1).replaceAll("/", "-");
+      await page.screenshot({ path: path.join(artifactDir, `${slug}-mobile-390.png`), fullPage: true, animations: "disabled" });
+      await page.setViewportSize({ width: 1440, height: 1000 });
+      await page.screenshot({ path: path.join(artifactDir, `${slug}-desktop-1440.png`), fullPage: true, animations: "disabled" });
+      await page.setViewportSize({ width: 390, height: 844 });
+    }
 
     if (route === "/") {
       await page.keyboard.press("Tab");
