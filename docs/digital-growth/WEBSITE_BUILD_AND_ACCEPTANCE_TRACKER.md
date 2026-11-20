@@ -221,7 +221,7 @@ A workstream is complete only when:
 - [x] PR #23 page-level canonical URLs and stable sitemap merged.
 - [x] PR #24 privacy-first analytics and attribution specification merged (specification only).
 - [x] PR #25 expanded negative-path enquiry API tests merged.
-- [ ] Master feature register reviewed and merged.
-- [ ] Parallel workstream PRs created and underway.
+- [x] Master feature register reviewed and merged.
+- [x] Parallel workstream PRs created and underway.
 - [ ] Staging and owner acceptance.
 - [ ] Production launch approval.
