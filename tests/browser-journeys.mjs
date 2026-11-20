@@ -117,7 +117,7 @@ try {
     assert.match(await page.locator(".directory-count").innerText(), /Showing 6 of 6 institutions/);
 
     await page.goto(origin + "/contact", { waitUntil: "networkidle" });
-    await page.getByRole("button", { name: /Send enquiry/i }).click();
+    await page.getByRole("button", { name: /Send group enquiry/i }).click();
     assert.equal(await page.locator('[name="name"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce contact name");
     assert.equal(await page.locator('[name="mobile"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce mobile");
   }
