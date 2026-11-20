@@ -88,6 +88,17 @@ for (const app of apps) {
     assert.doesNotMatch(await response.text(), /sensitive provider detail/);
   });
 
+  test(app.name + ": rejects invalid email addresses", async () => {
+    process.env.WEB3FORMS_ACCESS_KEY = "test-key";
+    assert.equal((await app.post(makeRequest({ ...app.valid(), email: "not-an-email" }))).status, 400);
+  });
+
+  test(app.name + ": rejects provider-level unsuccessful responses", async () => {
+    process.env.WEB3FORMS_ACCESS_KEY = "test-key";
+    globalThis.fetch = async () => new Response(JSON.stringify({ success: false }), { status: 200, headers: { "content-type": "application/json" } });
+    assert.equal((await app.post(makeRequest(app.valid()))).status, 502);
+  });
+
   test(app.name + ": accepts a valid request only after provider confirmation", async () => {
     process.env.WEB3FORMS_ACCESS_KEY = "test-key";
     let forwardedBody;
