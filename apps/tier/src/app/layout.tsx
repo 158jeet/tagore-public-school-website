@@ -27,6 +27,7 @@ export const metadata: Metadata = {
     template: "%s | Tagore Group"
   },
   description: "Explore the Tagore Group education ecosystem in Gudha Gorji, Rajasthan—schools, higher education, competitive learning and student life.",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_IN",
