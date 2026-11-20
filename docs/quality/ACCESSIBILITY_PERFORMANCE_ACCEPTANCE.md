@@ -1,18 +1,18 @@
 # Website accessibility, performance and browser acceptance
 Updated: 2026-11-20. Applies independently to TPS and TIER.
 
-## Cross-browser browser baseline (follow-up to PR #44)
-- The CI browser suite runs against Chromium, Firefox and WebKit on Ubuntu 24.04 for each app.
+## Cross-browser browser baseline (PR #45)
+- The CI browser suite runs against Chromium, Firefox and WebKit on Ubuntu 24.04 for each app, with reduced-motion preference enabled.
 - Each tested route is checked at 390px and 320 CSS px for horizontal overflow.
 - Existing form and directory interactions, keyboard focus, runtime errors and axe-core WCAG 2.2 A/AA scans run in each engine.
-- This does not certify Safari/iOS, Edge on Windows, real Android devices, screen readers or 200% browser zoom; those remain manual/device-matrix acceptance items.
+- Reduced-motion CI asserts the operating-system preference is exposed and smooth scrolling is disabled. This does not certify all animation behavior, Safari/iOS, Edge on Windows, real Android devices, screen readers or 200% browser zoom; those remain manual/device-matrix acceptance items.
 
 ## Automated browser baseline (PR #44)
 - GitHub CI runs pinned Playwright Chromium and axe-core against both production builds.
 - TPS routes: `/`, `/parent-guide`, `/admissions`, `/visit`; TIER routes: `/`, `/institutions`, `/contact`.
 - Automated interactions cover 390px mobile reflow, initial keyboard focus, parent-guide class/topic context, admission and campus-visit native required-field validation, TIER category/search/clear filters, group-enquiry required-field validation and browser runtime errors.
 - axe-core scans WCAG 2.2 A/AA rule tags on each route. Serious and critical findings fail CI; moderate and minor findings are reported as warnings for triage.
-- Automated checks do not constitute a complete WCAG 2.2 AA audit. They do not replace manual screen-reader testing, full keyboard review, 320px reflow, 200% zoom, reduced-motion checks or the cross-browser/device matrix below.
+- Automated checks do not constitute a complete WCAG 2.2 AA audit. They do not replace manual screen-reader testing, full keyboard review, 200% zoom, full animation review or the cross-browser/device matrix below.
 - Form tests stop at client-side validation; they do not submit real enquiries or prove provider/ERP delivery.
 
 ## Performance targets
@@ -40,7 +40,7 @@ Measure production-like staging on mobile and desktop; use field data when avail
 - [ ] Touch targets usable on mobile and satisfy WCAG 2.2 requirements or documented exceptions.
 - [~] Automated reflow checks at 320 CSS px in Chromium, Firefox and WebKit on key routes; full page and device review remains pending.
 - [ ] Zoom to 200% retains content and functionality.
-- [ ] Reduced-motion preference respected.
+- [~] CI verifies reduced-motion preference and disables smooth scrolling; full animation review remains manual.
 - [ ] Images have useful alt text or empty alt when decorative.
 - [ ] No color-only status/instructions; page language declared; unique descriptive titles.
 

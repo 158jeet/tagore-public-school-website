@@ -50,7 +50,7 @@ try {
   for (const [engineName, engine] of [["chromium", chromium], ["firefox", firefox], ["webkit", webkit]]) {
     const browser = await engine.launch({ headless: true });
     try {
-      const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+      const context = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: "reduce" });
   const page = await context.newPage();
   const pageErrors = [];
   page.on("pageerror", error => pageErrors.push(error.message));
@@ -58,6 +58,9 @@ try {
   for (const route of routes) {
     const response = await page.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
     assert.equal(response?.status(), 200, `${app.toUpperCase()} browser route ${route} did not return 200`);
+    const motionPreference = await page.evaluate(() => ({ enabled: window.matchMedia("(prefers-reduced-motion: reduce)").matches, scrollBehavior: getComputedStyle(document.documentElement).scrollBehavior }));
+    assert.equal(motionPreference.enabled, true, "Browser context must expose prefers-reduced-motion: reduce");
+    assert.equal(motionPreference.scrollBehavior, "auto", `${route} must disable smooth scrolling for reduced-motion users`);
     const dimensions = await page.evaluate(() => ({
       viewport: document.documentElement.clientWidth,
       document: document.documentElement.scrollWidth,
