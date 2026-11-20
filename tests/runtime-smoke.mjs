@@ -60,7 +60,7 @@ try {
   const robotsResponse = await fetch(origin + "/robots.txt");
   assert.equal(robotsResponse.status, 200);
   const robots = await robotsResponse.text();
-  assert.match(robots, /Disallow:\\s*\\//i, "staging robots.txt must disallow crawling");
+  assert.match(robots, /Disallow:\s*\//i, "staging robots.txt must disallow crawling");
   assert.ok(robots.includes(expectedHost), "robots.txt must advertise the correct canonical host sitemap");
 
   const sitemapResponse = await fetch(origin + "/sitemap.xml");
