@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test:security": "node --experimental-strip-types --test tests/security-api.test.mjs",
     "test:config": "node --test tests/site-config.test.mjs",
-    "test:forms": "node --test tests/form-contract.test.mjs"
+    "test:forms": "node --test tests/form-contract.test.mjs",
+    "test:smoke": "node tests/runtime-smoke.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",
