@@ -11,8 +11,8 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **ARCH-03** Separate domain, sitemap, canonical URLs and SEO identity for TPS and TIER.
 - [x] **ARCH-04** Separate CI quality jobs for both applications.
 - [ ] **ARCH-05** Decide whether to retain monorepo or extract TIER to its own repository; preserve deploy independence meanwhile.
-- [ ] **ARCH-06** Define staging and production environments, deployment ownership, rollback and release approval.
-- [ ] **ARCH-07** Document environment-variable inventory, secret ownership and rotation procedures.
+- [~] **ARCH-06** Production deployment, staging isolation, rollback and release runbook documented; actual hosting environments, ownership and release approval remain unconfigured.
+- [~] **ARCH-07** Initial environment-variable and secret-handling inventory documented; hosting secret ownership, access controls and rotation procedures remain to be configured.
 - [ ] **ARCH-08** Create architecture decision records for major choices; avoid unnecessary paid services and vendor lock-in.
 
 ## 2. Public experience and admissions conversion
