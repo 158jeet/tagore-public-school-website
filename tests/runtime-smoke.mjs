@@ -60,6 +60,18 @@ try {
     const html = await response.text();
     assert.match(html, /<html(?:\s|>)/i, `${path} did not return an HTML document`);
     assert.match(html, /<meta[^>]+name="robots"[^>]+content="noindex, ?nofollow"/i, `${path} must remain noindex in smoke environment`);
+    assert.match(html, /<title>[^<]+<\/title>/i, `${path} must render a page title`);
+    assert.match(html, /<meta[^>]+name="description"[^>]+content="[^"]{20,}"/i, `${path} must render a useful meta description`);
+    const canonicalTag = html.match(/<link[^>]*rel="canonical"[^>]*>/i)?.[0] || "";
+    const canonicalHref = canonicalTag.match(/href="([^"]+)"/i)?.[1];
+    assert.ok(canonicalHref, `${path} must render a canonical URL`);
+    assert.equal(new URL(canonicalHref).host, expectedHost, `${path} canonical URL must use the correct brand host`);
+    assert.match(html, /<meta[^>]+property="og:title"[^>]+content="[^"]+"/i, `${path} must render Open Graph title metadata`);
+    assert.match(html, /<meta[^>]+name="twitter:card"[^>]+content="summary"/i, `${path} must render a Twitter summary card`);
+    const jsonLd = [...html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)];
+    assert.ok(jsonLd.length > 0, `${path} must render JSON-LD structured data`);
+    for (const match of jsonLd) assert.doesNotThrow(() => JSON.parse(match[1]), `${path} contains invalid JSON-LD`);
+
   }
 
   const pageHtml = new Map();
@@ -98,7 +110,7 @@ try {
   // broken navigation without following external sites or framework asset URLs.
   const internalTargets = new Set();
   for (const [sourcePath, html] of pageHtml) {
-    for (const match of html.matchAll(/\\bhref=["']([^"']+)["']/gi)) {
+    for (const match of html.matchAll(/\bhref=["']([^"']+)["']/gi)) {
       const rawHref = match[1];
       if (!rawHref || rawHref.startsWith("#")) continue;
       let target;
