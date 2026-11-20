@@ -71,7 +71,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **LEAD-03** Honeypot and form-timing bot checks; provider timeout and generic failure handling.
 - [x] **LEAD-04** Security API tests for origin, malformed/oversized body, honeypot, timing, allowlists, provider missing/failure and valid provider success.
 - [x] **LEAD-05** Additional invalid-email and provider-declared-failure negative-path tests.
-- [~] **LEAD-06** Versioned website-to-ERP admissions integration contract documented; no live ERP endpoint or credentials configured.
+- [~] **LEAD-06** Proposed versioned website-to-ERP lead contract drafted; ERP route, authentication, schema and sandbox remain unconfirmed.
 - [ ] **LEAD-07** Approve final lead schema, contact consent wording/version, academic year and source/campaign attribution.
 - [ ] **LEAD-08** Implement authenticated server-to-server ERP API adapter; website must never access ERP database directly.
 - [ ] **LEAD-09** Idempotency, duplicate detection, safe retry/outbox, dead-letter handling and operator alerting.
