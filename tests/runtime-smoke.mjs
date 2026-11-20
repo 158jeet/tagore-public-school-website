@@ -53,7 +53,7 @@ try {
     assert.ok(response.headers.get("content-security-policy-report-only"), `${path} missing report-only CSP`);
     assert.equal(response.headers.get("x-powered-by"), null, `${path} exposes X-Powered-By`);
     const html = await response.text();
-    assert.match(html, /<html(?:\\s|>)/i, `${path} did not return an HTML document`);
+    assert.match(html, /<html(?:\s|>)/i, `${path} did not return an HTML document`);
     assert.match(html, /<meta[^>]+name="robots"[^>]+content="noindex, ?nofollow"/i, `${path} must remain noindex in smoke environment`);
   }
 
