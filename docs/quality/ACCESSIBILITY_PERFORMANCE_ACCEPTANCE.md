@@ -1,6 +1,14 @@
 # Website accessibility, performance and browser acceptance
 Updated: 2026-11-20. Applies independently to TPS and TIER.
 
+## Automated browser baseline (PR #44)
+- GitHub CI runs pinned Playwright Chromium and axe-core against both production builds.
+- TPS routes: `/`, `/parent-guide`, `/admissions`, `/visit`; TIER routes: `/`, `/institutions`, `/contact`.
+- Automated interactions cover 390px mobile reflow, initial keyboard focus, parent-guide class/topic context, admission and campus-visit native required-field validation, TIER category/search/clear filters, group-enquiry required-field validation and browser runtime errors.
+- axe-core scans WCAG 2.2 A/AA rule tags on each route. Serious and critical findings fail CI; moderate and minor findings are reported as warnings for triage.
+- Automated checks do not constitute a complete WCAG 2.2 AA audit. They do not replace manual screen-reader testing, full keyboard review, 320px reflow, 200% zoom, reduced-motion checks or the cross-browser/device matrix below.
+- Form tests stop at client-side validation; they do not submit real enquiries or prove provider/ERP delivery.
+
 ## Performance targets
 Measure production-like staging on mobile and desktop; use field data when available.
 
@@ -15,10 +23,10 @@ Measure production-like staging on mobile and desktop; use field data when avail
 | Third parties | None by default | Add only approved, consent-aware services |
 
 ## WCAG 2.2 AA checklist
-- [ ] All content and controls keyboard-operable; no keyboard traps.
-- [ ] Visible focus and logical focus order.
-- [ ] Text and controls meet WCAG AA contrast.
-- [ ] Inputs have programmatic labels and required/optional status.
+- [~] Playwright verifies initial keyboard focus on the homepage; complete keyboard operation and no-trap review remains manual.
+- [~] Initial visible focus is browser-tested; full focus visibility and logical order review remains manual.
+- [~] axe-core scans key routes for WCAG A/AA contrast; serious/critical findings block CI, while lower-impact findings require triage and manual review.
+- [~] axe-core and browser form checks cover key enquiry forms; full form and screen-reader review remains pending.
 - [ ] Validation errors identify fields and explain recovery.
 - [ ] Submission and failure messages announced to assistive technology.
 - [ ] Controls expose accessible name, role, value and state.

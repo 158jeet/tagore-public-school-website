@@ -38,3 +38,18 @@ body { margin: 0; background: #f7f5ef; color: #14243a; }
 /* Clear, non-ambiguous form completion and recovery feedback */
 .form-success-panel{border:1px solid #2f765a35;border-radius:16px;background:#edf6f0;padding:18px}
 .form-error-panel{border:1px solid #a13d3d35;border-radius:14px;background:#fff3f1;padding:14px;color:#8d3030;line-height:1.6}
+
+/* WCAG AA text contrast: keep the heritage palette while using accessible foreground tones. */
+.text-ink\/75 { color: #34465a !important; }
+.text-ink\/70 { color: #405065 !important; }
+.text-ink\/65,
+.text-ink\/60,
+.text-ink\/55,
+.text-ink\/45 { color: #5b6878 !important; }
+.text-navy\/65 { color: #34404a !important; }
+.text-white\/45 { color: #aeb9c5 !important; }
+.bg-cream .text-gold,
+.bg-white .text-gold,
+.bg-mist .text-gold { color: #765315 !important; }
+
+.text-ink\/50 { color: #5b6878 !important; }
