@@ -121,7 +121,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [~] **QA-04** CI HTTP smoke tests plus Playwright Chromium/Firefox/WebKit journeys cover TPS parent-guide class/topic selection, admissions/visit required-field validation, TIER institution search/filter/clear, group-enquiry required-field validation, mobile reflow, keyboard focus, browser runtime errors, key internal links, metadata and JSON-LD. Provider-backed submit/delivery and complete user journeys remain pending.
 - [ ] **QA-05** Test current Chrome, Edge, Firefox, Safari/iOS and Android browsers at common screen sizes.
 - [~] **QA-06** Browser tests verify initial keyboard focus, native required-field validation and reduced-motion preference across Chromium/Firefox/WebKit; screen-reader passes, 200% zoom, slow network, provider failure/success, duplicate submission and refresh/back navigation remain pending.
-- [ ] **QA-07** Add visual regression coverage for critical templates and mobile navigation.
+- [~] **QA-07** CI captures full-page 390px mobile and 1440px desktop screenshots for all key TPS/TIER routes as 14-day artifacts; baseline pixel-diff regression and manual visual sign-off remain pending.
 - [~] **QA-08** Production HTTP smoke tests verify journey links, same-origin links, robots, sitemap host separation, unknown-route 404, page metadata and JSON-LD; Playwright adds interactive journey checks on key routes across Chromium/Firefox/WebKit. Complete metadata/canonical, redirect, 500 and site-wide broken-link audits remain pending.
 - [ ] **QA-09** Production acceptance report with screenshots, test evidence, open risks and owner sign-off.
 

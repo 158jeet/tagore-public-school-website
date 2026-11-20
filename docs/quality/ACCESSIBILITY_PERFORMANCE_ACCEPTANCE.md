@@ -15,6 +15,11 @@ Updated: 2026-11-20. Applies independently to TPS and TIER.
 - Automated checks do not constitute a complete WCAG 2.2 AA audit. They do not replace manual screen-reader testing, full keyboard review, 200% zoom, full animation review or the cross-browser/device matrix below.
 - Form tests stop at client-side validation; they do not submit real enquiries or prove provider/ERP delivery.
 
+## Visual review evidence (PR #47)
+- Chromium CI captures full-page 390px mobile and 1440px desktop screenshots for every key route in both applications.
+- Screenshots are uploaded as per-job GitHub Actions artifacts for 14 days, including on failed runs when files exist.
+- This provides repeatable human-review evidence, not pixel-diff visual regression; browser rendering and font differences still require human interpretation.
+
 ## Performance targets
 Measure production-like staging on mobile and desktop; use field data when available.
 
