@@ -115,7 +115,7 @@ This is the canonical scope register for both public websites. Every implementat
 
 ## 7. Performance, accessibility and quality
 
-- [~] **QA-01** Performance targets and measurement method documented; measured mobile/desktop baseline still pending staging.
+- [~] **QA-01** Performance targets documented and repeatable synthetic production-build baselines measured for key routes at 390px mobile and 1440px desktop (PR #48; 14-day CI artifacts). Field p75 Core Web Vitals, INP, Lighthouse scores and real-device/staging validation remain pending.
 - [ ] **QA-02** Optimize images, fonts, JS bundles, caching, route loading and third-party scripts.
 - [~] **QA-03** Playwright + axe-core WCAG 2.2 A/AA scans run on key TPS/TIER routes in Chromium, Firefox and WebKit; serious/critical findings fail CI and minor/moderate findings are reported. Full manual WCAG 2.2 AA verification remains pending.
 - [~] **QA-04** CI HTTP smoke tests plus Playwright Chromium/Firefox/WebKit journeys cover TPS parent-guide class/topic selection, admissions/visit required-field validation, TIER institution search/filter/clear, group-enquiry required-field validation, mobile reflow, keyboard focus, browser runtime errors, key internal links, metadata and JSON-LD. Provider-backed submit/delivery and complete user journeys remain pending.
