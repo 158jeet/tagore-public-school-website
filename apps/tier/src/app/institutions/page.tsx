@@ -1,4 +1,26 @@
-import Link from "next/link";
-export const metadata={title:"Our Institutions",description:"Explore schools, competitive learning, higher education and student life within the Tagore Group.",alternates:{canonical:"/institutions"}};
-const rows=[["School","Tagore Public School","CBSE school · dedicated school website","https://www.tpsgudhagorji.com"],["School","Tagore Bal Niketan","RBSE senior secondary school · Hindi and English medium","/institutions/tagore-bal-niketan"],["School","Tagore Smart School","RBSE foundational and primary school","/institutions/tagore-smart-school"],["Competitive learning","Tagore Vedant Academy","Pre-foundation, MNS, IIT-JEE and NEET learning pathways","/institutions/tagore-vedant-academy"],["Higher education","Tagore PG College","College and higher education","/institutions/tagore-pg-college"],["Residential life","Tagore Hostel","Student residential services","/institutions/tagore-hostel"]];
-export default function Institutions(){return <main><section className="hero"><div className="shell" style={{padding:"90px 0"}}><div className="eyebrow" style={{color:"var(--gold)"}}>The Tagore ecosystem</div><h1 className="serif" style={{fontSize:"clamp(42px,6vw,68px)",maxWidth:800}}>Different institutions. A clearer path for every learner.</h1><p className="lead">Choose an institution to explore its role and find the appropriate next step. Detailed claims, fees and admission criteria will be published only after institutional verification.</p></div></section><section className="section"><div className="shell"><div className="institutions">{rows.map(([type,name,desc,href])=><article className="institution" key={name}><div><small>{type}</small><h3>{name}</h3><p>{desc}</p></div>{href.startsWith("/")?<Link href={href}>Explore institution ↗</Link>:<a href={href}>Explore institution ↗</a>}</article>)}</div></div></section></main>}
+import { InstitutionDirectory } from "@/components/institution-directory";
+
+export const metadata = {
+  title: "Our Institutions",
+  description: "Explore schools, competitive learning, higher education and student life within the Tagore Group.",
+  alternates: { canonical: "/institutions" },
+};
+
+export default function Institutions() {
+  return (
+    <main>
+      <section className="hero">
+        <div className="shell" style={{ padding: "90px 0" }}>
+          <div className="eyebrow" style={{ color: "var(--gold)" }}>The Tagore ecosystem</div>
+          <h1 className="serif" style={{ fontSize: "clamp(42px,6vw,68px)", maxWidth: 800 }}>Different institutions. A clearer path for every learner.</h1>
+          <p className="lead">Choose an institution to explore its role and find the appropriate next step. Detailed claims, fees and admission criteria will be published only after institutional verification.</p>
+        </div>
+      </section>
+      <section className="section">
+        <div className="shell">
+          <InstitutionDirectory />
+        </div>
+      </section>
+    </main>
+  );
+}
