@@ -19,6 +19,7 @@ export default function ParentGuidePage() {
           <div className="mt-9 flex flex-wrap gap-3">
             <a href="#decision-centre" className="rounded-full bg-gold px-6 py-3 text-sm font-bold text-navy">Build your enquiry ↗</a>
             <Link href="/admissions" className="rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white">Admission process</Link>
+            <Link href="/admissions/faq" className="rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white">Admissions FAQs</Link>
           </div>
         </div>
       </section>
@@ -29,6 +30,7 @@ export default function ParentGuidePage() {
             <p className="eyebrow text-gold">Before you decide</p>
             <h2 className="mt-4 font-serif text-3xl text-navy">Ask for the details that affect your child.</h2>
             <p className="mt-4 text-sm leading-7 text-ink/65">Ask the school team to explain current class eligibility, learning expectations, the school day, parent communication, fees and any transport or residential arrangements relevant to your family.</p>
+            <Link href="/admissions/faq" className="mt-5 inline-flex text-sm font-bold text-navy hover:text-gold">Read admissions FAQs ↗</Link>
           </article>
           <article className="rounded-3xl bg-white p-8">
             <p className="eyebrow text-gold">A real-world next step</p>
