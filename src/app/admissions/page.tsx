@@ -5,7 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 const classOptions = ["Nursery", "LKG", "UKG", ...Array.from({ length: 12 }, (_, index) => "Class " + (index + 1))];
 const topicOptions = new Set(["academics", "student-life", "transport", "residential", "fees", "campus", "other"]);
 
-export const metadata: Metadata = { title: "Admissions 2026–27", description: "Enquire about admissions at Tagore Public School, Gudha Gorji." };
+export const metadata: Metadata = { title: "Admissions 2026–27", description: "Enquire about admissions at Tagore Public School, Gudha Gorji.", alternates: { canonical: "/admissions" } };
 
 type AdmissionsPageProps = {
   searchParams: Promise<{ class?: string | string[]; topic?: string | string[] }>;

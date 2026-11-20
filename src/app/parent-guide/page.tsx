@@ -4,7 +4,8 @@ import { ParentDecisionCentre } from "@/components/parent-decision-centre";
 
 export const metadata: Metadata = {
   title: "Parent Guide",
-  description: "A practical guide for families exploring classes, school fit, admissions questions and a campus visit at Tagore Public School, Gudha Gorji."
+  description: "A practical guide for families exploring classes, school fit, admissions questions and a campus visit at Tagore Public School, Gudha Gorji.",
+  alternates: { canonical: "/parent-guide" }
 };
 
 export default function ParentGuidePage() {
