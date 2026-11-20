@@ -71,6 +71,7 @@ try {
     }));
     const severe = audit.violations.filter(item => item.impact === "serious" || item.impact === "critical");
     const moderate = audit.violations.filter(item => item.impact === "moderate" || item.impact === "minor");
+    for (const issue of severe) console.error(`A11Y FAILURE [${app} ${route}] ${issue.impact}: ${issue.id} — ${issue.help}\n${issue.nodes.map(node => `  ${node.target.join(" ")}: ${node.failureSummary}`).join("\n")}`);
     for (const issue of moderate) console.warn(`A11Y WARNING [${app} ${route}] ${issue.impact}: ${issue.id} — ${issue.help}`);
     assert.equal(severe.length, 0, `Serious/critical WCAG violations on ${route}: ${severe.map(item => item.id + " (" + item.nodes.length + " nodes)").join(", ")}`);
 
