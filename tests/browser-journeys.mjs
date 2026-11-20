@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import path from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
-import { chromium } from "@playwright/test";
+import { chromium, firefox, webkit } from "@playwright/test";
 import axe from "axe-core";
 
 const app = process.env.SMOKE_APP;
@@ -22,10 +22,7 @@ const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "star
 let serverOutput = "";
 server.stdout.on("data", chunk => { serverOutput += chunk.toString(); });
 server.stderr.on("data", chunk => { serverOutput += chunk.toString(); });
-let browser;
-
 async function stopServer() {
-  if (browser) await browser.close();
   if (server.exitCode === null) {
     const exited = new Promise(resolve => server.once("exit", resolve));
     server.kill("SIGTERM");
@@ -50,8 +47,10 @@ try {
   }
   assert.ok(ready, `Next.js server did not become ready.\n${serverOutput}`);
 
-  browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  for (const [engineName, engine] of [["chromium", chromium], ["firefox", firefox], ["webkit", webkit]]) {
+    const browser = await engine.launch({ headless: true });
+    try {
+      const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
   const pageErrors = [];
   page.on("pageerror", error => pageErrors.push(error.message));
@@ -71,6 +70,14 @@ try {
       }).filter(item => item.right > document.documentElement.clientWidth + 1 && item.width > 0).sort((a,b) => b.right-a.right).slice(0, 16));
       assert.ok(false, `${route} has horizontal overflow on a 390px viewport: ${JSON.stringify(dimensions)}. Offenders: ${JSON.stringify(offenders)}`);
     }
+
+    await page.setViewportSize({ width: 320, height: 844 });
+    const narrowDimensions = await page.evaluate(() => ({
+      viewport: document.documentElement.clientWidth,
+      document: document.documentElement.scrollWidth,
+    }));
+    assert.ok(narrowDimensions.document <= narrowDimensions.viewport + 1, `${app.toUpperCase()} ${engineName} ${route} overflows at 320 CSS px: ${JSON.stringify(narrowDimensions)}`);
+    await page.setViewportSize({ width: 390, height: 844 });
 
     await page.addScriptTag({ content: axe.source });
     const audit = await page.evaluate(async () => window.axe.run(document, {
@@ -131,7 +138,11 @@ try {
   }
 
   assert.deepEqual(pageErrors, [], `Browser runtime errors detected: ${pageErrors.join(" | ")}`);
-  console.log(`PASS: ${app.toUpperCase()} Playwright journeys, mobile reflow, keyboard focus, form validation and WCAG 2.2 AA serious/critical axe checks (${routes.length} routes)`);
+      console.log(`PASS: ${app.toUpperCase()} ${engineName} journeys, 390px/320px reflow, keyboard focus, form validation and WCAG 2.2 A/AA serious/critical axe checks (${routes.length} routes)`);
+    } finally {
+      await browser.close();
+    }
+  }
 } finally {
   await stopServer();
 }

@@ -1,6 +1,12 @@
 # Website accessibility, performance and browser acceptance
 Updated: 2026-11-20. Applies independently to TPS and TIER.
 
+## Cross-browser browser baseline (follow-up to PR #44)
+- The CI browser suite runs against Chromium, Firefox and WebKit on Ubuntu 24.04 for each app.
+- Each tested route is checked at 390px and 320 CSS px for horizontal overflow.
+- Existing form and directory interactions, keyboard focus, runtime errors and axe-core WCAG 2.2 A/AA scans run in each engine.
+- This does not certify Safari/iOS, Edge on Windows, real Android devices, screen readers or 200% browser zoom; those remain manual/device-matrix acceptance items.
+
 ## Automated browser baseline (PR #44)
 - GitHub CI runs pinned Playwright Chromium and axe-core against both production builds.
 - TPS routes: `/`, `/parent-guide`, `/admissions`, `/visit`; TIER routes: `/`, `/institutions`, `/contact`.
@@ -32,7 +38,7 @@ Measure production-like staging on mobile and desktop; use field data when avail
 - [ ] Controls expose accessible name, role, value and state.
 - [ ] Semantic headings, landmarks, lists and links.
 - [ ] Touch targets usable on mobile and satisfy WCAG 2.2 requirements or documented exceptions.
-- [ ] Reflow at 320 CSS px without unnecessary horizontal scrolling.
+- [~] Automated reflow checks at 320 CSS px in Chromium, Firefox and WebKit on key routes; full page and device review remains pending.
 - [ ] Zoom to 200% retains content and functionality.
 - [ ] Reduced-motion preference respected.
 - [ ] Images have useful alt text or empty alt when decorative.
@@ -55,8 +61,7 @@ Measure production-like staging on mobile and desktop; use field data when avail
 5. Invalid form, provider missing, slow provider and successful provider response.
 
 ## Browser/device matrix
-- [ ] Current Chrome and Edge on Windows desktop.
-- [ ] Current Firefox desktop.
+- [~] Chromium, Firefox and WebKit engines are exercised in Ubuntu CI; Windows Chrome/Edge and actual Safari/iOS remain unverified.
 - [ ] Safari on macOS/iOS where available.
 - [ ] Android Chrome at 360–430 px.
 - [ ] Tablet widths and landscape.
