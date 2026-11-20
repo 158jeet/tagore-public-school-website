@@ -80,3 +80,14 @@
 /* Accessible text tones on light surfaces; retain the brighter gold for decorative fills and dark hero surfaces. */
 .section:not(.cta) .eyebrow{color:#765315!important}
 .card .number,.institution small{color:#765315!important}
+
+/* Prevent intrinsic grid content from forcing the page wider than narrow viewports (notably Firefox at 320 CSS px). */
+@media(max-width:850px){
+  .hero-grid{grid-template-columns:minmax(0,1fr)}
+  .hero-grid>*{min-width:0}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats article{min-width:0}
+  .stats strong,.stats span{overflow-wrap:anywhere}
+}
+.hero-art,.hero-art-inner{min-width:0;max-width:100%}
+.hero .lead{overflow-wrap:anywhere}

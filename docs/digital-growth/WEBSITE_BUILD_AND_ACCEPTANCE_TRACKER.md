@@ -1,5 +1,5 @@
 # Tagore Group website master feature register and delivery plan
-Updated: 2026-11-20 (automated browser and accessibility baseline)
+Updated: 2026-11-20 (cross-browser and 320px reflow coverage)
 Status key: [x] implemented in Git; [~] in progress / specification only; [ ] not yet implemented; [!] blocked on owner input or external dependency.
 
 This is the canonical scope register for both public websites. Every implementation pull request must reference a workstream ID below and update this file when acceptance status changes. A checked item means code or an approved specification exists; it does not mean production deployment or owner acceptance unless explicitly stated.
@@ -44,7 +44,7 @@ This is the canonical scope register for both public websites. Every implementat
 ### Shared conversion standards
 - [ ] **CRO-01** Define primary and secondary conversion actions for each page and audience.
 - [~] **CRO-02** Consent-based forms and accessible success/error feedback implemented; privacy notice, retention details and full legal review remain pending.
-- [~] **CRO-03** Playwright checks 390px mobile reflow on key routes for both sites; 320px, broader Android/tablet widths and low-bandwidth conditions remain pending.
+- [~] **CRO-03** Playwright checks 390px and 320 CSS px reflow on key routes in Chromium, Firefox and WebKit; real Android/iOS/tablet devices and low-bandwidth conditions remain pending.
 - [ ] **CRO-04** Add real, approved parent/student stories only with documented consent.
 - [ ] **CRO-05** Create content-led experiments with hypotheses and measurable outcomes; no unapproved tracking pixels.
 
@@ -108,7 +108,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **SEC-08** Add durable distributed rate limiting; do not rely on in-memory counters in serverless/multi-instance production.
 - [x] **SEC-09** Security/privacy threat model documented; implementation of the listed release gates remains tracked separately.
 - [ ] **SEC-10** Add admin/CMS authentication, MFA, least privilege, audit logs and secure recovery if a CMS is approved.
-- [~] **SEC-11** Automated Playwright + axe-core accessibility/journey checks run in CI for both sites; broader accessibility coverage and periodic dependency/license review remain pending.
+- [~] **SEC-11** Automated Playwright + axe-core accessibility/journey checks run in CI for both sites across Chromium/Firefox/WebKit; broader accessibility coverage and periodic dependency/license review remain pending.
 - [ ] **SEC-12** Document incident response, secret rotation, backup/restore and rollback drills.
 - [ ] **SEC-13** Verify security headers, TLS, cookies, cache controls and public endpoints on staging before production.
 - [ ] **SEC-14** No public admin surface, secrets in client bundles, PII in analytics, or child/student tracking.
@@ -117,12 +117,12 @@ This is the canonical scope register for both public websites. Every implementat
 
 - [~] **QA-01** Performance targets and measurement method documented; measured mobile/desktop baseline still pending staging.
 - [ ] **QA-02** Optimize images, fonts, JS bundles, caching, route loading and third-party scripts.
-- [~] **QA-03** Playwright + axe-core WCAG 2.2 A/AA scans run on key TPS/TIER routes; serious/critical findings fail CI and minor/moderate findings are reported. Full manual WCAG 2.2 AA verification remains pending.
-- [~] **QA-04** CI HTTP smoke tests plus Playwright Chromium journeys cover TPS parent-guide class/topic selection, admissions/visit required-field validation, TIER institution search/filter/clear, group-enquiry required-field validation, mobile reflow, keyboard focus, browser runtime errors, key internal links, metadata and JSON-LD. Provider-backed submit/delivery and complete user journeys remain pending.
+- [~] **QA-03** Playwright + axe-core WCAG 2.2 A/AA scans run on key TPS/TIER routes in Chromium, Firefox and WebKit; serious/critical findings fail CI and minor/moderate findings are reported. Full manual WCAG 2.2 AA verification remains pending.
+- [~] **QA-04** CI HTTP smoke tests plus Playwright Chromium/Firefox/WebKit journeys cover TPS parent-guide class/topic selection, admissions/visit required-field validation, TIER institution search/filter/clear, group-enquiry required-field validation, mobile reflow, keyboard focus, browser runtime errors, key internal links, metadata and JSON-LD. Provider-backed submit/delivery and complete user journeys remain pending.
 - [ ] **QA-05** Test current Chrome, Edge, Firefox, Safari/iOS and Android browsers at common screen sizes.
-- [~] **QA-06** Browser tests verify keyboard focus and native required-field validation; screen-reader passes, slow network, provider failure/success, duplicate submission and refresh/back navigation remain pending.
+- [~] **QA-06** Browser tests verify initial keyboard focus and native required-field validation across Chromium/Firefox/WebKit; screen-reader passes, slow network, provider failure/success, duplicate submission and refresh/back navigation remain pending.
 - [ ] **QA-07** Add visual regression coverage for critical templates and mobile navigation.
-- [~] **QA-08** Production HTTP smoke tests verify journey links, same-origin links, robots, sitemap host separation, unknown-route 404, page metadata and JSON-LD; Playwright adds interactive journey checks on key routes. Complete metadata/canonical, redirect, 500 and site-wide broken-link audits remain pending.
+- [~] **QA-08** Production HTTP smoke tests verify journey links, same-origin links, robots, sitemap host separation, unknown-route 404, page metadata and JSON-LD; Playwright adds interactive journey checks on key routes across Chromium/Firefox/WebKit. Complete metadata/canonical, redirect, 500 and site-wide broken-link audits remain pending.
 - [ ] **QA-09** Production acceptance report with screenshots, test evidence, open risks and owner sign-off.
 
 ## 8. Content operations / CMS
