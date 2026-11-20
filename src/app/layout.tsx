@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     template: "%s | Tagore Public School"
   },
   description: "Discover learning, character and opportunity at Tagore Public School, Gudha Gorji. Explore our school and enquire about admissions.",
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "en_IN",
