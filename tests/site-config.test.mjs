@@ -31,3 +31,16 @@ test("TPS and TIER publish independent canonical sitemap hosts", async () => {
   assert.ok(!tps.includes("www.tieredu.org"));
   assert.ok(!tier.includes("www.tpsgudhagorji.com"));
 });
+
+for (const [app, paths] of [
+  ["TPS", ["../src/app/robots.ts", "../src/app/layout.tsx"]],
+  ["TIER", ["../apps/tier/src/app/robots.ts", "../apps/tier/src/app/layout.tsx"]],
+]) {
+  test(app + ": indexing is opt-in for staging safety", async () => {
+    const [robots, layout] = await Promise.all(paths.map((path) => readFile(new URL(path, import.meta.url), "utf8")));
+    assert.ok(robots.includes('process.env.SITE_INDEXING_ENABLED === "true"'));
+    assert.ok(robots.includes('disallow: "/"'));
+    assert.ok(robots.includes('allow: "/"'));
+    assert.ok(layout.includes("robots: { index: indexingEnabled, follow: indexingEnabled }"));
+  });
+}
