@@ -1,5 +1,5 @@
 # Tagore Group website master feature register and delivery plan
-Updated: 2026-11-20 (cross-browser and 320px reflow coverage)
+Updated: 2026-11-20 (cold-cache performance measurements and QA evidence)
 Status key: [x] implemented in Git; [~] in progress / specification only; [ ] not yet implemented; [!] blocked on owner input or external dependency.
 
 This is the canonical scope register for both public websites. Every implementation pull request must reference a workstream ID below and update this file when acceptance status changes. A checked item means code or an approved specification exists; it does not mean production deployment or owner acceptance unless explicitly stated.
@@ -115,7 +115,7 @@ This is the canonical scope register for both public websites. Every implementat
 
 ## 7. Performance, accessibility and quality
 
-- [~] **QA-01** Performance targets documented and repeatable synthetic production-build baselines measured for key routes at 390px mobile and 1440px desktop (PR #48; 14-day CI artifacts). Field p75 Core Web Vitals, INP, Lighthouse scores and real-device/staging validation remain pending.
+- [~] **QA-01** Repeatable synthetic production-build baselines measured for all key TPS/TIER routes at 390px mobile and 1440px desktop using a fresh Playwright browser context per route, with service workers blocked and non-zero resource-transfer assertions (PR #48, corrected by PR #50; 14-day CI artifacts). Latest PR #50 artifacts: TPS 8 route/viewport samples, 117,908–141,936 transferred bytes, 110,757–116,581 JS bytes; TIER 6 samples, 126,197–138,243 transferred bytes, 112,930 JS bytes. Observed lab LCP 64–204ms and CLS 0–0.0313 in this CI run; these unusually fast synthetic local-runner observations are not user-experience guarantees or field data. Field p75 Core Web Vitals, INP, Lighthouse scores and real-device/staging validation remain pending.
 - [ ] **QA-02** Optimize images, fonts, JS bundles, caching, route loading and third-party scripts.
 - [~] **QA-03** Playwright + axe-core WCAG 2.2 A/AA scans run on key TPS/TIER routes in Chromium, Firefox and WebKit; serious/critical findings fail CI and minor/moderate findings are reported. Full manual WCAG 2.2 AA verification remains pending.
 - [~] **QA-04** CI HTTP smoke tests plus Playwright Chromium/Firefox/WebKit journeys cover TPS parent-guide class/topic selection, admissions/visit required-field validation, TIER institution search/filter/clear, group-enquiry required-field validation, mobile reflow, keyboard focus, browser runtime errors, key internal links, metadata and JSON-LD. Provider-backed submit/delivery and complete user journeys remain pending.
@@ -221,6 +221,7 @@ A workstream is complete only when:
 - [x] PR #23 page-level canonical URLs and stable sitemap merged.
 - [x] PR #24 privacy-first analytics and attribution specification merged (specification only).
 - [x] PR #25 expanded negative-path enquiry API tests merged.
+- [x] PR #50 isolated every performance route/viewport in a fresh browser context and enforced non-zero transfer measurements; both TPS and TIER reports plus visual QA artifacts uploaded successfully (14-day retention).
 - [x] Master feature register reviewed and merged.
 - [x] Parallel workstream PRs created and underway.
 - [ ] Staging and owner acceptance.
