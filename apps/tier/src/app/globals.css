@@ -25,3 +25,21 @@
 .contact-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px}
 @media(max-width:850px){.nav-links{display:none}.mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center}.mobile-nav{display:flex;flex-wrap:wrap;gap:18px;padding:0 0 18px;font-size:13px;font-weight:600}.topbar-inner span:last-child{display:none}}
 @media(max-width:700px){.contact-grid{grid-template-columns:1fr}.group-form{padding:22px}}
+
+/* Institution directory discovery controls */
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.directory-controls{display:flex;align-items:center;justify-content:space-between;gap:22px;margin-top:42px;padding:20px;background:white;border:1px solid #17283b18;border-radius:20px}
+.directory-search{display:flex;align-items:center;gap:12px;flex:1;min-width:220px;color:var(--muted)}
+.directory-search input{width:100%;min-width:0;border:1px solid #17283b24;border-radius:12px;padding:13px 14px;background:white;color:var(--ink);font:400 13px 'DM Sans',sans-serif;outline:none}
+.directory-search input:focus{border-color:var(--gold);box-shadow:0 0 0 3px #c79b451c}
+.directory-filters{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px;color:var(--muted)}
+.directory-filters button{border:1px solid #17283b24;border-radius:999px;padding:9px 13px;background:white;color:var(--ink);font:600 11px 'DM Sans',sans-serif;cursor:pointer}
+.directory-filters button:hover,.directory-filters button:focus-visible{border-color:var(--gold);outline-offset:2px}
+.directory-filters button[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:white}
+.directory-count{margin:20px 0 0;color:var(--muted);font-size:11px}
+.directory-empty{margin-top:22px;padding:42px 24px;border:1px dashed #17283b35;border-radius:20px;background:white;text-align:center}
+.directory-empty h2{font:500 25px 'Playfair Display',Georgia,serif;color:var(--navy)}
+.directory-empty p{margin-top:10px;color:var(--muted);font-size:13px}
+.directory-empty button{margin-top:20px;padding:12px 18px;border:0;border-radius:999px;background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;cursor:pointer}
+@media(max-width:850px){.directory-controls{align-items:stretch;flex-direction:column}.directory-filters{justify-content:flex-start}}
+@media(max-width:560px){.directory-controls{padding:16px}.directory-search{min-width:0}.directory-filters button{font-size:10px;padding:8px 10px}}
