@@ -118,11 +118,11 @@ This is the canonical scope register for both public websites. Every implementat
 - [~] **QA-01** Performance targets and measurement method documented; measured mobile/desktop baseline still pending staging.
 - [ ] **QA-02** Optimize images, fonts, JS bundles, caching, route loading and third-party scripts.
 - [~] **QA-03** WCAG 2.2 AA acceptance checklist documented; manual and automated accessibility verification remains pending.
-- [~] **QA-04** CI production smoke tests verify server-rendered admissions, campus-visit and TIER institution-discovery links, required enquiry form fields, same-origin rendered links and the unknown-route 404 response; interactive browser automation and full submit journeys remain pending.
+- [~] **QA-04** CI production smoke tests verify server-rendered admissions, campus-visit and TIER institution-discovery links, required enquiry form fields, same-origin rendered links, unknown-route 404 response, page-title/description/canonical/Open Graph/Twitter metadata and valid JSON-LD; interactive browser automation and full submit journeys remain pending.
 - [ ] **QA-05** Test current Chrome, Edge, Firefox, Safari/iOS and Android browsers at common screen sizes.
 - [ ] **QA-06** Test slow network, failed provider, duplicate submission, refresh/back navigation and accessibility with keyboard/screen reader.
 - [ ] **QA-07** Add visual regression coverage for critical templates and mobile navigation.
-- [~] **QA-08** Production smoke tests verify key journey links, same-origin links rendered by tested routes, robots, sitemap host separation and an unknown-route 404 response; complete metadata, canonical, redirect, 500 and site-wide broken-link audits remain pending.
+- [~] **QA-08** Production smoke tests verify key journey links, same-origin links rendered by tested routes, robots, sitemap host separation and an unknown-route 404 response plus per-page metadata and structured-data checks; complete metadata, canonical, redirect, 500 and site-wide broken-link audits remain pending.
 - [ ] **QA-09** Production acceptance report with screenshots, test evidence, open risks and owner sign-off.
 
 ## 8. Content operations / CMS
