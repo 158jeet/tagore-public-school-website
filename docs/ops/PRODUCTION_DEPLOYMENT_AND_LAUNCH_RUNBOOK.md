@@ -17,7 +17,7 @@ Maintain separate preview/staging and production environments for each applicati
 
 | Setting | TPS | TIER | Handling |
 |---|---|---|---|
-| `SITE_INDEXING_ENABLED` | `true` only after approved production launch | `true` only after approved production launch | Server-side environment variable; unset/false in preview and staging |
+| `SITE_INDEXING_ENABLED` | `true` only after approved production launch | `true` only after approved production launch | Server-side environment variable read while Next.js generates metadata and robots output; set in the production build environment before building, unset/false for preview and staging |
 | `NEXT_PUBLIC_SITE_URL` | `https://www.tpsgudhagorji.com` | `https://www.tieredu.org` | Public canonical base URL; set at build/runtime according to hosting model |
 | `WEB3FORMS_ACCESS_KEY` | Required for enquiry delivery | Required for group enquiry delivery | Secret; configure only in server environment, never in browser code, Git, build args, issue comments or logs |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | Optional, digits with country code | Not currently used by TIER | Public contact-routing value, not a secret; verify the number and ownership before setting |
@@ -80,7 +80,7 @@ Suggested release sequence:
 5. Obtain owner approval for content, privacy, security and operations.
 6. Deploy to production with the correct canonical URL and server-only provider secret.
 7. Verify HTTPS, redirects, headers, canonical URLs, robots, sitemap, forms and monitoring.
-8. Set `SITE_INDEXING_ENABLED=true` only after the production host and public content are verified.
+8. Set `SITE_INDEXING_ENABLED=true` in the production build environment before the final production build, and only after the production host and public content are verified. Verify the generated metadata and `robots.txt` after deployment.
 9. Submit the production sitemap to the approved search property after launch approval.
 
 ## 4. Security and edge protection
