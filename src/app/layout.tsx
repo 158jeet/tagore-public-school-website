@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.tpsgudhagorji.com";
+const indexingEnabled = process.env.SITE_INDEXING_ENABLED === "true";
 
 const schoolSchema = {
   "@context": "https://schema.org",
@@ -28,6 +29,7 @@ const schoolSchema = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  robots: { index: indexingEnabled, follow: indexingEnabled },
   applicationName: "Tagore Public School",
   title: {
     default: "Tagore Public School | Gudha Gorji",

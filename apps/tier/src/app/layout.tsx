@@ -4,6 +4,7 @@ import { GroupSiteHeader } from "@/components/site-header";
 import { GroupSiteFooter } from "@/components/site-footer";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.tieredu.org";
+const indexingEnabled = process.env.SITE_INDEXING_ENABLED === "true";
 
 const groupSchema = {
   "@context": "https://schema.org",
@@ -21,6 +22,7 @@ const groupSchema = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  robots: { index: indexingEnabled, follow: indexingEnabled },
   applicationName: "Tagore Group",
   title: {
     default: "Tagore Group | Education, Community & Future",
