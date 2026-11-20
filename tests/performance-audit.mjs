@@ -122,7 +122,7 @@ try {
   const outputDir = path.join(root, "artifacts", "performance");
   await mkdir(outputDir, { recursive: true });
   const outputPath = path.join(outputDir, `${app}-lab.json`);
-  await writeFile(outputPath, JSON.stringify(report, null, 2) + "\\n");
+  await writeFile(outputPath, JSON.stringify(report, null, 2) + "\n");
   console.log(`Performance lab report written to ${outputPath}`);
 } finally {
   await stopServer();
