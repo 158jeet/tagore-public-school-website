@@ -91,3 +91,10 @@
 }
 .hero-art,.hero-art-inner{min-width:0;max-width:100%}
 .hero .lead{overflow-wrap:anywhere}
+
+
+/* Respect operating-system reduced-motion preferences across the full TIER experience. */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}

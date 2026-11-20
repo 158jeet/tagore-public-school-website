@@ -53,3 +53,10 @@ body { margin: 0; background: #f7f5ef; color: #14243a; }
 .bg-mist .text-gold { color: #765315 !important; }
 
 .text-ink\/50 { color: #5b6878 !important; }
+
+
+/* Respect operating-system reduced-motion preferences across the full TPS experience. */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
