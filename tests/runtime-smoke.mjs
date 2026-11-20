@@ -11,7 +11,7 @@ const routes = app === "tps"
   ? ["/", "/about", "/admissions", "/parent-guide", "/admissions/faq", "/visit"]
   : ["/", "/about", "/institutions", "/contact", "/institutions/tagore-bal-niketan", "/institutions/tagore-smart-school", "/institutions/tagore-vedant-academy", "/institutions/tagore-pg-college", "/institutions/tagore-hostel"];
 
-const server = spawn("npm", ["run", "start", "--", "--hostname", "127.0.0.1", "--port", String(port)], {
+const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
   cwd: process.cwd(),
   env: { ...process.env, SITE_INDEXING_ENABLED: "false", PORT: String(port), HOSTNAME: "127.0.0.1" },
   stdio: ["ignore", "pipe", "pipe"],
