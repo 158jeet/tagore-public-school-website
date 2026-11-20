@@ -94,6 +94,28 @@ try {
     assertJourneyLink("/institutions", "/institutions/tagore-bal-niketan");
     assertFormFields("/contact", ["name", "mobile", "institution", "message", "consent"]);
   }
+  // Crawl same-origin links rendered by the tested pages. This catches accidental
+  // broken navigation without following external sites or framework asset URLs.
+  const internalTargets = new Set();
+  for (const [sourcePath, html] of pageHtml) {
+    for (const match of html.matchAll(/\\bhref=["']([^"']+)["']/gi)) {
+      const rawHref = match[1];
+      if (!rawHref || rawHref.startsWith("#")) continue;
+      let target;
+      try { target = new URL(rawHref, origin + sourcePath); } catch { continue; }
+      if (target.origin !== origin || target.pathname.startsWith("/_next/")) continue;
+      internalTargets.add(target.pathname + target.search);
+    }
+  }
+  for (const target of internalTargets) {
+    const response = await fetch(origin + target, { redirect: "follow", signal: AbortSignal.timeout(10000) });
+    assert.equal(response.status, 200, `${app.toUpperCase()} internal link ${target} returned ${response.status}`);
+  }
+
+  const missingRoute = "/__tagore_smoke_missing_route__";
+  const missingResponse = await fetch(origin + missingRoute, { redirect: "manual", signal: AbortSignal.timeout(10000) });
+  assert.equal(missingResponse.status, 404, `${app.toUpperCase()} unknown route must return HTTP 404`);
+
   const robotsResponse = await fetch(origin + "/robots.txt", { signal: AbortSignal.timeout(10000) });
   assert.equal(robotsResponse.status, 200);
   const robots = await robotsResponse.text();
