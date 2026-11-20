@@ -1,5 +1,5 @@
 # Tagore Group website master feature register and delivery plan
-Updated: 2026-11-20
+Updated: 2026-11-20 (parallel delivery status refresh)
 Status key: [x] implemented in Git; [~] in progress / specification only; [ ] not yet implemented; [!] blocked on owner input or external dependency.
 
 This is the canonical scope register for both public websites. Every implementation pull request must reference a workstream ID below and update this file when acceptance status changes. A checked item means code or an approved specification exists; it does not mean production deployment or owner acceptance unless explicitly stated.
@@ -27,7 +27,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **TPS-07** Campus visit booking experience: preferred date/time, parent contact consent, confirmation and staff follow-up workflow.
 - [ ] **TPS-08** Mobile sticky call / WhatsApp / visit / enquiry actions with accessible labels and event hooks.
 - [ ] **TPS-09** Trust centre: approved affiliations, mandatory disclosures, policies, leadership, dated outcomes and authentic evidence.
-- [ ] **TPS-10** Admissions FAQ, eligibility, academic-year availability and process content approved by management.
+- [~] **TPS-10** Admissions FAQ page implemented; eligibility, academic-year availability and process content still require management approval.
 - [ ] **TPS-11** Thank-you and next-step states that distinguish request received from confirmed booking.
 
 ### TIER — Tagore Group
@@ -37,7 +37,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **TIER-04** Group contact/enquiry UI.
 - [ ] **TIER-05** Institution portfolio pages with consistent profile schema, verified facts and clear audience routing.
 - [ ] **TIER-06** Dedicated group story, leadership/governance and impact pages using approved evidence.
-- [ ] **TIER-07** Cross-institution discovery: compare pathways and route prospective families to the right institution.
+- [~] **TIER-07** Searchable/filterable institution directory implemented; pathway comparison and verified routing remain in progress.
 - [ ] **TIER-08** Group-level contact, partnership, career and general enquiry pathways with appropriate routing.
 - [ ] **TIER-09** Consistent design system and responsive navigation across TPS and TIER without forcing identical brand expression.
 
@@ -87,7 +87,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **SEO-02** Stable sitemaps with canonical pages and institution profiles.
 - [x] **SEO-03** robots.txt foundations and social metadata.
 - [x] **SEO-04** Initial structured data implementation.
-- [ ] **SEO-05** Audit every legacy URL from both domains and map to the closest relevant new destination.
+- [~] **SEO-05** Legacy URL migration workbook and mapping rules documented; actual URL audit is blocked on legacy exports.
 - [ ] **SEO-06** Implement tested permanent redirects; preserve query parameters only where required and avoid redirect chains/loops.
 - [ ] **SEO-07** Validate titles, descriptions, headings, internal links, image alt text, indexability and duplicate content.
 - [ ] **SEO-08** Expand schema only where facts are verified (Organization, School/EducationalOrganization, Course/Event where eligible, BreadcrumbList).
@@ -106,7 +106,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **SEC-06** Review CSP reports, resolve violations and move to enforced CSP with nonce/hash strategy where appropriate.
 - [ ] **SEC-07** Configure edge/WAF rate limiting and bot controls after deployment topology and DNS ownership are confirmed.
 - [ ] **SEC-08** Add durable distributed rate limiting; do not rely on in-memory counters in serverless/multi-instance production.
-- [ ] **SEC-09** Add security/privacy threat model covering forms, admin/CMS, media upload, integrations and supply chain.
+- [x] **SEC-09** Security/privacy threat model documented; implementation of the listed release gates remains tracked separately.
 - [ ] **SEC-10** Add admin/CMS authentication, MFA, least privilege, audit logs and secure recovery if a CMS is approved.
 - [ ] **SEC-11** Add automated accessibility/security smoke tests and periodic dependency/license review.
 - [ ] **SEC-12** Document incident response, secret rotation, backup/restore and rollback drills.
@@ -115,9 +115,9 @@ This is the canonical scope register for both public websites. Every implementat
 
 ## 7. Performance, accessibility and quality
 
-- [ ] **QA-01** Establish Lighthouse/Core Web Vitals baseline for mobile and desktop for both apps.
+- [~] **QA-01** Performance targets and measurement method documented; measured mobile/desktop baseline still pending staging.
 - [ ] **QA-02** Optimize images, fonts, JS bundles, caching, route loading and third-party scripts.
-- [ ] **QA-03** Target WCAG 2.2 AA: keyboard navigation, visible focus, contrast, labels, error announcements, semantic structure and reduced motion.
+- [~] **QA-03** WCAG 2.2 AA acceptance checklist documented; manual and automated accessibility verification remains pending.
 - [ ] **QA-04** Automated browser journeys for homepage → parent guide → enquiry and homepage → visit request; TIER directory → profile → enquiry.
 - [ ] **QA-05** Test current Chrome, Edge, Firefox, Safari/iOS and Android browsers at common screen sizes.
 - [ ] **QA-06** Test slow network, failed provider, duplicate submission, refresh/back navigation and accessibility with keyboard/screen reader.
