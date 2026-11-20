@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { MobileQuickActions } from "@/components/mobile-quick-actions";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.tpsgudhagorji.com";
 const indexingEnabled = process.env.SITE_INDEXING_ENABLED === "true";
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
+        <MobileQuickActions />
       </body>
     </html>
   );
