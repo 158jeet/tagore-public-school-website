@@ -39,7 +39,7 @@ jobs:
           SMOKE_APP: tps
       - name: Upload visual review screenshots
         if: always()
-        uses: actions/upload-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: ${{ github.job }}-visual-review
           path: artifacts/visual-qa/
@@ -77,7 +77,7 @@ jobs:
           SMOKE_APP: tier
       - name: Upload visual review screenshots
         if: always()
-        uses: actions/upload-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: ${{ github.job }}-visual-review
           path: artifacts/visual-qa/
