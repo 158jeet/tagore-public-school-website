@@ -85,3 +85,9 @@ Measure production-like staging on mobile and desktop; use field data when avail
 Attach per app: Lighthouse mobile/desktop reports; automated CI and browser journey evidence; accessibility findings and resolved exceptions; test form delivery; SEO crawl/redirect results; open issues, severity, owner and explicit risk acceptance.
 
 A green Lighthouse score alone is not a substitute for real-device, accessibility or journey testing.
+
+## Continuous performance lab evidence (PR #48)
+- CI measures each key route in the local production build at 390px mobile and 1440px desktop using Chromium.
+- Reports TTFB, FCP, observed LCP, CLS, resource count, total transfer bytes and JavaScript transfer bytes as 14-day artifacts for each app.
+- LCP 2.5s and CLS 0.1 are reported as targets; this first baseline is informational and does not fail CI on metric variance.
+- This is synthetic lab evidence, not 75th-percentile field data. It does not measure INP or produce a Lighthouse score. Real-device testing, representative interaction measurement and field data remain required.
