@@ -86,12 +86,15 @@ export async function POST(request: Request) {
   const mobile = typeof data.mobile === "string" ? data.mobile.trim() : "";
   const email = typeof data.email === "string" ? data.email.trim() : "";
   const schoolClass = typeof data.class === "string" ? data.class.trim() : "";
+  const rawTopic = data.enquiry_topic;
+  const topic = typeof rawTopic === "string" ? rawTopic.trim() : "";
+  const allowedTopics = new Set(["academics", "student-life", "transport", "residential", "fees", "campus", "other"]);
   const type = data.enquiry_type === "campus_visit" ? "campus_visit" : "admission";
   const date = typeof data.preferred_date === "string" ? data.preferred_date : "";
   const time = typeof data.preferred_time === "string" ? data.preferred_time : "";
   const allowedClasses = new Set(["Nursery", "LKG", "UKG", ...Array.from({ length: 12 }, (_, i) => "Class " + (i + 1))]);
 
-  if ((data.enquiry_type !== undefined && !["admission", "campus_visit"].includes(String(data.enquiry_type))) || parent.length < 2 || parent.length > 100 || !/^[0-9+() -]{8,18}$/.test(mobile) || !allowedClasses.has(schoolClass) || data.contact_consent !== "yes") {
+  if ((data.enquiry_type !== undefined && !["admission", "campus_visit"].includes(String(data.enquiry_type))) || parent.length < 2 || parent.length > 100 || !/^[0-9+() -]{8,18}$/.test(mobile) || !allowedClasses.has(schoolClass) || data.contact_consent !== "yes" || (rawTopic !== undefined && rawTopic !== "" && (typeof rawTopic !== "string" || !allowedTopics.has(topic)))) {
     return json({ message: "Please check the required fields and try again." }, { status: 400 });
   }
   if (email && (email.length > 150 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) {
@@ -112,6 +115,7 @@ export async function POST(request: Request) {
   payload.set("mobile", mobile);
   payload.set("email", email);
   payload.set("class", schoolClass);
+  if (topic) payload.set("enquiry_topic", topic);
   if (type === "campus_visit") {
     payload.set("preferred_date", date);
     payload.set("preferred_time", time);
