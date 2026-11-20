@@ -1,5 +1,5 @@
 # Tagore Group website master feature register and delivery plan
-Updated: 2026-11-20 (parallel delivery status refresh)
+Updated: 2026-11-20 (conversion feedback and mobile actions update)
 Status key: [x] implemented in Git; [~] in progress / specification only; [ ] not yet implemented; [!] blocked on owner input or external dependency.
 
 This is the canonical scope register for both public websites. Every implementation pull request must reference a workstream ID below and update this file when acceptance status changes. A checked item means code or an approved specification exists; it does not mean production deployment or owner acceptance unless explicitly stated.
@@ -25,10 +25,10 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **TPS-05** Complete parent decision journey: academics, student development, safety, transport, residential options, fees/process, FAQs and proof.
 - [ ] **TPS-06** Conversion-focused class/grade landing pages with unique useful content and clear next steps.
 - [ ] **TPS-07** Campus visit booking experience: preferred date/time, parent contact consent, confirmation and staff follow-up workflow.
-- [ ] **TPS-08** Mobile sticky call / WhatsApp / visit / enquiry actions with accessible labels and event hooks.
+- [~] **TPS-08** Accessible mobile sticky admissions-enquiry and campus-visit actions implemented; call/WhatsApp actions and approved event hooks remain pending.
 - [ ] **TPS-09** Trust centre: approved affiliations, mandatory disclosures, policies, leadership, dated outcomes and authentic evidence.
 - [~] **TPS-10** Admissions FAQ page implemented; eligibility, academic-year availability and process content still require management approval.
-- [ ] **TPS-11** Thank-you and next-step states that distinguish request received from confirmed booking.
+- [~] **TPS-11** Clear success and error states implemented for admissions and campus-visit forms; end-to-end provider delivery and final staff follow-up workflow remain pending.
 
 ### TIER — Tagore Group
 - [x] **TIER-01** Group identity homepage foundation.
@@ -43,7 +43,7 @@ This is the canonical scope register for both public websites. Every implementat
 
 ### Shared conversion standards
 - [ ] **CRO-01** Define primary and secondary conversion actions for each page and audience.
-- [ ] **CRO-02** No dark patterns; concise forms, clear privacy explanation and accessible error recovery.
+- [~] **CRO-02** Consent-based forms and accessible success/error feedback implemented; privacy notice, retention details and full legal review remain pending.
 - [ ] **CRO-03** Test mobile-first layouts at common Android widths and low-bandwidth conditions.
 - [ ] **CRO-04** Add real, approved parent/student stories only with documented consent.
 - [ ] **CRO-05** Create content-led experiments with hypotheses and measurable outcomes; no unapproved tracking pixels.
