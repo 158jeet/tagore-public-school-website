@@ -62,6 +62,38 @@ try {
     assert.match(html, /<meta[^>]+name="robots"[^>]+content="noindex, ?nofollow"/i, `${path} must remain noindex in smoke environment`);
   }
 
+  const pageHtml = new Map();
+  for (const path of routes) {
+    const response = await fetch(origin + path, { signal: AbortSignal.timeout(10000) });
+    pageHtml.set(path, await response.text());
+  }
+
+  function assertJourneyLink(from, to) {
+    const html = pageHtml.get(from);
+    assert.ok(html, "Journey source page was not smoke-tested: " + from);
+    assert.ok(html.includes('href="' + to + '"') || html.includes("href='" + to + "'"), app.toUpperCase() + " journey link missing: " + from + " → " + to);
+  }
+
+  function assertFormFields(path, fields) {
+    const html = pageHtml.get(path);
+    assert.ok(html, "Form page was not smoke-tested: " + path);
+    assert.match(html, /<form(?:\s|>)/i, app.toUpperCase() + " expected a form on " + path);
+    for (const field of fields) assert.ok(html.includes('name="' + field + '"') || html.includes("name='" + field + "'"), path + " form is missing the " + field + " field");
+  }
+
+  if (app === "tps") {
+    assertJourneyLink("/", "/parent-guide");
+    assertJourneyLink("/", "/visit");
+    assertJourneyLink("/parent-guide", "/visit");
+    assertJourneyLink("/parent-guide", "/admissions/faq");
+    assertFormFields("/admissions", ["parent_name", "mobile", "class", "contact_consent"]);
+    assertFormFields("/visit", ["parent_name", "mobile", "preferred_date", "preferred_time", "contact_consent"]);
+  } else {
+    assertJourneyLink("/", "/institutions");
+    assertJourneyLink("/", "/contact");
+    assertJourneyLink("/institutions", "/institutions/tagore-bal-niketan");
+    assertFormFields("/contact", ["name", "mobile", "institution", "message", "consent"]);
+  }
   const robotsResponse = await fetch(origin + "/robots.txt", { signal: AbortSignal.timeout(10000) });
   assert.equal(robotsResponse.status, 200);
   const robots = await robotsResponse.text();
@@ -74,7 +106,7 @@ try {
   assert.ok(sitemap.includes(expectedHost), "sitemap must use the app's own canonical host");
   assert.ok(!sitemap.includes(app === "tps" ? "www.tieredu.org" : "www.tpsgudhagorji.com"), "sitemap must not mix the other brand's host");
 
-  console.log(`PASS: ${app.toUpperCase()} production HTTP smoke checks (${routes.length} pages, security headers, noindex, robots, sitemap)`);
+  console.log(`PASS: ${app.toUpperCase()} production HTTP smoke checks (${routes.length} pages, journey links, enquiry forms, security headers, noindex, robots, sitemap)`);
 } finally {
   await stopServer();
 }
