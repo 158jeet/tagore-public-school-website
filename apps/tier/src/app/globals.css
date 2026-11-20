@@ -72,3 +72,7 @@
 /* Clear, non-ambiguous form completion and recovery feedback */
 .form-success-panel{border:1px solid #2f765a35;border-radius:16px;background:#edf6f0;padding:18px}
 .form-error-panel{border:1px solid #a13d3d35;border-radius:14px;background:#fff3f1;padding:14px;color:#8d3030;line-height:1.6}
+
+/* Keep the family journey cards in a single readable column on narrow screens. */
+.journey-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+@media(max-width:700px){.journey-grid{grid-template-columns:1fr;gap:28px}}
