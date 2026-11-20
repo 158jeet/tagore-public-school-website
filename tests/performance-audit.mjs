@@ -49,56 +49,66 @@ try {
   const browser = await chromium.launch({ headless: true });
   const results = [];
   try {
-    const page = await browser.newPage({ reducedMotion: "reduce" });
-    await page.addInitScript(() => {
-      window.__labVitals = { lcp: 0, cls: 0 };
-      if (PerformanceObserver.supportedEntryTypes.includes("largest-contentful-paint")) {
-        new PerformanceObserver(list => {
-          const entries = list.getEntries();
-          if (entries.length) window.__labVitals.lcp = entries[entries.length - 1].startTime;
-        }).observe({ type: "largest-contentful-paint", buffered: true });
-      }
-      if (PerformanceObserver.supportedEntryTypes.includes("layout-shift")) {
-        new PerformanceObserver(list => {
-          for (const entry of list.getEntries()) {
-            if (!entry.hadRecentInput) window.__labVitals.cls += entry.value;
-          }
-        }).observe({ type: "layout-shift", buffered: true });
-      }
-    });
-
     for (const viewport of [{ name: "mobile-390", width: 390, height: 844 }, { name: "desktop-1440", width: 1440, height: 900 }]) {
-      await page.setViewportSize({ width: viewport.width, height: viewport.height });
       for (const route of routes) {
-        const response = await page.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
-        assert.equal(response?.status(), 200, `${app.toUpperCase()} performance route ${route} failed at ${viewport.name}`);
-        await page.waitForTimeout(1500);
-        const metrics = await page.evaluate(() => {
-          const navigation = performance.getEntriesByType("navigation")[0];
-          const resources = performance.getEntriesByType("resource");
-          const paints = performance.getEntriesByType("paint");
-          const vitals = window.__labVitals || { lcp: 0, cls: 0 };
-          return {
-            ttfbMs: Math.round(navigation ? navigation.responseStart - navigation.requestStart : 0),
-            fcpMs: Math.round(paints.find(entry => entry.name === "first-contentful-paint")?.startTime || 0),
-            lcpMs: Math.round(vitals.lcp || 0),
-            cls: Number((vitals.cls || 0).toFixed(4)),
-            totalTransferBytes: resources.reduce((sum, entry) => sum + (entry.transferSize || 0), 0),
-            javascriptTransferBytes: resources.filter(entry => entry.initiatorType === "script").reduce((sum, entry) => sum + (entry.transferSize || 0), 0),
-            resourceCount: resources.length,
-            documentLoadMs: Math.round(navigation?.loadEventEnd || 0),
-          };
+        // Isolate every measurement so earlier navigations cannot warm the browser cache.
+        const context = await browser.newContext({
+          viewport: { width: viewport.width, height: viewport.height },
+          reducedMotion: "reduce",
+          serviceWorkers: "block",
         });
-        results.push({
-          route,
-          viewport: viewport.name,
-          ...metrics,
-          targetStatus: {
-            lcp: metrics.lcpMs > 0 ? (metrics.lcpMs <= 2500 ? "within-lab-target" : "over-lab-target") : "not-observed",
-            cls: metrics.cls <= 0.1 ? "within-lab-target" : "over-lab-target",
-          },
-        });
-        console.log(`PERF ${app.toUpperCase()} ${viewport.name} ${route}: LCP ${metrics.lcpMs}ms; CLS ${metrics.cls}; JS transfer ${metrics.javascriptTransferBytes} bytes`);
+        try {
+          await context.addInitScript(() => {
+            window.__labVitals = { lcp: 0, cls: 0 };
+            if (PerformanceObserver.supportedEntryTypes.includes("largest-contentful-paint")) {
+              new PerformanceObserver(list => {
+                const entries = list.getEntries();
+                if (entries.length) window.__labVitals.lcp = entries[entries.length - 1].startTime;
+              }).observe({ type: "largest-contentful-paint", buffered: true });
+            }
+            if (PerformanceObserver.supportedEntryTypes.includes("layout-shift")) {
+              new PerformanceObserver(list => {
+                for (const entry of list.getEntries()) {
+                  if (!entry.hadRecentInput) window.__labVitals.cls += entry.value;
+                }
+              }).observe({ type: "layout-shift", buffered: true });
+            }
+          });
+          const page = await context.newPage();
+          const response = await page.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
+          assert.equal(response?.status(), 200, `${app.toUpperCase()} performance route ${route} failed at ${viewport.name}`);
+          await page.waitForTimeout(1500);
+          const metrics = await page.evaluate(() => {
+            const navigation = performance.getEntriesByType("navigation")[0];
+            const resources = performance.getEntriesByType("resource");
+            const paints = performance.getEntriesByType("paint");
+            const vitals = window.__labVitals || { lcp: 0, cls: 0 };
+            return {
+              ttfbMs: Math.round(navigation ? navigation.responseStart - navigation.requestStart : 0),
+              fcpMs: Math.round(paints.find(entry => entry.name === "first-contentful-paint")?.startTime || 0),
+              lcpMs: Math.round(vitals.lcp || 0),
+              cls: Number((vitals.cls || 0).toFixed(4)),
+              totalTransferBytes: resources.reduce((sum, entry) => sum + (entry.transferSize || 0), 0),
+              javascriptTransferBytes: resources.filter(entry => entry.initiatorType === "script").reduce((sum, entry) => sum + (entry.transferSize || 0), 0),
+              resourceCount: resources.length,
+              documentLoadMs: Math.round(navigation?.loadEventEnd || 0),
+            };
+          });
+          assert.ok(metrics.resourceCount > 0, `No resource timing entries recorded for ${route} at ${viewport.name}`);
+          assert.ok(metrics.totalTransferBytes > 0, `No transferred resource bytes recorded for ${route} at ${viewport.name}; cold-cache measurement may not be working`);
+          results.push({
+            route,
+            viewport: viewport.name,
+            ...metrics,
+            targetStatus: {
+              lcp: metrics.lcpMs > 0 ? (metrics.lcpMs <= 2500 ? "within-lab-target" : "over-lab-target") : "not-observed",
+              cls: metrics.cls <= 0.1 ? "within-lab-target" : "over-lab-target",
+            },
+          });
+          console.log(`PERF ${app.toUpperCase()} ${viewport.name} ${route}: LCP ${metrics.lcpMs}ms; CLS ${metrics.cls}; JS transfer ${metrics.javascriptTransferBytes} bytes`);
+        } finally {
+          await context.close();
+        }
       }
     }
   } finally {
@@ -109,12 +119,12 @@ try {
     schemaVersion: 1,
     app,
     generatedAt: new Date().toISOString(),
-    environment: "GitHub Actions Ubuntu 24.04; local Next.js production build; Chromium; synthetic lab measurements",
+    environment: "GitHub Actions Ubuntu 24.04; local Next.js production build; Chromium; synthetic lab measurements; fresh browser context per route (cold cache)",
     caveats: [
       "These are repeatable CI lab observations, not 75th-percentile field data.",
       "INP is not measured by this navigation-only audit; it requires representative interactions and field data.",
       "A Lighthouse performance score is not produced by this report.",
-      "LCP and CLS may vary with runner load; targets are reported, not used as hard CI gates until a stable baseline is established."
+      "Each route uses a fresh browser context and blocks service workers to avoid cross-route warm-cache contamination. LCP and CLS may vary with runner load; targets are reported, not used as hard CI gates until a stable baseline is established."
     ],
     targets: { lcpMs: 2500, cls: 0.1 },
     results,
