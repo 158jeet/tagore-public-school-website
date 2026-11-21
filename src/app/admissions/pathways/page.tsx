@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Admissions Pathways by Learning Stage",
+  description: "Explore parent question guides for early years, primary, middle, secondary and senior secondary admissions at Tagore Public School.",
+  alternates: { canonical: "/admissions/pathways" }
+};
 
 const stages = [
   { href: "/admissions/pathways/early-years", title: "Early years", classes: "Nursery · LKG · UKG", summary: "Prepare questions about transition, routines and parent communication." },
