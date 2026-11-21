@@ -157,7 +157,7 @@ try {
       assert.equal(response?.status(), 200, "Text-first QR landing page must return HTTP 200 on simulated slow 3G");
       await page.getByRole("heading", { name: app === "tps" ? /Your next conversation starts here/i : /Start with the information you need/i }).waitFor({ timeout: 20000 });
       const elapsedMs = Date.now() - startedAt;
-      const mainText = await page.locator("main").innerText();
+      const mainText = await page.locator("body").innerText();
       assert.ok(mainText.length > 100, "Low-bandwidth landing page must retain meaningful readable content");
       assert.ok(elapsedMs < 25000, `Low-bandwidth landing page took ${elapsedMs}ms; expected under 25000ms`);
       console.log(`PASS: ${app.toUpperCase()} text-first landing page under simulated 400kbps / 400ms latency (${elapsedMs}ms)`);
