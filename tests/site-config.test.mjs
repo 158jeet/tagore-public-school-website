@@ -44,3 +44,32 @@ for (const [app, paths] of [
     assert.ok(layout.includes("robots: { index: indexingEnabled, follow: indexingEnabled }"));
   });
 }
+
+
+test("sitemaps include useful indexable guides and exclude noindex campaign routes", async () => {
+  const [tpsMap, tierMap, tpsChecklist, tpsFunnel, tpsVisitGuide, tpsHostelGuide, tierChoose, tierConnect, tierPartnerships] = await Promise.all([
+    readFile(new URL("../src/app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../apps/tier/src/app/sitemap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../src/app/admissions/parent-checklist/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/app/admissions/funnel/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/app/visit/guide/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../src/app/hostel/guide/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../apps/tier/src/app/choose/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../apps/tier/src/app/connect/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../apps/tier/src/app/partnerships/page.tsx", import.meta.url), "utf8"),
+  ]);
+
+  assert.ok(tpsMap.includes('"/admissions/parent-checklist"'), "TPS parent checklist should be discoverable");
+  assert.ok(tierMap.includes('"/choose"'), "TIER pathway guide should be discoverable");
+  assert.ok(!tpsMap.includes('"/admissions/funnel"'), "noindex campaign funnel must stay out of sitemap");
+  assert.ok(!tpsMap.includes('"/visit/guide"'), "noindex visit guide must stay out of sitemap");
+  assert.ok(!tpsMap.includes('"/hostel/guide"'), "noindex hostel guide must stay out of sitemap");
+  assert.ok(!tierMap.includes('"/connect"'), "noindex segmented connect page must stay out of sitemap");
+  assert.ok(!tierMap.includes('"/partnerships"'), "noindex partnership page must stay out of sitemap");
+
+  assert.ok(!tpsChecklist.includes("robots: { index: false"), "parent checklist is intended to be indexable");
+  assert.ok(tierChoose.includes('canonical: "/choose"'), "TIER pathway guide must declare its canonical URL");
+  for (const [label, source] of [["TPS funnel", tpsFunnel], ["TPS visit guide", tpsVisitGuide], ["TPS hostel guide", tpsHostelGuide], ["TIER connect", tierConnect], ["TIER partnerships", tierPartnerships]]) {
+    assert.ok(source.includes("robots: { index: false"), label + " must remain noindex");
+  }
+});
