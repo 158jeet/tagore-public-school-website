@@ -10,18 +10,18 @@ const routes = [
  ["TPS visit","../src/app/visit/page.tsx","/visit"],
  ["TPS grade-stage pathways","../src/app/admissions/pathways/page.tsx","/admissions/pathways"],
  ["TPS QR start","../src/app/start/page.tsx","/start"],
- ["TPS early-years pathway","../src/app/admissions/pathways/[stage]/page.tsx","/admissions/pathways/early-years"],
- ["TPS primary pathway","../src/app/admissions/pathways/[stage]/page.tsx","/admissions/pathways/primary"],
- ["TPS middle pathway","../src/app/admissions/pathways/[stage]/page.tsx","/admissions/pathways/middle"],
- ["TPS secondary pathway","../src/app/admissions/pathways/[stage]/page.tsx","/admissions/pathways/secondary"],
- ["TPS senior-secondary pathway","../src/app/admissions/pathways/[stage]/page.tsx","/admissions/pathways/senior-secondary"],
+
+
+
+
+
  ["TIER home","../apps/tier/src/app/layout.tsx","/"],
  ["TIER institutions","../apps/tier/src/app/institutions/page.tsx","/institutions"],
- ["TIER Bal Niketan profile","../apps/tier/src/app/institutions/[slug]/page.tsx","/institutions/tagore-bal-niketan"],
- ["TIER Smart School profile","../apps/tier/src/app/institutions/[slug]/page.tsx","/institutions/tagore-smart-school"],
- ["TIER Vedant Academy profile","../apps/tier/src/app/institutions/[slug]/page.tsx","/institutions/tagore-vedant-academy"],
- ["TIER PG College profile","../apps/tier/src/app/institutions/[slug]/page.tsx","/institutions/tagore-pg-college"],
- ["TIER Hostel profile","../apps/tier/src/app/institutions/[slug]/page.tsx","/institutions/tagore-hostel"],
+
+
+
+
+
  ["TIER pathway guide","../apps/tier/src/app/choose/page.tsx","/choose"],
  ["TIER group help","../apps/tier/src/app/help/page.tsx","/help"],
  ["TIER QR start","../apps/tier/src/app/start/page.tsx","/start"]
@@ -114,4 +114,22 @@ test("TIER institution and pathway pages emit a safe BreadcrumbList JSON-LD comp
  assert.ok(directory.includes("BreadcrumbJsonLd"));
  assert.ok(profile.includes("BreadcrumbJsonLd"));
  assert.ok(choose.includes("BreadcrumbJsonLd"));
+});
+
+test("TPS generated grade-stage routes all have dynamic canonical metadata", async () => {
+ const source=await read("../src/app/admissions/pathways/[stage]/page.tsx");
+ assert.ok(source.includes("generateMetadata"));
+ assert.ok(source.includes('canonical: `/admissions/pathways/${stage}`'));
+ for (const stage of ["early-years","primary","middle","secondary","senior-secondary"]) {
+  assert.ok(source.includes('"'+stage+'":'), "Missing generated pathway "+stage);
+ }
+});
+
+test("TIER generated institution profiles all have dynamic canonical metadata", async () => {
+ const source=await read("../apps/tier/src/app/institutions/[slug]/page.tsx");
+ assert.ok(source.includes("generateMetadata"));
+ assert.ok(source.includes('canonical:`/institutions/${slug}`') || source.includes('canonical: `/institutions/${slug}`'));
+ for (const slug of ["tagore-bal-niketan","tagore-smart-school","tagore-vedant-academy","tagore-pg-college","tagore-hostel"]) {
+  assert.ok(source.includes('"'+slug+'":'), "Missing generated institution "+slug);
+ }
 });
