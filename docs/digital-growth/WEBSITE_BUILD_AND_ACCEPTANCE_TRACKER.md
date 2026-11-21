@@ -246,7 +246,8 @@ A workstream is complete only when:
 - [x] PR #76 production release and rollback runbook merged.
 - [x] PR #80 TPS parent decision-centre accessibility improvements merged after exact-source free CI passed.
 - [x] PR #81 TIER directory filter accessibility improvements merged after the duplicate empty-state reset control was corrected and exact-source free CI passed.
-- [~] PR #83 TPS searchable admissions FAQ, PR #84 TIER searchable pathway help, and PR #85 automated SEO acceptance gates are under free CI validation; do not merge before both site jobs pass.
+- [x] PR #83 TPS searchable admissions FAQ, PR #84 TIER searchable pathway help, and PR #85 automated SEO acceptance gates merged after both site jobs passed in free CI.
+- [~] PR #86 consistent keyboard dismissal/focus restoration for TPS and TIER mobile navigation is under exact-source free CI validation.
 - [ ] Reconcile institution facts, media permissions and approvals from authorised source documents before publishing claims/assets.
 - [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
 - [ ] Staging and owner acceptance.
