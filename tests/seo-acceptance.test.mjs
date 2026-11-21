@@ -57,3 +57,26 @@ test("noindex campaign pages remain excluded from XML sitemap route lists",async
  for(const path of ["/admissions/funnel","/visit/guide","/hostel/guide"])assert.ok(!tpsMap.includes('"'+path+'"'));
  for(const path of ["/connect","/partnerships"])assert.ok(!tierMap.includes('"'+path+'"'));
 });
+
+test("TPS admissions pathway pages emit a safe BreadcrumbList JSON-LD component", async () => {
+ const component=await read("../src/components/breadcrumb-json-ld.tsx");
+ const [index,stage]=await Promise.all([read("../src/app/admissions/pathways/page.tsx"),read("../src/app/admissions/pathways/[stage]/page.tsx")]);
+ assert.ok(component.includes('"@type": "BreadcrumbList"'));
+ assert.ok(component.includes('"@type": "ListItem"'));
+ assert.ok(component.includes('JSON.stringify('));
+ assert.ok(component.includes('.replace(/</g'));
+ assert.ok(index.includes("BreadcrumbJsonLd"));
+ assert.ok(stage.includes("BreadcrumbJsonLd"));
+});
+
+test("TIER institution and pathway pages emit a safe BreadcrumbList JSON-LD component", async () => {
+ const component=await read("../apps/tier/src/components/breadcrumb-json-ld.tsx");
+ const [directory,profile,choose]=await Promise.all([read("../apps/tier/src/app/institutions/page.tsx"),read("../apps/tier/src/app/institutions/[slug]/page.tsx"),read("../apps/tier/src/app/choose/page.tsx")]);
+ assert.ok(component.includes('"@type": "BreadcrumbList"'));
+ assert.ok(component.includes('"@type": "ListItem"'));
+ assert.ok(component.includes('JSON.stringify('));
+ assert.ok(component.includes('.replace(/</g'));
+ assert.ok(directory.includes("BreadcrumbJsonLd"));
+ assert.ok(profile.includes("BreadcrumbJsonLd"));
+ assert.ok(choose.includes("BreadcrumbJsonLd"));
+});

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 
 export const metadata = {
   title: "Choose Your Pathway | Tagore Group",
@@ -21,6 +22,7 @@ function PathLink({ href, children }: { href: string; children: ReactNode }) {
 export default function ChoosePathwayPage() {
   return (
     <main>
+      <BreadcrumbJsonLd items={[{ name: "Home", path: "/" }, { name: "Choose a pathway", path: "/choose" }]} />
       <section className="hero">
         <div className="shell" style={{ padding: "90px 0" }}>
           <div className="eyebrow" style={{ color: "var(--gold)" }}>Find your next step</div>

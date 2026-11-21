@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, CalendarDays, MessageCircle } from "lucide-react";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 
 const pathways = {
   "early-years": {
@@ -95,6 +96,7 @@ export default async function AdmissionsPathwayPage({ params }: { params: Promis
 
   return (
     <>
+      <BreadcrumbJsonLd items={[{ name: "Home", path: "/" }, { name: "Admissions", path: "/admissions" }, { name: "Learning stages", path: "/admissions/pathways" }, { name: pathway.stage, path: `/admissions/pathways/${stage}` }]} />
       <section className="bg-navy py-20 text-white sm:py-24">
         <div className="container-shell">
           <Link href="/admissions/pathways" className="text-sm font-semibold text-gold underline underline-offset-4">All learning stages</Link>
