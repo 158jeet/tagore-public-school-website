@@ -10,10 +10,10 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **ARCH-02** TIER standalone Next.js application in `apps/tier`, independently buildable/deployable.
 - [x] **ARCH-03** Separate domain, sitemap, canonical URLs and SEO identity for TPS and TIER.
 - [x] **ARCH-04** Separate CI quality jobs for both applications.
-- [ ] **ARCH-05** Decide whether to retain monorepo or extract TIER to its own repository; preserve deploy independence meanwhile.
+- [x] **ARCH-05** Retain the monorepo for the current phase while keeping TPS and TIER independently buildable/deployable; revisit triggers are recorded in `docs/architecture/ADR-001-monorepo.md`.
 - [~] **ARCH-06** Production deployment, staging isolation, rollback and release runbook documented; actual hosting environments, ownership and release approval remain unconfigured.
 - [~] **ARCH-07** Initial environment-variable and secret-handling inventory documented; hosting secret ownership, access controls and rotation procedures remain to be configured.
-- [ ] **ARCH-08** Create architecture decision records for major choices; avoid unnecessary paid services and vendor lock-in.
+- [x] **ARCH-08** Initial architecture decision record created for the monorepo boundary and revisit triggers (`docs/architecture/ADR-001-monorepo.md`).
 
 ## 2. Public experience and admissions conversion
 
@@ -22,7 +22,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **TPS-02** About, admissions and campus visit page foundations.
 - [x] **TPS-03** Parent Decision Centre at `/parent-guide` with contextual class/topic selection.
 - [x] **TPS-04** Admissions enquiry form and campus visit request UI.
-- [~] **TPS-05** Parent decision journey is in progress: searchable admissions FAQ foundation is under PR #83; full academics, student development, safety, transport, residential, fee/process and verified-proof content still needs approved evidence.
+- [~] **TPS-05** Searchable admissions FAQ foundation implemented (PR #83 merged); full academics, student development, safety, transport, residential, fee/process and verified-proof content still needs approved evidence.
 - [~] **TPS-06** Grade-stage admissions guidance pages with parent discussion prompts and class-prefilled next steps are implemented (PR #88 merged); verification of institution-specific details and full conversion acceptance remain pending.
 - [~] **TPS-07** Campus visit request UI captures preferred date/time and contact consent; staff confirmation, calendar ownership and follow-up workflow remain pending (request-only; see `CAMPUS_VISIT_CONVERSION_OPERATING_SPEC.md`).
 - [~] **TPS-08** Accessible mobile sticky admissions-enquiry and campus-visit actions implemented; call/WhatsApp actions and approved event hooks remain pending.
@@ -35,14 +35,14 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **TIER-02** Group story/about page foundation.
 - [x] **TIER-03** Institution directory and institution profile route foundations.
 - [x] **TIER-04** Group contact/enquiry UI.
-- [~] **TIER-05** Institution portfolio foundations and a searchable group pathway-help page are in progress (PR #84); consistent verified profiles, full facts and operational audience routing remain pending.
+- [~] **TIER-05** Institution portfolio foundations and searchable group pathway-help page implemented (PR #84 merged); consistent verified profiles, full facts and operational audience routing remain pending.
 - [ ] **TIER-06** Dedicated group story, leadership/governance and impact pages using approved evidence.
 - [~] **TIER-07** Searchable/filterable directory and side-by-side comparison for up to three institutions are implemented (PR #89 merged); verified operational routing remains pending.
 - [~] **TIER-08** Group-level contact, partnership, career and general enquiry pathways implemented; recipient verification and operational routing remain pending.
 - [~] **TIER-09** TPS and TIER mobile navigation now share keyboard dismissal, `aria-controls` and focus restoration behavior (PR #86); broader design-system and responsive-navigation consistency remains pending.
 
 ### Shared conversion standards
-- [ ] **CRO-01** Define primary and secondary conversion actions for each page and audience.
+- [x] **CRO-01** Primary and secondary conversion actions are defined across key TPS/TIER pages in `docs/digital-growth/PAGE_CTA_HIERARCHY.md`; measurement remains disabled pending privacy approval.
 - [~] **CRO-02** Consent-based forms and accessible success/error feedback implemented; privacy notice, retention details and full legal review remain pending.
 - [~] **CRO-03** Playwright checks 390px and 320 CSS px reflow on key routes in Chromium, Firefox and WebKit; real Android/iOS/tablet devices and low-bandwidth conditions remain pending.
 - [ ] **CRO-04** Add real, approved parent/student stories only with documented consent.
@@ -89,7 +89,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **SEO-04** Initial structured data implementation.
 - [~] **SEO-05** Legacy URL migration workbook and mapping rules documented; actual URL audit is blocked on legacy exports.
 - [ ] **SEO-06** Implement tested permanent redirects; preserve query parameters only where required and avoid redirect chains/loops.
-- [~] **SEO-07** Automated metadata, canonical, JSON-LD escaping, indexing-gate, sitemap-host and noindex-route checks are under PR #85; full route/content/link/alt-text and live indexability audit remains pending.
+- [~] **SEO-07** Automated metadata, canonical, JSON-LD escaping, indexing-gate, sitemap-host and noindex-route checks implemented (PR #85 merged); full route/content/link/alt-text and live indexability audit remains pending.
 - [ ] **SEO-08** Expand schema only where facts are verified (Organization, School/EducationalOrganization, Course/Event where eligible, BreadcrumbList).
 - [ ] **SEO-09** Local SEO: accurate NAP, map/location details, service area and official profile links.
 - [ ] **SEO-10** Separate Google Search Console properties and sitemap submission for both domains after owner authorization.
@@ -145,7 +145,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **GROW-06** Report qualified enquiries, visits requested/confirmed/attended, applications, offers and enrolments from ERP outcomes.
 - [ ] **GROW-07** Define lead-response and campus-visit operational SLAs with accountable staff.
 - [ ] **GROW-08** Establish monthly content/SEO/CRO review based on verified performance data.
-- [~] **GROW-09** TPS admissions campaign funnel: focused landing page and parent guide link implemented; class/grade pathways, verified proof, operational callback/visit conversion and final acceptance remain pending.
+- [~] **GROW-09** TPS admissions campaign funnel and five grade-stage guidance pages implemented (PR #88); verified proof, operational callback/visit conversion and final acceptance remain pending.
 - [~] **GROW-10** TIER segmented group funnel: parent/student, institution partnership, careers and general pathways implemented; verified team routing, delivery and final acceptance remain pending.
 - [~] **GROW-11** Parent admission checklist, campus-visit guide and hostel family guide implemented; approved prospectus and event registration remain pending.
 - [~] **GROW-12** Preferred-slot request UI and operating specification drafted; staff confirmation, reminders, reschedule path and attendance outcome remain unimplemented (`CAMPUS_VISIT_CONVERSION_OPERATING_SPEC.md`).
@@ -157,7 +157,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **GROW-18** Ethical enquiry recovery/remarketing: explicit opt-in, suppression and opt-out; no covert abandoned-form identification or unsolicited messaging.
 - [~] **GROW-19** Lead routing, owner/backup model, SLA metrics and dashboard specification drafted; accountable staff assignments, automation and ERP dashboard remain pending (`LEAD_ROUTING_RESPONSE_SLA_SPEC.md`).
 - [ ] **GROW-20** Conversion optimisation: hypothesis-led A/B testing with approved analytics, guardrails, accessibility and rollback.
-- [~] **GROW-21** Deterministic, searchable, source-grounded FAQ/pathway finders are under PRs #83–84; an advanced assistant, approved knowledge corpus, human handoff and privacy review remain pending.
+- [~] **GROW-21** Deterministic, searchable, source-grounded TPS/TIER FAQ and pathway finders implemented (PRs #83–84); an advanced assistant, approved knowledge corpus, human handoff and privacy review remain pending.
 - [~] **GROW-22** TPS and TIER Hindi FAQ/help translations and language selectors are merged behind an opt-in feature flag (PR #87); text-first no-login QR landing pages are under PR #90. Authorised human translation review, production enablement, QR artwork/print approval and low-bandwidth campaign acceptance remain pending.
 
 Detailed scope, acceptance criteria, safeguards, channel playbook and phased rollout: `docs/digital-growth/TAGORE_GROWTH_FUNNELS_AND_ACQUISITION_SPEC.md`.
@@ -251,6 +251,7 @@ A workstream is complete only when:
 - [x] PR #87 gated Hindi FAQ/help content for TPS and TIER merged after exact-source free CI passed both site jobs; Hindi mode remains disabled until authorised human review.
 - [x] PR #88 TPS grade-stage admissions guides merged after exact-source free CI passed both site jobs.
 - [x] PR #89 TIER institution comparison merged after exact-source free CI passed both site jobs.
+- [x] PR #91 initial architecture decision record and page-by-page CTA hierarchy merged; no analytics or tracking enabled.
 - [~] PR #90 text-first TPS/TIER QR landing pages are in exact-source free CI validation.
 - [ ] Reconcile institution facts, media permissions and approvals from authorised source documents before publishing claims/assets.
 - [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
