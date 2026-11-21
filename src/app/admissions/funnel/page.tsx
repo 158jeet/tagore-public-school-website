@@ -76,7 +76,12 @@ export default function AdmissionsFunnelPage() {
               <a href="https://wa.me/919462213490" className="flex items-center gap-3 text-sm font-semibold text-navy" rel="noopener noreferrer"><MessageCircle size={18} className="text-gold"/> Ask the school on WhatsApp</a>
               <p className="text-xs leading-5 text-ink/55">Please verify current contact availability and response hours with the school office.</p>
             </div>
-            <Link href="/parent-guide" className="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-navy underline underline-offset-4">Explore the Parent Decision Centre <ArrowRight size={16}/></Link>
+            <div className="mt-7 flex flex-col items-start gap-3">
+              <Link href="/parent-guide" className="inline-flex items-center gap-2 text-sm font-semibold text-navy underline underline-offset-4">Explore the Parent Decision Centre <ArrowRight size={16}/></Link>
+              <Link href="/admissions/parent-checklist" className="inline-flex items-center gap-2 text-sm font-semibold text-navy underline underline-offset-4">Use the parent admission checklist <ArrowRight size={16}/></Link>
+              <Link href="/visit/guide" className="inline-flex items-center gap-2 text-sm font-semibold text-navy underline underline-offset-4">Prepare for a campus visit <ArrowRight size={16}/></Link>
+              <Link href="/hostel/guide" className="inline-flex items-center gap-2 text-sm font-semibold text-navy underline underline-offset-4">Questions about residential life <ArrowRight size={16}/></Link>
+            </div>
           </div>
           <EnquiryForm/>
         </div>
