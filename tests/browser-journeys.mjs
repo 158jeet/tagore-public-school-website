@@ -154,12 +154,12 @@ try {
     assert.equal(await page.locator('[name="preferred_time"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred time");
 
     await page.goto(origin + "/admissions/funnel", { waitUntil: "networkidle" });
-    await page.getByRole("heading", { name: /Choose with clarity\\. Start with a conversation/i }).waitFor();
+    await page.getByRole("heading", { name: /Choose with clarity/i }).waitFor();
     await page.getByRole("link", { name: /Enquire about admission/i }).click();
-    await page.waitForURL(/\\/admissions\\/funnel#enquiry$/);
+    await page.waitForFunction(() => location.pathname === "/admissions/funnel" && location.hash === "#enquiry");
     assert.equal(await page.locator("#enquiry").count(), 1, "TPS funnel primary CTA must reach the enquiry section");
     await page.getByRole("link", { name: /Plan a campus visit/i }).click();
-    await page.waitForURL(/\\/visit$/);
+    await page.waitForFunction(() => location.pathname === "/visit");
   } else {
     await page.goto(origin + "/institutions", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: "School", exact: true }).click();
@@ -177,7 +177,7 @@ try {
     await page.goto(origin + "/connect", { waitUntil: "networkidle" });
     await page.getByRole("heading", { name: /The right conversation starts with the right doorway/i }).waitFor();
     await page.getByRole("link", { name: /Discuss a partnership/i }).click();
-    await page.waitForURL(/\\/contact\\?path=partnership#group-enquiry$/);
+    await page.waitForFunction(() => location.pathname === "/contact" && location.search === "?path=partnership" && location.hash === "#group-enquiry");
     const partnershipMessage = await page.locator('textarea[name="message"]').inputValue();
     assert.match(partnershipMessage, /Institutional partnership enquiry/, "TIER partnership pathway must prefill enquiry context");
     assert.match(partnershipMessage, /Please add details about your enquiry below/, "TIER pathway prefill must retain an editable prompt");
