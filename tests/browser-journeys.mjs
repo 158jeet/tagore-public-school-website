@@ -249,6 +249,41 @@ try {
     await page.getByRole("link", { name: /Plan a campus visit/i }).click();
     await page.waitForFunction(() => location.pathname === "/visit");
     await page.waitForLoadState("networkidle");
+
+    // Mock the local API at the browser boundary: no live lead or provider call is made.
+    await page.route("**/api/enquiry", async route => {
+      await delay(350);
+      await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: true }) });
+    });
+    await page.goto(origin + "/admissions", { waitUntil: "networkidle" });
+    await page.getByLabel(/Parent \/ guardian name/i).fill("QA Parent");
+    await page.getByLabel(/Mobile number/i).fill("9876543210");
+    await page.getByLabel(/Class seeking admission/i).selectOption("Class 1");
+    await page.locator('input[name="contact_consent"]').check();
+    const admissionSubmit = page.getByRole("button", { name: /Submit admission enquiry/i });
+    await admissionSubmit.click();
+    assert.equal(await admissionSubmit.isDisabled(), true, "TPS admission form must prevent duplicate submission while pending");
+    await page.getByRole("status").getByText(/Your enquiry has been sent/i).waitFor();
+    assert.equal(await admissionSubmit.isDisabled(), false, "TPS admission form must re-enable after completion");
+    await page.unroute("**/api/enquiry");
+
+    await page.route("**/api/enquiry", route => route.fulfill({
+      status: 503,
+      contentType: "application/json",
+      body: JSON.stringify({ message: "Enquiry service is temporarily unavailable." }),
+    }));
+    await page.goto(origin + "/visit", { waitUntil: "networkidle" });
+    await page.getByLabel(/Parent \/ guardian name/i).fill("QA Parent");
+    await page.getByLabel(/Mobile number/i).fill("9876543210");
+    await page.getByLabel(/Class of interest/i).selectOption("Class 1");
+    const visitDate = await page.locator('input[name="preferred_date"]').getAttribute("min");
+    await page.locator('input[name="preferred_date"]').fill(visitDate);
+    await page.getByLabel(/Preferred time/i).selectOption("Morning");
+    await page.locator('input[name="contact_consent"]').check();
+    await page.getByRole("button", { name: /Request a campus visit/i }).click();
+    const visitError = page.getByRole("alert");
+    await visitError.waitFor();
+    assert.match(await visitError.innerText(), /temporarily unavailable/i, "TPS visit form must show a useful provider-failure message");
   } else {
     await page.goto(origin + "/institutions", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: "School", exact: true }).click();
@@ -293,6 +328,40 @@ try {
     const partnershipMessage = await page.locator('textarea[name="message"]').inputValue();
     assert.match(partnershipMessage, /Institutional partnership enquiry/, "TIER partnership pathway must prefill enquiry context");
     assert.match(partnershipMessage, /Please add details about your enquiry below/, "TIER pathway prefill must retain an editable prompt");
+
+    // Mock the local API at the browser boundary: no live lead or provider call is made.
+    await page.route("**/api/enquiry", async route => {
+      await delay(350);
+      await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ success: true }) });
+    });
+    await page.goto(origin + "/contact", { waitUntil: "networkidle" });
+    await page.getByLabel(/Parent \/ enquirer name/i).fill("QA Enquirer");
+    await page.getByLabel(/Mobile number/i).fill("9876543210");
+    await page.getByLabel(/Institution \/ area/i).selectOption("Tagore Bal Niketan");
+    await page.getByLabel(/How can we help/i).fill("Please share admission information.");
+    await page.locator('input[name="consent"]').check();
+    const groupSubmit = page.getByRole("button", { name: /Send group enquiry/i });
+    await groupSubmit.click();
+    assert.equal(await groupSubmit.isDisabled(), true, "TIER group form must prevent duplicate submission while pending");
+    await page.getByRole("status").getByText(/Your group enquiry has been sent/i).waitFor();
+    assert.equal(await groupSubmit.isDisabled(), false, "TIER group form must re-enable after completion");
+    await page.unroute("**/api/enquiry");
+
+    await page.route("**/api/enquiry", route => route.fulfill({
+      status: 503,
+      contentType: "application/json",
+      body: JSON.stringify({ message: "Group enquiry service is temporarily unavailable." }),
+    }));
+    await page.goto(origin + "/contact", { waitUntil: "networkidle" });
+    await page.getByLabel(/Parent \/ enquirer name/i).fill("QA Enquirer");
+    await page.getByLabel(/Mobile number/i).fill("9876543210");
+    await page.getByLabel(/Institution \/ area/i).selectOption("Tagore Bal Niketan");
+    await page.getByLabel(/How can we help/i).fill("Please share admission information.");
+    await page.locator('input[name="consent"]').check();
+    await page.getByRole("button", { name: /Send group enquiry/i }).click();
+    const groupError = page.getByRole("alert");
+    await groupError.waitFor();
+    assert.match(await groupError.innerText(), /temporarily unavailable/i, "TIER group form must show a useful provider-failure message");
   }
 
   assert.deepEqual(pageErrors, [], `Browser runtime errors detected: ${pageErrors.join(" | ")}`);
