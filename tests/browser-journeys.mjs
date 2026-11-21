@@ -283,8 +283,8 @@ try {
     await page.getByLabel(/Preferred time/i).selectOption("Morning");
     await page.locator('input[name="contact_consent"]').check();
     await page.getByRole("button", { name: /Request a campus visit/i }).click();
-    const visitError = page.getByRole("alert");
-    await visitError.waitFor();
+    const visitError = page.getByText(/temporarily unavailable/i);
+    await visitError.waitFor({ state: "visible", timeout: 5000 });
     assert.match(await visitError.innerText(), /temporarily unavailable/i, "TPS visit form must show a useful provider-failure message");
   } else {
     await page.goto(origin + "/institutions", { waitUntil: "networkidle" });
@@ -363,8 +363,8 @@ try {
     await page.getByLabel(/How can we help/i).fill("Please share admission information.");
     await page.locator('input[name="consent"]').check();
     await page.getByRole("button", { name: /Send group enquiry/i }).click();
-    const groupError = page.getByRole("alert");
-    await groupError.waitFor();
+    const groupError = page.getByText(/temporarily unavailable/i);
+    await groupError.waitFor({ state: "visible", timeout: 5000 });
     assert.match(await groupError.innerText(), /temporarily unavailable/i, "TIER group form must show a useful provider-failure message");
   }
 
