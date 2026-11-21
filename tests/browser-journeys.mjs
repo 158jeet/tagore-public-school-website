@@ -13,8 +13,8 @@ const appDir = app === "tier" ? path.join(root, "apps", "tier") : root;
 const port = Number(process.env.BROWSER_PORT || (app === "tps" ? 3380 : 3480));
 const origin = `http://127.0.0.1:${port}`;
 const routes = app === "tps"
-  ? ["/", "/parent-guide", "/admissions", "/visit", "/admissions/funnel", "/admissions/faq"]
-  : ["/", "/institutions", "/contact", "/connect", "/help"];
+  ? ["/", "/parent-guide", "/admissions", "/visit", "/admissions/funnel", "/admissions/faq", "/start"]
+  : ["/", "/institutions", "/contact", "/connect", "/help", "/start"];
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
   cwd: appDir,
   env: { ...process.env, SITE_INDEXING_ENABLED: "false", PORT: String(port), HOSTNAME: "127.0.0.1" },
@@ -68,6 +68,9 @@ try {
   for (const route of routes) {
     const response = await page.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
     assert.equal(response?.status(), 200, `${app.toUpperCase()} browser route ${route} did not return 200`);
+    if (route === "/start") {
+      await page.getByRole("heading", { name: app === "tps" ? /Your next conversation starts here/i : /Start with the information you need/i }).waitFor();
+    }
     const motionPreference = await page.evaluate(() => ({ enabled: window.matchMedia("(prefers-reduced-motion: reduce)").matches, scrollBehavior: getComputedStyle(document.documentElement).scrollBehavior }));
     assert.equal(motionPreference.enabled, true, "Browser context must expose prefers-reduced-motion: reduce");
     assert.equal(motionPreference.scrollBehavior, "auto", `${route} must disable smooth scrolling for reduced-motion users`);
