@@ -25,6 +25,7 @@ const categories = ["All", "School", "Competitive learning", "Higher education",
 export function InstitutionDirectory() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
+  const [comparison, setComparison] = useState<string[]>([]);
   const visible = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase();
     return institutions.filter((item) => {
@@ -34,6 +35,12 @@ export function InstitutionDirectory() {
     });
   }, [category, query]);
   const hasActiveFilters = query.trim().length > 0 || category !== "All";
+  const toggleComparison = (name: string) => {
+    setComparison((current) => current.includes(name)
+      ? current.filter((item) => item !== name)
+      : current.length < 3 ? [...current, name] : current);
+  };
+  const comparedInstitutions = institutions.filter((item) => comparison.includes(item.name));
   const clearFilters = () => {
     setQuery("");
     setCategory("All");
@@ -76,13 +83,24 @@ export function InstitutionDirectory() {
       <p className="directory-count" role="status" aria-live="polite" aria-atomic="true">
         Showing {visible.length} of {institutions.length} institutions
       </p>
+      <p className="compare-guidance" id="compare-guidance">Select up to three institutions to compare their published pathway summaries. You can compare the information currently available here; this is not a ranking.</p>
       <div id="institution-directory-results" aria-busy="false">
         {visible.length ? (
           <div className="institutions">
             {visible.map((item) => (
               <article className="institution" key={item.name}>
                 <div><small>{item.type}</small><h3>{item.name}</h3><p>{item.description}</p></div>
-                {item.href.startsWith("/") ? <Link href={item.href}>Explore institution ↗</Link> : <a href={item.href}>Explore institution ↗</a>}
+                {item.href.startsWith("/") ? <Link href={item.href}>Explore institution ↗</Link> : <a href={item.href} target="_blank" rel="noopener noreferrer">Explore institution ↗</a>}
+                <label className="compare-toggle">
+                  <input
+                    type="checkbox"
+                    checked={comparison.includes(item.name)}
+                    onChange={() => toggleComparison(item.name)}
+                    disabled={!comparison.includes(item.name) && comparison.length >= 3}
+                    aria-describedby="compare-guidance"
+                  />
+                  <span>Compare</span>
+                </label>
               </article>
             ))}
           </div>
@@ -94,6 +112,29 @@ export function InstitutionDirectory() {
           </div>
         )}
       </div>
+      {comparedInstitutions.length > 0 && (
+        <section className="compare-panel" aria-labelledby="compare-heading">
+          <div className="compare-panel-heading">
+            <div>
+              <p className="eyebrow">Side-by-side view</p>
+              <h2 id="compare-heading">Compare pathways</h2>
+              <p aria-live="polite">{comparedInstitutions.length} of 3 comparison places selected</p>
+            </div>
+            <button type="button" className="compare-clear" onClick={() => setComparison([])}>Clear comparison</button>
+          </div>
+          <div className="compare-table-wrap" role="region" aria-label="Institution comparison" tabIndex={0}>
+            <table className="compare-table">
+              <thead><tr><th scope="col">Published detail</th>{comparedInstitutions.map((item) => <th scope="col" key={item.name}>{item.name}</th>)}</tr></thead>
+              <tbody>
+                <tr><th scope="row">Pathway</th>{comparedInstitutions.map((item) => <td key={item.name}>{item.type}</td>)}</tr>
+                <tr><th scope="row">Current summary</th>{comparedInstitutions.map((item) => <td key={item.name}>{item.description}</td>)}</tr>
+                <tr><th scope="row">Next step</th>{comparedInstitutions.map((item) => <td key={item.name}>{item.href.startsWith("/") ? <Link href={item.href}>View institution</Link> : <a href={item.href} target="_blank" rel="noopener noreferrer">View institution</a>}</td>)}</tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="compare-disclaimer">Only the information currently published in the directory is compared. Confirm programme details, eligibility, fees and availability with the relevant institution.</p>
+        </section>
+      )}
     </>
   );
 }
