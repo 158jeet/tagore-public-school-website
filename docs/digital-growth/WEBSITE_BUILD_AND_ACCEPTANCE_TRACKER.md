@@ -122,7 +122,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [~] **QA-05** iPhone 13 Safari and Pixel 5 Chrome device emulation now covers all current TPS/TIER routes, touch navigation and overflow (PR #101); Edge and physical iOS/Android/tablet certification remain pending.
 - [~] **QA-06** Browser tests verify initial keyboard focus, Escape-to-close mobile navigation with focus restoration, FAQ/help search interactions, native required-field validation and reduced-motion preference across Chromium/Firefox/WebKit; screen-reader passes, 200% zoom, slow network, provider failure/success, duplicate submission and refresh/back navigation remain pending.
 - [~] **QA-07** CI captures full-page 390px mobile and 1440px desktop screenshots for all key TPS/TIER routes as 14-day artifacts; baseline pixel-diff regression and manual visual sign-off remain pending.
-- [~] **QA-08** Expanded production HTTP smoke matrix now covers key TPS/TIER routes, same-origin links, enquiry form fields, security headers, robots, sitemap URL/host/noindex rules, metadata, JSON-LD and unknown-route 404 (PR #97 merged); full redirect, 500 and site-wide broken-link audits remain pending.
+- [~] **QA-08** Expanded production HTTP smoke matrix covers TPS/TIER routes, same-origin links, enquiry form fields, security headers, robots, sitemap URL/host/noindex rules, metadata and JSON-LD (PR #97); both sites now have branded 404 recovery pages with tested internal recovery links (PR #106). Full redirect, 500 and site-wide broken-link audits remain pending.
 - [ ] **QA-09** Production acceptance report with screenshots, test evidence, open risks and owner sign-off.
 
 ## 8. Content operations / CMS
@@ -263,3 +263,5 @@ A workstream is complete only when:
 - [ ] Production launch approval.
 
 - [x] PR #105 expanded SEO metadata acceptance to every generated TPS grade-stage pathway and TIER institution profile; exact-source public free CI run `44882422513` passed both TPS and TIER jobs. Private merge commit: `fb0e3f6352796bca572312bf41b238ccf5425b32`.
+
+- [x] PR #106 added branded 404 recovery pages to TPS and TIER and extended production smoke assertions to check 404 status, heading and recovery links. Exact-source public free CI run `44882581805` passed both site jobs. Private merge commit: `46b0e470fc1ed183b5d5428a675f553e6001aaa1`.
