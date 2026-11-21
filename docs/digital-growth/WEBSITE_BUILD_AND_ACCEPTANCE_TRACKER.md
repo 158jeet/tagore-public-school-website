@@ -127,8 +127,8 @@ This is the canonical scope register for both public websites. Every implementat
 
 ## 8. Content operations / CMS
 
-- [ ] **CMS-01** Evaluate low-cost/self-hostable CMS options against security, ease of use, preview, roles and maintenance.
-- [ ] **CMS-02** Select CMS only if staff need frequent content changes; static Git-managed content remains acceptable initially.
+- [x] **CMS-01** Evaluated Decap CMS, TinaCMS, Payload and Strapi against Git permissions, authentication, database/hosting, preview and maintenance; findings are recorded in ADR-002.
+- [x] **CMS-02** Decision: retain Git-managed static content for the current phase; defer CMS installation until recurring nontechnical-editor demand justifies its authentication, infrastructure and maintenance overhead (ADR-002).
 - [ ] **CMS-03** Define roles: Owner, Content Editor, Reviewer; enforce approval before public publish.
 - [ ] **CMS-04** Structured content models for institution, programme, faculty, news/event, FAQ, disclosure and media.
 - [ ] **CMS-05** Draft/preview/schedule/publish, version history, rollback and audit trail.
