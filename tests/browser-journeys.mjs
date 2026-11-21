@@ -166,6 +166,12 @@ try {
     await page.getByRole("searchbox", { name: /Search admissions questions/i }).fill("");
     await page.getByRole("button", { name: "Fees", exact: true }).click();
     assert.match(await page.getByRole("status").innerText(), /1 answer found/);
+    if (process.env.NEXT_PUBLIC_HINDI_CONTENT_ENABLED === "true") {
+      await page.getByRole("button", { name: "हिन्दी", exact: true }).click();
+      await page.getByText("प्रवेश से जुड़े प्रश्न खोजें").waitFor();
+      assert.match(await page.getByRole("status").innerText(), /उत्तर मिले/);
+      await page.getByRole("button", { name: "English", exact: true }).click();
+    }
 
     await page.goto(origin + "/admissions/funnel", { waitUntil: "networkidle" });
     await page.getByRole("heading", { name: /Choose with clarity/i }).waitFor();
@@ -190,6 +196,12 @@ try {
     await page.getByRole("searchbox", { name: /Search by question or topic/i }).fill("");
     await page.getByRole("button", { name: "Partnerships", exact: true }).click();
     assert.match(await page.getByRole("status").innerText(), /1 answer found/);
+    if (process.env.NEXT_PUBLIC_HINDI_CONTENT_ENABLED === "true") {
+      await page.getByRole("button", { name: "हिन्दी", exact: true }).click();
+      await page.getByText("अपने प्रश्न या विषय से खोजें").waitFor();
+      assert.match(await page.getByRole("status").innerText(), /उत्तर मिले/);
+      await page.getByRole("button", { name: "English", exact: true }).click();
+    }
 
     await page.goto(origin + "/contact", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Send group enquiry/i }).click();
