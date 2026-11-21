@@ -104,7 +104,7 @@ try {
     assertJourneyLink("/", "/visit");
     assertJourneyLink("/parent-guide", "/visit");
     assertJourneyLink("/parent-guide", "/admissions/faq");
-    assertJourneyLink("/admissions", "/admissions/pathways");
+    assertJourneyLink("/admissions", "/admissions/pathways/early-years");
     assertJourneyLink("/admissions/pathways", "/admissions/pathways/early-years");
     assertJourneyLink("/admissions/pathways/early-years", "/admissions?class=Nursery");
     assertJourneyLink("/admissions/pathways/early-years", "/parent-guide");
