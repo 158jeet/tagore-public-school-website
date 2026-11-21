@@ -13,8 +13,8 @@ const appDir = app === "tier" ? path.join(root, "apps", "tier") : root;
 const port = Number(process.env.BROWSER_PORT || (app === "tps" ? 3380 : 3480));
 const origin = `http://127.0.0.1:${port}`;
 const routes = app === "tps"
-  ? ["/", "/parent-guide", "/admissions", "/visit", "/admissions/funnel", "/admissions/faq", "/start"]
-  : ["/", "/institutions", "/contact", "/connect", "/help", "/start"];
+  ? ["/", "/about", "/parent-guide", "/admissions", "/admissions/funnel", "/admissions/faq", "/admissions/parent-checklist", "/admissions/pathways", "/admissions/pathways/early-years", "/admissions/pathways/primary", "/admissions/pathways/middle", "/admissions/pathways/secondary", "/admissions/pathways/senior-secondary", "/visit", "/visit/guide", "/hostel/guide", "/start"]
+  : ["/", "/about", "/choose", "/institutions", "/institutions/tagore-bal-niketan", "/institutions/tagore-smart-school", "/institutions/tagore-vedant-academy", "/institutions/tagore-pg-college", "/institutions/tagore-hostel", "/contact", "/connect", "/partnerships", "/help", "/start"];
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
   cwd: appDir,
   env: { ...process.env, SITE_INDEXING_ENABLED: "false", PORT: String(port), HOSTNAME: "127.0.0.1" },
@@ -248,6 +248,7 @@ try {
     assert.equal(await page.locator("#enquiry").count(), 1, "TPS funnel primary CTA must reach the enquiry section");
     await page.getByRole("link", { name: /Plan a campus visit/i }).click();
     await page.waitForFunction(() => location.pathname === "/visit");
+    await page.waitForLoadState("networkidle");
   } else {
     await page.goto(origin + "/institutions", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: "School", exact: true }).click();
