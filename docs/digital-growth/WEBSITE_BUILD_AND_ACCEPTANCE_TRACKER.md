@@ -44,7 +44,7 @@ This is the canonical scope register for both public websites. Every implementat
 ### Shared conversion standards
 - [x] **CRO-01** Primary and secondary conversion actions are defined across key TPS/TIER pages in `docs/digital-growth/PAGE_CTA_HIERARCHY.md`; measurement remains disabled pending privacy approval.
 - [~] **CRO-02** Consent-based forms and accessible success/error feedback implemented; privacy notice, retention details and full legal review remain pending.
-- [~] **CRO-03** Playwright checks 390px and 320 CSS px reflow on key routes in Chromium, Firefox and WebKit; real Android/iOS/tablet devices and low-bandwidth conditions remain pending.
+- [~] **CRO-03** Playwright checks 390px and 320 CSS px reflow across Chromium/Firefox/WebKit; a simulated slow-3G test for the text-first TPS/TIER landing pages is under PR #98. Real Android/iOS/tablet devices and field-network validation remain pending.
 - [ ] **CRO-04** Add real, approved parent/student stories only with documented consent.
 - [ ] **CRO-05** Create content-led experiments with hypotheses and measurable outcomes; no unapproved tracking pixels.
 
