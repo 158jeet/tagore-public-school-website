@@ -189,6 +189,15 @@ try {
     await page.getByRole("button", { name: /Clear filters/i }).click();
     assert.match(await page.locator(".directory-count").innerText(), /Showing 6 of 6 institutions/);
 
+    await page.goto(origin + "/institutions", { waitUntil: "networkidle" });
+    await page.getByRole("checkbox", { name: "Compare" }).nth(0).check();
+    await page.getByRole("checkbox", { name: "Compare" }).nth(3).check();
+    await page.getByRole("heading", { name: "Compare pathways" }).waitFor();
+    assert.equal(await page.locator(".compare-table thead th").count(), 3, "Comparison must show the label column and two selected institutions");
+    assert.match(await page.locator(".compare-panel").innerText(), /Tagore Public School/);
+    await page.getByRole("button", { name: "Clear comparison" }).click();
+    assert.equal(await page.locator(".compare-panel").count(), 0, "Clear comparison must remove the comparison panel");
+
     await page.goto(origin + "/help", { waitUntil: "networkidle" });
     await page.getByRole("searchbox", { name: /Search by question or topic/i }).fill("hostel");
     assert.match(await page.getByRole("status").innerText(), /1 answer found/);
