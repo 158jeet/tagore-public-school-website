@@ -58,17 +58,19 @@ export function ParentDecisionCentre() {
           <div className="mt-8 space-y-6">
             <label htmlFor="parent-guide-class" className="block text-xs font-semibold text-ink/70">
               1. Which class are you exploring?
-              <select id="parent-guide-class" value={schoolClass} onChange={(event) => setSchoolClass(event.target.value)} className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-gold">
+              <select id="parent-guide-class" aria-describedby="parent-guide-class-help" value={schoolClass} onChange={(event) => setSchoolClass(event.target.value)} className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-gold focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2">
                 <option value="">Select a class (optional)</option>
                 {classes.map((item) => <option key={item} value={item}>{item}</option>)}
               </select>
+              <span id="parent-guide-class-help" className="mt-2 block text-xs font-normal leading-5 text-ink/55">You can leave this blank and choose a class on the next step.</span>
             </label>
             <label htmlFor="parent-guide-topic" className="block text-xs font-semibold text-ink/70">
               2. What would you most like to discuss?
-              <select id="parent-guide-topic" value={topic} onChange={(event) => setTopic(event.target.value)} className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-gold">
+              <select id="parent-guide-topic" aria-describedby="parent-guide-topic-help" value={topic} onChange={(event) => setTopic(event.target.value)} className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm outline-none focus:border-gold focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2">
                 <option value="">Choose a topic (optional)</option>
                 {topics.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}
               </select>
+              <span id="parent-guide-topic-help" className="mt-2 block text-xs font-normal leading-5 text-ink/55">This helps the school understand your question; it does not determine eligibility.</span>
             </label>
           </div>
           <div className="mt-7 rounded-2xl bg-cream p-5" aria-live="polite">
@@ -78,10 +80,10 @@ export function ParentDecisionCentre() {
               {selectedTopic ? " · " + selectedTopic.label : " · The question you want to discuss"}
             </p>
           </div>
-          <a href={enquiryHref} className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-4 text-sm font-bold text-navy transition hover:bg-navy hover:text-white">
+          <a href={enquiryHref} className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-4 text-sm font-bold text-navy transition hover:bg-navy hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy">
             Continue to admission enquiry <ArrowUpRight size={17} />
           </a>
-          <a href="/visit" className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-ink/15 px-6 py-4 text-sm font-semibold text-navy transition hover:border-gold hover:text-gold">
+          <a href="/visit" className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-ink/15 px-6 py-4 text-sm font-semibold text-navy transition hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy">
             <CalendarDays size={17} /> Request a campus visit
           </a>
           <p className="mt-5 text-[11px] leading-5 text-ink/45">This guide does not indicate seat availability or confirm admission. The school team will confirm current eligibility, fees, options and availability. Please do not share sensitive identity or medical documents online.</p>
