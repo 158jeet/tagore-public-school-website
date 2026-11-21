@@ -26,6 +26,8 @@ jobs:
       - run: npm run test:seo
       - run: npm run lint
       - run: npm run build
+        env:
+          NEXT_PUBLIC_HINDI_CONTENT_ENABLED: "true"
       - name: Install pinned browser QA tools
         run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund @playwright/test@1.56.1 axe-core@4.10.3
       - name: Install Chromium
@@ -34,6 +36,7 @@ jobs:
         run: npm run test:browser
         env:
           SMOKE_APP: tps
+          NEXT_PUBLIC_HINDI_CONTENT_ENABLED: "true"
       - name: Smoke-test production server
         run: npm run test:smoke
         env:
@@ -73,6 +76,8 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run build
+        env:
+          NEXT_PUBLIC_HINDI_CONTENT_ENABLED: "true"
       - name: Install pinned browser QA tools
         working-directory: ${{ github.workspace }}
         run: npm install --no-save --package-lock=false --ignore-scripts --no-audit --no-fund @playwright/test@1.56.1 axe-core@4.10.3
@@ -84,6 +89,7 @@ jobs:
         run: npm run test:browser
         env:
           SMOKE_APP: tier
+          NEXT_PUBLIC_HINDI_CONTENT_ENABLED: "true"
       - name: Smoke-test production server
         run: npm run test:smoke
         env:
