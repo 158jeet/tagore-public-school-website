@@ -248,6 +248,7 @@ try {
     assert.equal(await page.locator("#enquiry").count(), 1, "TPS funnel primary CTA must reach the enquiry section");
     await page.getByRole("link", { name: /Plan a campus visit/i }).click();
     await page.waitForFunction(() => location.pathname === "/visit");
+    await page.waitForLoadState("networkidle");
   } else {
     await page.goto(origin + "/institutions", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: "School", exact: true }).click();
