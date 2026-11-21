@@ -255,6 +255,8 @@ A workstream is complete only when:
 - [x] PR #94 text-first TPS/TIER QR landing pages merged after exact-source free CI passed both site jobs; QR artwork, print proof and public distribution remain unapproved.
 - [x] PR #95 BreadcrumbList schema and consolidated SEO-07 route acceptance tests merged after both public free-CI site jobs passed; PR #96 was closed as superseded and no duplicate code was merged.
 - [x] PR #97 expanded production HTTP route/sitemap smoke coverage merged after both free CI site jobs passed.
+- [x] PR #101 mobile device emulation, slow-3G validation and single-main QR page accessibility fix merged after both free CI site jobs passed.
+- [x] PR #102 CMS evaluation and Git-managed-content ADR merged; no CMS service or database was added.
 - [ ] Reconcile institution facts, media permissions and approvals from authorised source documents before publishing claims/assets.
 - [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
 - [ ] Staging and owner acceptance.
