@@ -262,7 +262,7 @@ try {
     await page.locator('input[name="contact_consent"]').check();
     const admissionSubmit = page.getByRole("button", { name: /Submit admission enquiry/i });
     await admissionSubmit.click();
-    await page.waitForFunction(() => document.querySelector('form:has(input[name="parent_name"]) button')?.disabled === true, null, { timeout: 2000 });
+    await page.waitForFunction(button => button?.disabled === true, await admissionSubmit.elementHandle(), { timeout: 2000 });
     assert.equal(await admissionSubmit.isDisabled(), true, "TPS admission form must prevent duplicate submission while pending");
     await page.getByRole("status").getByText(/Your enquiry has been sent/i).waitFor();
     assert.equal(await admissionSubmit.isDisabled(), false, "TPS admission form must re-enable after completion");
@@ -343,7 +343,7 @@ try {
     await page.locator('input[name="consent"]').check();
     const groupSubmit = page.getByRole("button", { name: /Send group enquiry/i });
     await groupSubmit.click();
-    await page.waitForFunction(() => document.querySelector('form:has(textarea[name="message"]) button')?.disabled === true, null, { timeout: 2000 });
+    await page.waitForFunction(button => button?.disabled === true, await groupSubmit.elementHandle(), { timeout: 2000 });
     assert.equal(await groupSubmit.isDisabled(), true, "TIER group form must prevent duplicate submission while pending");
     await page.getByRole("status").getByText(/Your group enquiry has been sent/i).waitFor();
     assert.equal(await groupSubmit.isDisabled(), false, "TIER group form must re-enable after completion");
