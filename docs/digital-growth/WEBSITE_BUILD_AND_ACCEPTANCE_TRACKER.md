@@ -158,7 +158,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [~] **GROW-19** Lead routing, owner/backup model, SLA metrics and dashboard specification drafted; accountable staff assignments, automation and ERP dashboard remain pending (`LEAD_ROUTING_RESPONSE_SLA_SPEC.md`).
 - [ ] **GROW-20** Conversion optimisation: hypothesis-led A/B testing with approved analytics, guardrails, accessibility and rollback.
 - [~] **GROW-21** Deterministic, searchable, source-grounded FAQ/pathway finders are under PRs #83–84; an advanced assistant, approved knowledge corpus, human handoff and privacy review remain pending.
-- [ ] **GROW-22** Hindi-first/local/offline-to-online reach: reviewed bilingual guides, QR campaigns and low-bandwidth landing-page experience.
+- [~] **GROW-22** TPS and TIER Hindi FAQ/help translations and language selectors are drafted behind an opt-in feature flag (PR #87); authorised human translation review, production enablement, QR acquisition and low-bandwidth campaign acceptance remain pending.
 
 Detailed scope, acceptance criteria, safeguards, channel playbook and phased rollout: `docs/digital-growth/TAGORE_GROWTH_FUNNELS_AND_ACQUISITION_SPEC.md`.
 
