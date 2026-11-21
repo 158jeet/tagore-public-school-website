@@ -122,7 +122,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **QA-05** Test current Chrome, Edge, Firefox, Safari/iOS and Android browsers at common screen sizes.
 - [~] **QA-06** Browser tests verify initial keyboard focus, Escape-to-close mobile navigation with focus restoration, FAQ/help search interactions, native required-field validation and reduced-motion preference across Chromium/Firefox/WebKit; screen-reader passes, 200% zoom, slow network, provider failure/success, duplicate submission and refresh/back navigation remain pending.
 - [~] **QA-07** CI captures full-page 390px mobile and 1440px desktop screenshots for all key TPS/TIER routes as 14-day artifacts; baseline pixel-diff regression and manual visual sign-off remain pending.
-- [~] **QA-08** Production HTTP smoke tests verify journey links, same-origin links, robots, sitemap host separation, unknown-route 404, page metadata and JSON-LD; Playwright adds interactive journey checks on key routes across Chromium/Firefox/WebKit. Complete metadata/canonical, redirect, 500 and site-wide broken-link audits remain pending.
+- [~] **QA-08** Expanded production HTTP smoke matrix now covers key TPS/TIER routes, same-origin links, enquiry form fields, security headers, robots, sitemap URL/host/noindex rules, metadata, JSON-LD and unknown-route 404 (PR #97 merged); full redirect, 500 and site-wide broken-link audits remain pending.
 - [ ] **QA-09** Production acceptance report with screenshots, test evidence, open risks and owner sign-off.
 
 ## 8. Content operations / CMS
@@ -254,6 +254,7 @@ A workstream is complete only when:
 - [x] PR #91 initial architecture decision record and page-by-page CTA hierarchy merged; no analytics or tracking enabled.
 - [x] PR #94 text-first TPS/TIER QR landing pages merged after exact-source free CI passed both site jobs; QR artwork, print proof and public distribution remain unapproved.
 - [x] PR #95 BreadcrumbList schema and consolidated SEO-07 route acceptance tests merged after both public free-CI site jobs passed; PR #96 was closed as superseded and no duplicate code was merged.
+- [x] PR #97 expanded production HTTP route/sitemap smoke coverage merged after both free CI site jobs passed.
 - [ ] Reconcile institution facts, media permissions and approvals from authorised source documents before publishing claims/assets.
 - [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
 - [ ] Staging and owner acceptance.
