@@ -23,6 +23,7 @@ jobs:
       - run: npm run test:security
       - run: npm run test:forms
       - run: npm run test:config
+      - run: npm run test:seo
       - run: npm run lint
       - run: npm run build
       - name: Install pinned browser QA tools
