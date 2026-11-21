@@ -24,7 +24,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **TPS-04** Admissions enquiry form and campus visit request UI.
 - [ ] **TPS-05** Complete parent decision journey: academics, student development, safety, transport, residential options, fees/process, FAQs and proof.
 - [ ] **TPS-06** Conversion-focused class/grade landing pages with unique useful content and clear next steps.
-- [ ] **TPS-07** Campus visit booking experience: preferred date/time, parent contact consent, confirmation and staff follow-up workflow.
+- [~] **TPS-07** Campus visit request UI captures preferred date/time and contact consent; staff confirmation, calendar ownership and follow-up workflow remain pending (request-only; see `CAMPUS_VISIT_CONVERSION_OPERATING_SPEC.md`).
 - [~] **TPS-08** Accessible mobile sticky admissions-enquiry and campus-visit actions implemented; call/WhatsApp actions and approved event hooks remain pending.
 - [ ] **TPS-09** Trust centre: approved affiliations, mandatory disclosures, policies, leadership, dated outcomes and authentic evidence.
 - [~] **TPS-10** Admissions FAQ page implemented; eligibility, academic-year availability and process content still require management approval.
@@ -38,7 +38,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **TIER-05** Institution portfolio pages with consistent profile schema, verified facts and clear audience routing.
 - [ ] **TIER-06** Dedicated group story, leadership/governance and impact pages using approved evidence.
 - [~] **TIER-07** Searchable/filterable institution directory implemented; pathway comparison and verified routing remain in progress.
-- [ ] **TIER-08** Group-level contact, partnership, career and general enquiry pathways with appropriate routing.
+- [~] **TIER-08** Group-level contact, partnership, career and general enquiry pathways implemented; recipient verification and operational routing remain pending.
 - [ ] **TIER-09** Consistent design system and responsive navigation across TPS and TIER without forcing identical brand expression.
 
 ### Shared conversion standards
@@ -116,7 +116,7 @@ This is the canonical scope register for both public websites. Every implementat
 ## 7. Performance, accessibility and quality
 
 - [~] **QA-01** Repeatable synthetic production-build baselines measured for all key TPS/TIER routes at 390px mobile and 1440px desktop using a fresh Playwright browser context per route, with service workers blocked and non-zero resource-transfer assertions (PR #48, corrected by PR #50; 14-day CI artifacts). Latest PR #50 artifacts: TPS 8 route/viewport samples, 117,908–141,936 transferred bytes, 110,757–116,581 JS bytes; TIER 6 samples, 126,197–138,243 transferred bytes, 112,930 JS bytes. Observed lab LCP 64–204ms and CLS 0–0.0313 in this CI run; these unusually fast synthetic local-runner observations are not user-experience guarantees or field data. Field p75 Core Web Vitals, INP, Lighthouse scores and real-device/staging validation remain pending.
-- [~] **QA-02** TIER typography moved from runtime Google Fonts CSS `@import` to Next.js build-time font optimization/self-hosted assets (PR #52); TPS font/image optimization, bundle analysis, caching and broader route-loading work remain pending.
+- [~] **QA-02** TIER no longer depends on runtime Google Fonts CSS or build-time remote font fetching; CSS system font stacks provide a resilient local fallback (PR #64). Bundled self-hosted brand font files are not included; TPS font/image optimization, bundle analysis, caching and broader route-loading work remain pending.
 - [~] **QA-03** Playwright + axe-core WCAG 2.2 A/AA scans run on key TPS/TIER routes in Chromium, Firefox and WebKit; serious/critical findings fail CI and minor/moderate findings are reported. Full manual WCAG 2.2 AA verification remains pending.
 - [~] **QA-04** CI HTTP smoke tests plus Playwright Chromium/Firefox/WebKit journeys cover TPS parent-guide class/topic selection, admissions funnel enquiry/visit CTAs, admissions/visit required-field validation, TIER institution search/filter/clear and segmented group-enquiry prefill, mobile reflow, keyboard focus, browser runtime errors, key internal links, metadata and JSON-LD. PR #56 exposed and PR #57 fixes low-contrast TPS funnel step markers. Provider-backed submit/delivery and complete user journeys remain pending.
 - [ ] **QA-05** Test current Chrome, Edge, Firefox, Safari/iOS and Android browsers at common screen sizes.
@@ -147,15 +147,15 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **GROW-08** Establish monthly content/SEO/CRO review based on verified performance data.
 - [~] **GROW-09** TPS admissions campaign funnel: focused landing page and parent guide link implemented; class/grade pathways, verified proof, operational callback/visit conversion and final acceptance remain pending.
 - [~] **GROW-10** TIER segmented group funnel: parent/student, institution partnership, careers and general pathways implemented; verified team routing, delivery and final acceptance remain pending.
-- [ ] **GROW-11** Conversion assets: approved prospectus, parent admission checklist, campus-visit guide, hostel guide and event registration with transparent gating.
-- [ ] **GROW-12** Campus visit/event conversion: preferred-slot request, staff confirmation, reminders, reschedule path and attendance outcome.
+- [~] **GROW-11** Parent admission checklist, campus-visit guide and hostel family guide implemented; approved prospectus and event registration remain pending.
+- [~] **GROW-12** Preferred-slot request UI and operating specification drafted; staff confirmation, reminders, reschedule path and attendance outcome remain unimplemented (`CAMPUS_VISIT_CONVERSION_OPERATING_SPEC.md`).
 - [ ] **GROW-13** Callback/contact choice: channel-specific consent for phone/WhatsApp/email, verified contact hours and operational ownership.
-- [ ] **GROW-14** Referral/community acquisition: transparent parent/alumni/community referral attribution, offline QR and short-link campaigns; incentives require separate approval.
+- [~] **GROW-14** Ethical referral and QR acquisition playbook drafted; live referral capture, QR distribution and any incentive remain unapproved (`REFERRAL_QR_CAMPAIGN_PLAYBOOK.md`).
 - [ ] **GROW-15** Trust/proof modules: evidence-backed affiliations, leadership, facilities, dated outcomes and permissioned stories/media.
 - [ ] **GROW-16** Local discovery: verified NAP, useful local-intent pages, map/directions, institution SEO and authorised business profiles.
-- [ ] **GROW-17** Campaign attribution: privacy-safe UTM convention, first/last-touch rules and funnel-to-enrolment reporting reconciled with ERP outcomes.
+- [~] **GROW-17** Privacy-safe UTM convention, first/last-touch semantics and reporting contract drafted; analytics, ERP persistence and outcome reconciliation remain disabled (`CAMPAIGN_ATTRIBUTION_DATA_CONTRACT.md`).
 - [ ] **GROW-18** Ethical enquiry recovery/remarketing: explicit opt-in, suppression and opt-out; no covert abandoned-form identification or unsolicited messaging.
-- [ ] **GROW-19** Lead qualification/routing/SLA: explainable intent-based prioritisation, accountable team assignment, reminders and response dashboard in ERP.
+- [~] **GROW-19** Lead routing, owner/backup model, SLA metrics and dashboard specification drafted; accountable staff assignments, automation and ERP dashboard remain pending (`LEAD_ROUTING_RESPONSE_SLA_SPEC.md`).
 - [ ] **GROW-20** Conversion optimisation: hypothesis-led A/B testing with approved analytics, guardrails, accessibility and rollback.
 - [ ] **GROW-21** Helpful admissions assistant: source-grounded FAQ and institution routing with human handoff, no child profiling or admission promises.
 - [ ] **GROW-22** Hindi-first/local/offline-to-online reach: reviewed bilingual guides, QR campaigns and low-bandwidth landing-page experience.
