@@ -158,7 +158,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [~] **GROW-19** Lead routing, owner/backup model, SLA metrics and dashboard specification drafted; accountable staff assignments, automation and ERP dashboard remain pending (`LEAD_ROUTING_RESPONSE_SLA_SPEC.md`).
 - [ ] **GROW-20** Conversion optimisation: hypothesis-led A/B testing with approved analytics, guardrails, accessibility and rollback.
 - [~] **GROW-21** Deterministic, searchable, source-grounded TPS/TIER FAQ and pathway finders implemented (PRs #83–84); an advanced assistant, approved knowledge corpus, human handoff and privacy review remain pending.
-- [~] **GROW-22** TPS and TIER Hindi FAQ/help translations and language selectors are merged behind an opt-in feature flag (PR #87); text-first no-login QR landing pages are under PR #93. Authorised human translation review, production enablement, QR artwork/print approval and low-bandwidth campaign acceptance remain pending.
+- [~] **GROW-22** TPS and TIER Hindi FAQ/help translations and language selectors are merged behind an opt-in feature flag (PR #87); text-first no-login QR landing pages are under PR #94. Authorised human translation review, production enablement, QR artwork/print approval and low-bandwidth campaign acceptance remain pending.
 
 Detailed scope, acceptance criteria, safeguards, channel playbook and phased rollout: `docs/digital-growth/TAGORE_GROWTH_FUNNELS_AND_ACQUISITION_SPEC.md`.
 
@@ -252,7 +252,7 @@ A workstream is complete only when:
 - [x] PR #88 TPS grade-stage admissions guides merged after exact-source free CI passed both site jobs.
 - [x] PR #89 TIER institution comparison merged after exact-source free CI passed both site jobs.
 - [x] PR #91 initial architecture decision record and page-by-page CTA hierarchy merged; no analytics or tracking enabled.
-- [~] PR #93 text-first TPS/TIER QR landing pages are in exact-source free CI validation.
+- [~] PR #94 text-first TPS/TIER QR landing pages are in exact-source free CI validation.
 - [ ] Reconcile institution facts, media permissions and approvals from authorised source documents before publishing claims/assets.
 - [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
 - [ ] Staging and owner acceptance.
