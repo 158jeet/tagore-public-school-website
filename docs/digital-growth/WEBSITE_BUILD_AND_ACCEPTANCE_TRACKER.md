@@ -1,5 +1,5 @@
 # Tagore Group website master feature register and delivery plan
-Updated: 2026-11-20 (cold-cache performance measurements and QA evidence)
+Updated: 2026-11-21 (SEO discoverability, conversion-guide links, content/media governance and release controls)
 Status key: [x] implemented in Git; [~] in progress / specification only; [ ] not yet implemented; [!] blocked on owner input or external dependency.
 
 This is the canonical scope register for both public websites. Every implementation pull request must reference a workstream ID below and update this file when acceptance status changes. A checked item means code or an approved specification exists; it does not mean production deployment or owner acceptance unless explicitly stated.
@@ -151,7 +151,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [~] **GROW-12** Preferred-slot request UI and operating specification drafted; staff confirmation, reminders, reschedule path and attendance outcome remain unimplemented (`CAMPUS_VISIT_CONVERSION_OPERATING_SPEC.md`).
 - [ ] **GROW-13** Callback/contact choice: channel-specific consent for phone/WhatsApp/email, verified contact hours and operational ownership.
 - [~] **GROW-14** Ethical referral and QR acquisition playbook drafted; live referral capture, QR distribution and any incentive remain unapproved (`REFERRAL_QR_CAMPAIGN_PLAYBOOK.md`).
-- [ ] **GROW-15** Trust/proof modules: evidence-backed affiliations, leadership, facilities, dated outcomes and permissioned stories/media.
+- [~] **GROW-15** Trust/proof governance established: institution fact verification register and media rights/asset register merged (PR #75); actual evidence collection, approvals and public trust modules remain pending.
 - [ ] **GROW-16** Local discovery: verified NAP, useful local-intent pages, map/directions, institution SEO and authorised business profiles.
 - [~] **GROW-17** Privacy-safe UTM convention, first/last-touch semantics and reporting contract drafted; analytics, ERP persistence and outcome reconciliation remain disabled (`CAMPAIGN_ATTRIBUTION_DATA_CONTRACT.md`).
 - [ ] **GROW-18** Ethical enquiry recovery/remarketing: explicit opt-in, suppression and opt-out; no covert abandoned-form identification or unsolicited messaging.
@@ -167,8 +167,8 @@ Detailed scope, acceptance criteria, safeguards, channel playbook and phased rol
 - [ ] **OPS-01** Configure independent preview/staging deployments for TPS and TIER.
 - [ ] **OPS-02** Verify environment variables and secrets separately per application/environment.
 - [ ] **OPS-03** Add uptime/availability and form-delivery monitoring with privacy-safe alerts.
-- [ ] **OPS-04** Define backups, restore procedure, release notes and rollback procedure.
-- [ ] **OPS-05** Run full pre-launch security, SEO, accessibility, performance, content and enquiry acceptance.
+- [~] **OPS-04** Website release/rollback runbook documented (PR #76); actual host-specific backup, restore, deployment and rollback mechanisms remain pending.
+- [~] **OPS-05** Pre-launch release gates and evidence checklist documented (PR #76); staging execution, provider-backed enquiry acceptance and owner sign-off remain pending.
 - [ ] **OPS-06** Obtain owner approval for final content, analytics, provider integrations and deployment.
 - [ ] **OPS-07** DNS/domain cutover only after explicit owner approval; retain old site and rollback path.
 - [ ] **OPS-08** Post-launch smoke test, Search Console checks, lead-delivery monitoring and 30-day stabilization.
@@ -240,5 +240,11 @@ A workstream is complete only when:
 - [x] PR #50 isolated every performance route/viewport in a fresh browser context and enforced non-zero transfer measurements; both TPS and TIER reports plus visual QA artifacts uploaded successfully (14-day retention).
 - [x] Master feature register reviewed and merged.
 - [x] Parallel workstream PRs created and underway.
+- [x] PR #73 sitemap discoverability for indexable parent/TIER pathway guides merged; noindex campaign/support pages remain excluded.
+- [x] PR #74 added contextual conversion-guide links to TPS admissions funnel and TIER navigation.
+- [x] PR #75 institution fact verification and media rights/asset governance registers merged.
+- [x] PR #76 production release and rollback runbook merged.
+- [ ] Reconcile institution facts, media permissions and approvals from authorised source documents before publishing claims/assets.
+- [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
 - [ ] Staging and owner acceptance.
 - [ ] Production launch approval.
