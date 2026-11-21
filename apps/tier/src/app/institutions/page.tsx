@@ -1,4 +1,5 @@
 import { InstitutionDirectory } from "@/components/institution-directory";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 
 export const metadata = {
   title: "Our Institutions",
@@ -9,6 +10,7 @@ export const metadata = {
 export default function Institutions() {
   return (
     <main>
+      <BreadcrumbJsonLd items={[{ name: "Home", path: "/" }, { name: "Institutions", path: "/institutions" }]} />
       <section className="hero">
         <div className="shell" style={{ padding: "90px 0" }}>
           <div className="eyebrow" style={{ color: "var(--gold)" }}>The Tagore ecosystem</div>

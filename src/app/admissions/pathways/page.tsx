@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 
 export const metadata: Metadata = {
   title: "Admissions Pathways by Learning Stage",
@@ -17,6 +18,7 @@ const stages = [
 
 export default function AdmissionsPathwaysIndexPage() {
   return <main>
+    <BreadcrumbJsonLd items={[{ name: "Home", path: "/" }, { name: "Admissions", path: "/admissions" }, { name: "Learning stages", path: "/admissions/pathways" }]} />
     <section className="bg-navy py-20 text-white">
       <div className="container-shell"><p className="eyebrow text-gold">Find your stage</p><h1 className="mt-5 max-w-4xl font-serif text-5xl leading-tight sm:text-6xl">A more useful admissions conversation starts with the right questions.</h1><p className="mt-6 max-w-3xl leading-8 text-white/70">Choose the learning stage closest to your question. Each guide helps you prepare for a conversation with the school; current programme, eligibility, fee and availability details must be confirmed by the school office.</p></div>
     </section>
