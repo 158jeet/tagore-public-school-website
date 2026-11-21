@@ -1,0 +1,7 @@
+import type { Metadata } from "next";
+import { GroupHelpFinder } from "@/components/group-help-finder";
+export const metadata:Metadata={title:"Group Help & Pathway Questions",description:"Find answers about Tagore Group school, competitive learning, higher education, residential, partnership and career pathways.",alternates:{canonical:"/help"}};
+export default function GroupHelpPage(){return <main>
+<section className="hero"><div className="shell" style={{padding:"90px 0"}}><div className="eyebrow" style={{color:"var(--gold)"}}>A clearer way to connect</div><h1 className="serif" style={{fontSize:"clamp(42px,6vw,68px)",maxWidth:850}}>Start with your question. Find the right pathway.</h1><p className="lead" style={{maxWidth:720}}>Search common questions about the Tagore Group institutions and enquiry routes. Current programme details, vacancies, fees and availability must be confirmed by the relevant institution.</p></div></section>
+<section className="section"><div className="shell"><GroupHelpFinder/><div className="card" style={{marginTop:28}}><h2>Still not sure where to begin?</h2><p>Send a general group enquiry and describe the institution, programme or collaboration you have in mind. A website enquiry does not confirm automatic routing or a response time.</p><a className="button" href="/connect" style={{display:"inline-flex",marginTop:18}}>Connect with the group ↗</a></div></div></section>
+</main>;}
