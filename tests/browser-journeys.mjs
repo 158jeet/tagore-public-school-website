@@ -229,6 +229,37 @@ try {
     assert.match(partnershipMessage, /Please add details about your enquiry below/, "TIER pathway prefill must retain an editable prompt");
   }
 
+  if (engineName === "chromium") {
+    const cdp = await context.newCDPSession(page);
+    try {
+      await cdp.send("Network.enable");
+      await cdp.send("Network.emulateNetworkConditions", {
+        offline: false,
+        latency: 400,
+        downloadThroughput: 400 * 1024 / 8,
+        uploadThroughput: 100 * 1024 / 8,
+        connectionType: "cellular3g",
+      });
+      const startedAt = Date.now();
+      const response = await page.goto(origin + "/start", { waitUntil: "domcontentloaded", timeout: 30000 });
+      assert.equal(response?.status(), 200, "Text-first QR landing page must return HTTP 200 on simulated slow 3G");
+      await page.getByRole("heading", { name: app === "tps" ? /Your next conversation starts here/i : /Start with the information you need/i }).waitFor({ timeout: 20000 });
+      const elapsedMs = Date.now() - startedAt;
+      const mainText = await page.locator("main").innerText();
+      assert.ok(mainText.length > 100, "Low-bandwidth landing page must retain meaningful readable content");
+      assert.ok(elapsedMs < 25000, `Low-bandwidth landing page took ${elapsedMs}ms; expected under 25000ms`);
+      console.log(`PASS: ${app.toUpperCase()} text-first landing page under simulated 400kbps / 400ms latency (${elapsedMs}ms)`);
+    } finally {
+      await cdp.send("Network.emulateNetworkConditions", {
+        offline: false,
+        latency: 0,
+        downloadThroughput: -1,
+        uploadThroughput: -1,
+      });
+      await cdp.detach();
+    }
+  }
+
   assert.deepEqual(pageErrors, [], `Browser runtime errors detected: ${pageErrors.join(" | ")}`);
   if (app === "tier") {
     assert.deepEqual(thirdPartyFontRequests, [], `TIER must not request Google Fonts at runtime: ${thirdPartyFontRequests.join(", ")}`);
