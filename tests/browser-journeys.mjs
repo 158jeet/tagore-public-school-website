@@ -129,7 +129,7 @@ try {
         return rect.width > 0 && rect.height > 0 && style.visibility !== "hidden";
       });
       assert.ok(focused, "Keyboard Tab must move focus to a visible interactive element");
-      const menuButton = page.locator(app === "tps" ? "#tps-mobile-navigation" : "#tier-mobile-navigation").locator("xpath=preceding-sibling::button");
+      const menuButton = page.locator(app === "tps" ? 'button[aria-controls="tps-mobile-navigation"]' : 'button[aria-controls="tier-mobile-navigation"]');
       await menuButton.click();
       assert.equal(await menuButton.getAttribute("aria-expanded"), "true", "Mobile navigation must expose its expanded state");
       await page.keyboard.press("Escape");
