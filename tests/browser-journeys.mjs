@@ -13,8 +13,8 @@ const appDir = app === "tier" ? path.join(root, "apps", "tier") : root;
 const port = Number(process.env.BROWSER_PORT || (app === "tps" ? 3380 : 3480));
 const origin = `http://127.0.0.1:${port}`;
 const routes = app === "tps"
-  ? ["/", "/parent-guide", "/admissions", "/visit", "/admissions/funnel"]
-  : ["/", "/institutions", "/contact", "/connect"];
+  ? ["/", "/parent-guide", "/admissions", "/visit", "/admissions/funnel", "/admissions/faq"]
+  : ["/", "/institutions", "/contact", "/connect", "/help"];
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
   cwd: appDir,
   env: { ...process.env, SITE_INDEXING_ENABLED: "false", PORT: String(port), HOSTNAME: "127.0.0.1" },
@@ -159,6 +159,14 @@ try {
     assert.equal(await page.locator('[name="preferred_date"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred date");
     assert.equal(await page.locator('[name="preferred_time"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred time");
 
+    await page.goto(origin + "/admissions/faq", { waitUntil: "networkidle" });
+    await page.getByRole("searchbox", { name: /Search admissions questions/i }).fill("transport");
+    assert.match(await page.getByRole("status").innerText(), /1 answer found/);
+    await page.getByText(/How can I ask about transport or residential arrangements/i).waitFor();
+    await page.getByRole("searchbox", { name: /Search admissions questions/i }).fill("");
+    await page.getByRole("button", { name: "Fees", exact: true }).click();
+    assert.match(await page.getByRole("status").innerText(), /1 answer found/);
+
     await page.goto(origin + "/admissions/funnel", { waitUntil: "networkidle" });
     await page.getByRole("heading", { name: /Choose with clarity/i }).waitFor();
     await page.getByRole("link", { name: /Enquire about admission/i }).click();
@@ -174,6 +182,14 @@ try {
     assert.match(await page.locator(".directory-count").innerText(), /Showing 0 of 6 institutions/);
     await page.getByRole("button", { name: /Clear filters/i }).click();
     assert.match(await page.locator(".directory-count").innerText(), /Showing 6 of 6 institutions/);
+
+    await page.goto(origin + "/help", { waitUntil: "networkidle" });
+    await page.getByRole("searchbox", { name: /Search by question or topic/i }).fill("hostel");
+    assert.match(await page.getByRole("status").innerText(), /1 answer found/);
+    await page.getByText(/How do I enquire about hostel arrangements/i).waitFor();
+    await page.getByRole("searchbox", { name: /Search by question or topic/i }).fill("");
+    await page.getByRole("button", { name: "Partnerships", exact: true }).click();
+    assert.match(await page.getByRole("status").innerText(), /1 answer found/);
 
     await page.goto(origin + "/contact", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Send group enquiry/i }).click();
