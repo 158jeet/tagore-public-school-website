@@ -37,7 +37,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **TIER-04** Group contact/enquiry UI.
 - [~] **TIER-05** Institution portfolio foundations and a searchable group pathway-help page are in progress (PR #84); consistent verified profiles, full facts and operational audience routing remain pending.
 - [ ] **TIER-06** Dedicated group story, leadership/governance and impact pages using approved evidence.
-- [~] **TIER-07** Searchable/filterable directory is implemented; side-by-side comparison for up to three institutions is under PR #89. Verified routing remains pending.
+- [~] **TIER-07** Searchable/filterable directory and side-by-side comparison for up to three institutions are implemented (PR #89 merged); verified operational routing remains pending.
 - [~] **TIER-08** Group-level contact, partnership, career and general enquiry pathways implemented; recipient verification and operational routing remain pending.
 - [~] **TIER-09** TPS and TIER mobile navigation now share keyboard dismissal, `aria-controls` and focus restoration behavior (PR #86); broader design-system and responsive-navigation consistency remains pending.
 
@@ -249,7 +249,8 @@ A workstream is complete only when:
 - [x] PR #83 TPS searchable admissions FAQ, PR #84 TIER searchable pathway help, and PR #85 automated SEO acceptance gates merged after both site jobs passed in free CI.
 - [x] PR #86 consistent keyboard dismissal/focus restoration for TPS and TIER mobile navigation merged after exact-source free CI passed both site jobs.
 - [x] PR #87 gated Hindi FAQ/help content for TPS and TIER merged after exact-source free CI passed both site jobs; Hindi mode remains disabled until authorised human review.
-- [~] PR #88 TPS grade-stage admissions guides and PR #89 TIER institution comparison are in exact-source free CI validation; do not merge before both jobs pass.
+- [~] PR #88 TPS grade-stage admissions guides remain in exact-source free CI validation.
+- [x] PR #89 TIER institution comparison merged after exact-source free CI passed both site jobs.
 - [ ] Reconcile institution facts, media permissions and approvals from authorised source documents before publishing claims/assets.
 - [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
 - [ ] Staging and owner acceptance.
