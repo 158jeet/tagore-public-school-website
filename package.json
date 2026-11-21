@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "test:security": "node --experimental-strip-types --test tests/security-api.test.mjs",
     "test:config": "node --test tests/site-config.test.mjs",
+    "test:seo": "node --test tests/seo-acceptance.test.mjs",
     "test:forms": "node --test tests/form-contract.test.mjs",
     "test:smoke": "node tests/runtime-smoke.mjs",
     "test:browser": "node tests/browser-journeys.mjs",
