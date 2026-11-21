@@ -169,3 +169,9 @@ The following draft public PRs are CI-only mirrors. Do not merge them. They are 
 - Private PR #89 (TIER-07) → public draft PR #9, head `a6ab9556f94e8c3f55b9ed278669eab8eca27dd4`, run `44878968519`.
 - Private PR #90 (GROW-22 QR gateways) → public draft PR #11, head `8fc83eb58b177940f857e702af0e99a1f57bb8ba`, run `44879096910`.
 At the time of this ledger update, these three candidate runs were still in progress. Exact-head CI must succeed before merging the private implementation PRs. Private PR #91 is documentation-only and is not mirrored to the public repository.
+
+- 2026-11-21: Public mirror main was refreshed from the private canonical source by approved sync commit `bf8abe09eace140eb711d4eba4039b167b0dea9d` (13 changed source/CI/test files; no private docs, credentials or history). Free CI run `44878876669` passed both TPS and TIER jobs on that snapshot.
+- 2026-11-21: Two additional private feature lanes are being validated in parallel:
+  - PR #88 TPS-06 grade-stage admissions guides: public QA PR #8, run `44878965236`; TPS job passed, TIER job was still in browser validation at ledger update.
+  - PR #89 TIER-07 institution comparison: public QA PR #9, run `44878968519`; TIER job passed, TPS job was completing performance validation at ledger update.
+- 2026-11-21: GROW-22 QR landing page PR #90 has a current-snapshot public QA mirror PR #12, run `44879183407`. An earlier mirror PR #10 was closed as superseded before merge; PR #12 is the active exact-source candidate.
