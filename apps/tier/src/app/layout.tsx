@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import { DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { GroupSiteHeader } from "@/components/site-header";
 import { GroupSiteFooter } from "@/components/site-footer";
 import { MobileQuickActions } from "@/components/mobile-quick-actions";
 
-const dmSans = DM_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-dm-sans", display: "swap" });
-const playfairDisplay = Playfair_Display({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-playfair", display: "swap" });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.tieredu.org";
 const indexingEnabled = process.env.SITE_INDEXING_ENABLED === "true";
@@ -53,7 +50,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${dmSans.variable} ${playfairDisplay.variable}`}>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(groupSchema).replace(/</g, "\\u003c") }}
