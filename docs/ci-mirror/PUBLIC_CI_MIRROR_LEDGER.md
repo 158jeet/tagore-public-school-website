@@ -175,3 +175,5 @@ At the time of this ledger update, these three candidate runs were still in prog
   - PR #88 TPS-06 grade-stage admissions guides: public QA PR #8, run `44878965236`; TPS job passed, TIER job was still in browser validation at ledger update.
   - PR #89 TIER-07 institution comparison: public QA PR #9, run `44878968519`; TIER job passed, TPS job was completing performance validation at ledger update.
 - 2026-11-21: GROW-22 QR landing page PR #90 has a current-snapshot public QA mirror PR #12, run `44879183407`. An earlier mirror PR #10 was closed as superseded before merge; PR #12 is the active exact-source candidate.
+
+- 2026-11-21: Private PR #89 TIER institution comparison passed both jobs in public free CI run `44878968519`. Verified that all three changed file blobs matched exactly between the private PR head and public QA branch. Private PR #89 merged as `5ddddc45eb634c4c01db25d4fb0335049f1576f4`. Feature tracker updated in private commit `da90bf3395c1a7ba54348e5f77cf8f209f326efb`.
