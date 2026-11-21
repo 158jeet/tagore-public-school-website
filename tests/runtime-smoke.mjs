@@ -144,6 +144,11 @@ try {
   const missingRoute = "/__tagore_smoke_missing_route__";
   const missingResponse = await fetch(origin + missingRoute, { redirect: "manual", signal: AbortSignal.timeout(10000) });
   assert.equal(missingResponse.status, 404, `${app.toUpperCase()} unknown route must return HTTP 404`);
+  const missingHtml = await missingResponse.text();
+  assert.match(missingHtml, /<h1[^>]*>Page not found<\\/h1>/i, `${app.toUpperCase()} 404 page must render its branded not-found heading`);
+  for (const destination of app === "tps" ? ["/", "/admissions"] : ["/", "/institutions", "/contact"]) {
+    assert.ok(missingHtml.includes(`href="${destination}"`), `${app.toUpperCase()} 404 page must provide navigation to ${destination}`);
+  }
 
   const robotsResponse = await fetch(origin + "/robots.txt", { signal: AbortSignal.timeout(10000) });
   assert.equal(robotsResponse.status, 200);
