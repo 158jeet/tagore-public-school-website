@@ -141,6 +141,7 @@ try {
     }
   }
 
+  if (engineName === "chromium") {
   const mobileProfiles = [
     { name: "iPhone 13 Safari", engine: webkit, descriptor: devices["iPhone 13"] },
     { name: "Pixel 5 Chrome", engine: chromium, descriptor: devices["Pixel 5"] },
@@ -171,6 +172,7 @@ try {
     } finally {
       await mobileBrowser.close();
     }
+  }
   }
 
   if (app === "tps") {
