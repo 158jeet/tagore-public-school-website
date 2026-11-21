@@ -128,3 +128,6 @@ tsconfig.json
   - Private PR #84 — TIER searchable group pathway help (TIER-05/GROW-21 foundation); public QA PR #4; run `44877238435`; private head `9d6164f22e346b1074af4d4ceaa6421fdc21054e`.
   - Private PR #85 — automated SEO acceptance gates (SEO-07/QA-08); public QA PR #5; run `44877258952`; private head `10c0ea3b2fcceef76074cc68c70b375dbca16600`.
   - These are draft candidates and must not merge until exact-source CI passes. No external AI, analytics, production settings, deployment, DNS or lead-provider changes were added.
+
+- 2026-11-21: PR #81 was merged after the corrected candidate passed both TIER and TPS jobs in free CI run `44877036890`; private merge commit `3919585a60f4e7dd76b44c113582d755dc5aae46`. The initial failed run remains documented above for auditability.
+- 2026-11-21: Master feature register updated in private commit `5fd1c0382b90c23a5362c95393728d96547db175`: TPS-05, TIER-05, SEO-07 and GROW-21 now reflect partial implementation and the remaining owner-input dependencies. PRs #80 and #81 are recorded as merged.
