@@ -17,7 +17,7 @@ const destinations = [
 
 export default function GroupStartPage() {
   return (
-    <main>
+    <>
       <section className="hero">
         <div className="shell" style={{ padding: "76px 0" }}>
           <div className="eyebrow" style={{ color: "var(--gold)" }}>Tagore Group · Gudha Gorji</div>
@@ -39,6 +39,6 @@ export default function GroupStartPage() {
           <p style={{ marginTop: 28, color: "var(--muted)", fontSize: 12, lineHeight: 1.7 }}>This page is an information gateway only. A website enquiry does not confirm admission, a vacancy, partnership approval, appointment or automatic routing. Current details must be confirmed with the relevant institution.</p>
         </div>
       </section>
-    </main>
+    </>
   );
 }

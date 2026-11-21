@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function StartHerePage() {
   return (
-    <main>
+    <>
       <section className="bg-navy py-16 text-white sm:py-20">
         <div className="container-shell max-w-4xl">
           <p className="eyebrow text-gold">Tagore Public School · Gudha Gorji</p>
@@ -49,6 +49,6 @@ export default function StartHerePage() {
           <p className="mt-8 text-xs leading-6 text-ink/50">This page is a general information gateway. An enquiry does not confirm admission or reserve a seat. Current eligibility, fees and availability must be confirmed through the school’s official process.</p>
         </div>
       </section>
-    </main>
+    </>
   );
 }

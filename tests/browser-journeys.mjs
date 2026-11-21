@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { mkdir } from "node:fs/promises";
 import { setTimeout as delay } from "node:timers/promises";
-import { chromium, firefox, webkit } from "@playwright/test";
+import { chromium, devices, firefox, webkit } from "@playwright/test";
 import axe from "axe-core";
 
 const app = process.env.SMOKE_APP;
@@ -139,6 +139,71 @@ try {
       assert.equal(await menuButton.getAttribute("aria-expanded"), "false", "Escape must close mobile navigation");
       assert.equal(await menuButton.evaluate(element => element === document.activeElement), true, "Closing mobile navigation must restore focus to its toggle");
     }
+  }
+
+  if (engineName === "chromium") {
+    const cdp = await context.newCDPSession(page);
+    try {
+      await cdp.send("Network.enable");
+      await cdp.send("Network.emulateNetworkConditions", {
+        offline: false,
+        latency: 400,
+        downloadThroughput: 400 * 1024 / 8,
+        uploadThroughput: 100 * 1024 / 8,
+        connectionType: "cellular3g",
+      });
+      const startedAt = Date.now();
+      const response = await page.goto(origin + "/start", { waitUntil: "domcontentloaded", timeout: 30000 });
+      assert.equal(response?.status(), 200, "Text-first QR landing page must return HTTP 200 on simulated slow 3G");
+      await page.getByRole("heading", { name: app === "tps" ? /Your next conversation starts here/i : /Start with the information you need/i }).waitFor({ timeout: 20000 });
+      const elapsedMs = Date.now() - startedAt;
+      const mainText = await page.locator("body").innerText();
+      assert.ok(mainText.length > 100, "Low-bandwidth landing page must retain meaningful readable content");
+      assert.ok(elapsedMs < 25000, `Low-bandwidth landing page took ${elapsedMs}ms; expected under 25000ms`);
+      console.log(`PASS: ${app.toUpperCase()} text-first landing page under simulated 400kbps / 400ms latency (${elapsedMs}ms)`);
+    } finally {
+      await cdp.send("Network.emulateNetworkConditions", {
+        offline: false,
+        latency: 0,
+        downloadThroughput: -1,
+        uploadThroughput: -1,
+      });
+      await cdp.detach();
+    }
+  }
+
+  if (engineName === "chromium") {
+  const mobileProfiles = [
+    { name: "iPhone 13 Safari", engine: webkit, descriptor: devices["iPhone 13"] },
+    { name: "Pixel 5 Chrome", engine: chromium, descriptor: devices["Pixel 5"] },
+  ];
+  for (const profile of mobileProfiles) {
+    assert.ok(profile.descriptor, `Playwright device profile is available: ${profile.name}`);
+    const mobileBrowser = await profile.engine.launch({ headless: true });
+    try {
+      const mobileContext = await mobileBrowser.newContext({ ...profile.descriptor, reducedMotion: "reduce" });
+      const mobilePage = await mobileContext.newPage();
+      for (const route of routes) {
+        const response = await mobilePage.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
+        assert.equal(response?.status(), 200, `${app.toUpperCase()} ${profile.name} route ${route} did not return 200`);
+        const dimensions = await mobilePage.evaluate(() => ({
+          viewport: document.documentElement.clientWidth,
+          document: document.documentElement.scrollWidth,
+        }));
+        assert.ok(dimensions.document <= dimensions.viewport + 1, `${app.toUpperCase()} ${profile.name} ${route} has horizontal overflow: ${JSON.stringify(dimensions)}`);
+        if (route === "/") {
+          const toggle = mobilePage.locator(app === "tps" ? 'button[aria-controls="tps-mobile-navigation"]' : 'button[aria-controls="tier-mobile-navigation"]');
+          await toggle.tap();
+          assert.equal(await toggle.getAttribute("aria-expanded"), "true", `${profile.name} mobile navigation must open from touch`);
+          await mobilePage.keyboard.press("Escape");
+          assert.equal(await toggle.getAttribute("aria-expanded"), "false", `${profile.name} mobile navigation must close with Escape`);
+        }
+      }
+      await mobileContext.close();
+    } finally {
+      await mobileBrowser.close();
+    }
+  }
   }
 
   if (app === "tps") {
