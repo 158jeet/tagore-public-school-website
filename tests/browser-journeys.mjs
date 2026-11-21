@@ -129,6 +129,12 @@ try {
         return rect.width > 0 && rect.height > 0 && style.visibility !== "hidden";
       });
       assert.ok(focused, "Keyboard Tab must move focus to a visible interactive element");
+      const menuButton = page.locator(app === "tps" ? "#tps-mobile-navigation" : "#tier-mobile-navigation").locator("xpath=preceding-sibling::button");
+      await menuButton.click();
+      assert.equal(await menuButton.getAttribute("aria-expanded"), "true", "Mobile navigation must expose its expanded state");
+      await page.keyboard.press("Escape");
+      assert.equal(await menuButton.getAttribute("aria-expanded"), "false", "Escape must close mobile navigation");
+      assert.equal(await menuButton.evaluate(element => element === document.activeElement), true, "Closing mobile navigation must restore focus to its toggle");
     }
   }
 
