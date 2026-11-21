@@ -39,7 +39,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [ ] **TIER-06** Dedicated group story, leadership/governance and impact pages using approved evidence.
 - [~] **TIER-07** Searchable/filterable institution directory implemented; pathway comparison and verified routing remain in progress.
 - [~] **TIER-08** Group-level contact, partnership, career and general enquiry pathways implemented; recipient verification and operational routing remain pending.
-- [ ] **TIER-09** Consistent design system and responsive navigation across TPS and TIER without forcing identical brand expression.
+- [~] **TIER-09** TPS and TIER mobile navigation now share keyboard dismissal, `aria-controls` and focus restoration behavior (PR #86); broader design-system and responsive-navigation consistency remains pending.
 
 ### Shared conversion standards
 - [ ] **CRO-01** Define primary and secondary conversion actions for each page and audience.
@@ -120,7 +120,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [~] **QA-03** Playwright + axe-core WCAG 2.2 A/AA scans run on key TPS/TIER routes in Chromium, Firefox and WebKit; serious/critical findings fail CI and minor/moderate findings are reported. Full manual WCAG 2.2 AA verification remains pending.
 - [~] **QA-04** CI HTTP smoke tests plus Playwright Chromium/Firefox/WebKit journeys cover TPS parent-guide class/topic selection, admissions funnel enquiry/visit CTAs, admissions/visit required-field validation, TIER institution search/filter/clear and segmented group-enquiry prefill, mobile reflow, keyboard focus, browser runtime errors, key internal links, metadata and JSON-LD. PR #56 exposed and PR #57 fixes low-contrast TPS funnel step markers. Provider-backed submit/delivery and complete user journeys remain pending.
 - [ ] **QA-05** Test current Chrome, Edge, Firefox, Safari/iOS and Android browsers at common screen sizes.
-- [~] **QA-06** Browser tests verify initial keyboard focus, native required-field validation and reduced-motion preference across Chromium/Firefox/WebKit; screen-reader passes, 200% zoom, slow network, provider failure/success, duplicate submission and refresh/back navigation remain pending.
+- [~] **QA-06** Browser tests verify initial keyboard focus, Escape-to-close mobile navigation with focus restoration, FAQ/help search interactions, native required-field validation and reduced-motion preference across Chromium/Firefox/WebKit; screen-reader passes, 200% zoom, slow network, provider failure/success, duplicate submission and refresh/back navigation remain pending.
 - [~] **QA-07** CI captures full-page 390px mobile and 1440px desktop screenshots for all key TPS/TIER routes as 14-day artifacts; baseline pixel-diff regression and manual visual sign-off remain pending.
 - [~] **QA-08** Production HTTP smoke tests verify journey links, same-origin links, robots, sitemap host separation, unknown-route 404, page metadata and JSON-LD; Playwright adds interactive journey checks on key routes across Chromium/Firefox/WebKit. Complete metadata/canonical, redirect, 500 and site-wide broken-link audits remain pending.
 - [ ] **QA-09** Production acceptance report with screenshots, test evidence, open risks and owner sign-off.
@@ -247,7 +247,7 @@ A workstream is complete only when:
 - [x] PR #80 TPS parent decision-centre accessibility improvements merged after exact-source free CI passed.
 - [x] PR #81 TIER directory filter accessibility improvements merged after the duplicate empty-state reset control was corrected and exact-source free CI passed.
 - [x] PR #83 TPS searchable admissions FAQ, PR #84 TIER searchable pathway help, and PR #85 automated SEO acceptance gates merged after both site jobs passed in free CI.
-- [~] PR #86 consistent keyboard dismissal/focus restoration for TPS and TIER mobile navigation is under exact-source free CI validation.
+- [x] PR #86 consistent keyboard dismissal/focus restoration for TPS and TIER mobile navigation merged after exact-source free CI passed both site jobs.
 - [ ] Reconcile institution facts, media permissions and approvals from authorised source documents before publishing claims/assets.
 - [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
 - [ ] Staging and owner acceptance.
