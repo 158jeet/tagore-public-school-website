@@ -12,7 +12,8 @@ The mirror is not a backup, not a development source of truth, and not a confide
 
 | Snapshot | Private source branch | Private source commit | Public target | Public snapshot commit | Status |
 |---|---|---|---|---|---|
-| 001 | main | `f9f6d499fa24de91f9dd13d6caa3bef0210ff481` | `158jeet/atlas-build-lab` | `b8c35ba8af6556939467f55182023989689996ef` | Published; Website CI running; initial quality stages passed |
+| 001 | main | `f9f6d499fa24de91f9dd13d6caa3bef0210ff481` | `158jeet/atlas-build-lab` | `b8c35ba8af6556939467f55182023989689996ef` | Published; CI `44876177550` passed |
+| 002 | main | `c9423e490c5b5b2f033a75d9cc8905b5e8c3ff57` | `158jeet/atlas-build-lab` | `bf8abe09eace140eb711d4eba4039b167b0dea9d` | Published; CI `44878876669` passed both app jobs |
 
 ## Audit record — snapshot 001
 
@@ -145,3 +146,26 @@ tsconfig.json
 - 2026-11-21: GROW-22 candidate run `44878579964` completed successfully on both TPS and TIER jobs. The TPS job passed typecheck, security/forms/config/SEO tests, lint, build, browser journeys including English/Hindi toggle, smoke test and performance lab. The TIER job passed typecheck, lint, build, browser journeys including English/Hindi toggle, smoke test and performance lab. Private PR #87 merged as `3633b7be07a54b00871688533aa5dd4a56afea08`.
 - 2026-11-21: Hindi content remains disabled by default. CI alone sets `NEXT_PUBLIC_HINDI_CONTENT_ENABLED=true` to test it. Private review checklist `docs/content/HINDI_LOCALIZATION_REVIEW.md` records that an authorised Tagore reviewer must approve all translations before the flag is enabled in staging/production. No external translation API, analytics or paid services were added.
 - 2026-11-21: Master feature register updated in private commit `5495c2d2fc8d7ae33edcefc40a30392f30d9a11e` to record PR #87 merged while retaining human-review, QR and low-bandwidth acceptance gates.
+
+## Audit record — snapshot 002
+
+- Private canonical main commit: `c9423e490c5b5b2f033a75d9cc8905b5e8c3ff57`.
+- Public mirror main commit: `bf8abe09eace140eb711d4eba4039b167b0dea9d`.
+- Approved current source manifest: 66 files (the original 62-file manifest plus the four files below). The 66 approved path/blob entries were compared against the private main tree; all 66 matched exactly at verification time.
+- New files added since snapshot 001:
+  - `apps/tier/src/app/help/page.tsx`
+  - `apps/tier/src/components/group-help-finder.tsx`
+  - `src/components/admissions-faq-finder.tsx`
+  - `tests/seo-acceptance.test.mjs`
+- Thirteen changed approved files were re-fetched and screened for private-key headers, common GitHub token prefixes, AWS access-key IDs, Slack token prefixes and likely credential assignments. No pattern hits were found. This is a screening measure, not a guarantee.
+- The refresh used one consolidated Git tree/commit on the public mirror. It did not copy private commit history, `docs/**`, README files, environment templates, operational records or credentials.
+- Public snapshot CI run `44878876669` completed with overall conclusion **success**. Both TPS and TIER jobs passed every configured step, including typecheck, security/form/config/SEO checks (TPS), lint, production builds, browser journeys/accessibility, production smoke tests, performance labs and artifact uploads.
+- The 14-day visual/performance artifacts for this run should be reviewed before expiry.
+
+### Snapshot 002 candidate QA runs
+
+The following draft public PRs are CI-only mirrors. Do not merge them. They are based on snapshot 002 and contain only the approved code/test changes from their matching private PRs:
+- Private PR #88 (TPS-06) → public draft PR #8, head `aec358913dec55f9ce0419bf5e623e28107c802f`, run `44878965236`.
+- Private PR #89 (TIER-07) → public draft PR #9, head `a6ab9556f94e8c3f55b9ed278669eab8eca27dd4`, run `44878968519`.
+- Private PR #90 (GROW-22 QR gateways) → public draft PR #11, head `8fc83eb58b177940f857e702af0e99a1f57bb8ba`, run `44879096910`.
+At the time of this ledger update, these three candidate runs were still in progress. Exact-head CI must succeed before merging the private implementation PRs. Private PR #91 is documentation-only and is not mirrored to the public repository.
