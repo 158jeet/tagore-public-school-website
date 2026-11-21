@@ -253,6 +253,7 @@ A workstream is complete only when:
 - [x] PR #89 TIER institution comparison merged after exact-source free CI passed both site jobs.
 - [x] PR #91 initial architecture decision record and page-by-page CTA hierarchy merged; no analytics or tracking enabled.
 - [x] PR #94 text-first TPS/TIER QR landing pages merged after exact-source free CI passed both site jobs; QR artwork, print proof and public distribution remain unapproved.
+- [~] PR #96 expanded SEO acceptance coverage for grade-stage and QR routes is under free CI validation.
 - [ ] Reconcile institution facts, media permissions and approvals from authorised source documents before publishing claims/assets.
 - [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
 - [ ] Staging and owner acceptance.
