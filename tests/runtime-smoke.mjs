@@ -153,7 +153,7 @@ try {
   const sitemap = await sitemapResponse.text();
   assert.ok(sitemap.includes(expectedHost), "sitemap must use the app's own canonical host");
   assert.ok(!sitemap.includes(app === "tps" ? "www.tieredu.org" : "www.tpsgudhagorji.com"), "sitemap must not mix the other brand's host");
-  const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\\/loc>/gi)].map((match) => new URL(match[1]));
+  const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/gi)].map((match) => new URL(match[1]));
   assert.ok(sitemapUrls.length > 0, "sitemap must contain at least one indexable route");
   for (const url of sitemapUrls) {
     assert.equal(url.host, expectedHost, "every sitemap URL must use the correct brand host");
