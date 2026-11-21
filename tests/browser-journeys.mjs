@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import path from "node:path";
 import { mkdir } from "node:fs/promises";
 import { setTimeout as delay } from "node:timers/promises";
-import { chromium, firefox, webkit } from "@playwright/test";
+import { chromium, devices, firefox, webkit } from "@playwright/test";
 import axe from "axe-core";
 
 const app = process.env.SMOKE_APP;
@@ -138,6 +138,38 @@ try {
       await page.keyboard.press("Escape");
       assert.equal(await menuButton.getAttribute("aria-expanded"), "false", "Escape must close mobile navigation");
       assert.equal(await menuButton.evaluate(element => element === document.activeElement), true, "Closing mobile navigation must restore focus to its toggle");
+    }
+  }
+
+  const mobileProfiles = [
+    { name: "iPhone 13 Safari", engine: webkit, descriptor: devices["iPhone 13"] },
+    { name: "Pixel 5 Chrome", engine: chromium, descriptor: devices["Pixel 5"] },
+  ];
+  for (const profile of mobileProfiles) {
+    assert.ok(profile.descriptor, `Playwright device profile is available: ${profile.name}`);
+    const mobileBrowser = await profile.engine.launch({ headless: true });
+    try {
+      const mobileContext = await mobileBrowser.newContext({ ...profile.descriptor, reducedMotion: "reduce" });
+      const mobilePage = await mobileContext.newPage();
+      for (const route of routes) {
+        const response = await mobilePage.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
+        assert.equal(response?.status(), 200, `${app.toUpperCase()} ${profile.name} route ${route} did not return 200`);
+        const dimensions = await mobilePage.evaluate(() => ({
+          viewport: document.documentElement.clientWidth,
+          document: document.documentElement.scrollWidth,
+        }));
+        assert.ok(dimensions.document <= dimensions.viewport + 1, `${app.toUpperCase()} ${profile.name} ${route} has horizontal overflow: ${JSON.stringify(dimensions)}`);
+        if (route === "/") {
+          const toggle = mobilePage.locator(app === "tps" ? 'button[aria-controls="tps-mobile-navigation"]' : 'button[aria-controls="tier-mobile-navigation"]');
+          await toggle.tap();
+          assert.equal(await toggle.getAttribute("aria-expanded"), "true", `${profile.name} mobile navigation must open from touch`);
+          await mobilePage.keyboard.press("Escape");
+          assert.equal(await toggle.getAttribute("aria-expanded"), "false", `${profile.name} mobile navigation must close with Escape`);
+        }
+      }
+      await mobileContext.close();
+    } finally {
+      await mobileBrowser.close();
     }
   }
 
