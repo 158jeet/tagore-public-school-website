@@ -262,10 +262,11 @@ try {
     await page.locator('input[name="contact_consent"]').check();
     const admissionSubmit = page.getByRole("button", { name: /Submit admission enquiry/i });
     await admissionSubmit.click();
-    await page.getByRole("button", { name: /Sending enquiry/i }).waitFor({ state: "visible", timeout: 5000 });
-    assert.equal(await admissionSubmit.isDisabled(), true, "TPS admission form must prevent duplicate submission while pending");
+    const admissionPending = page.getByRole("button", { name: /Sending enquiry/i });
+    await admissionPending.waitFor({ state: "visible", timeout: 5000 });
+    assert.equal(await admissionPending.isDisabled(), true, "TPS admission form must prevent duplicate submission while pending");
     await page.getByRole("status").getByText(/Your enquiry has been sent/i).waitFor();
-    assert.equal(await admissionSubmit.isDisabled(), false, "TPS admission form must re-enable after completion");
+    assert.equal(await page.getByRole("button", { name: /Submit admission enquiry/i }).isDisabled(), false, "TPS admission form must re-enable after completion");
     await page.unroute("**/api/enquiry");
 
     await page.route("**/api/enquiry", route => route.fulfill({
@@ -343,10 +344,11 @@ try {
     await page.locator('input[name="consent"]').check();
     const groupSubmit = page.getByRole("button", { name: /Send group enquiry/i });
     await groupSubmit.click();
-    await page.getByRole("button", { name: /Sending…/i }).waitFor({ state: "visible", timeout: 5000 });
-    assert.equal(await groupSubmit.isDisabled(), true, "TIER group form must prevent duplicate submission while pending");
+    const groupPending = page.getByRole("button", { name: /Sending…/i });
+    await groupPending.waitFor({ state: "visible", timeout: 5000 });
+    assert.equal(await groupPending.isDisabled(), true, "TIER group form must prevent duplicate submission while pending");
     await page.getByRole("status").getByText(/Your group enquiry has been sent/i).waitFor();
-    assert.equal(await groupSubmit.isDisabled(), false, "TIER group form must re-enable after completion");
+    assert.equal(await page.getByRole("button", { name: /Send group enquiry/i }).isDisabled(), false, "TIER group form must re-enable after completion");
     await page.unroute("**/api/enquiry");
 
     await page.route("**/api/enquiry", route => route.fulfill({
