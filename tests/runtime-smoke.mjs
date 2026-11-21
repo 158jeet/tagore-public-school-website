@@ -8,8 +8,11 @@ const port = Number(process.env.SMOKE_PORT || (app === "tps" ? 3180 : 3280));
 const origin = `http://127.0.0.1:${port}`;
 const expectedHost = app === "tps" ? "www.tpsgudhagorji.com" : "www.tieredu.org";
 const routes = app === "tps"
-  ? ["/", "/about", "/admissions", "/parent-guide", "/admissions/faq", "/visit"]
-  : ["/", "/about", "/institutions", "/contact", "/institutions/tagore-bal-niketan", "/institutions/tagore-smart-school", "/institutions/tagore-vedant-academy", "/institutions/tagore-pg-college", "/institutions/tagore-hostel"];
+  ? ["/", "/about", "/admissions", "/parent-guide", "/admissions/faq", "/admissions/parent-checklist", "/admissions/funnel", "/admissions/pathways", "/admissions/pathways/early-years", "/admissions/pathways/primary", "/admissions/pathways/middle", "/admissions/pathways/secondary", "/admissions/pathways/senior-secondary", "/visit", "/visit/guide", "/hostel/guide", "/start"]
+  : ["/", "/about", "/institutions", "/choose", "/help", "/contact", "/connect", "/partnerships", "/institutions/tagore-bal-niketan", "/institutions/tagore-smart-school", "/institutions/tagore-vedant-academy", "/institutions/tagore-pg-college", "/institutions/tagore-hostel", "/start"];
+const noindexRoutes = app === "tps"
+  ? ["/admissions/funnel", "/visit/guide", "/hostel/guide", "/start"]
+  : ["/connect", "/partnerships", "/start"];
 
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
   cwd: process.cwd(),
@@ -59,7 +62,10 @@ try {
     assert.equal(response.headers.get("x-powered-by"), null, `${path} exposes X-Powered-By`);
     const html = await response.text();
     assert.match(html, /<html(?:\s|>)/i, `${path} did not return an HTML document`);
-    assert.match(html, /<meta[^>]+name="robots"[^>]+content="noindex, ?nofollow"/i, `${path} must remain noindex in smoke environment`);
+    const expectedRobots = noindexRoutes.includes(path)
+      ? /<meta[^>]+name="robots"[^>]+content="noindex, ?follow"/i
+      : /<meta[^>]+name="robots"[^>]+content="noindex, ?nofollow"/i;
+    assert.match(html, expectedRobots, `${path} must use the expected smoke-environment robots directive`);
     assert.match(html, /<title>[^<]+<\/title>/i, `${path} must render a page title`);
     assert.match(html, /<meta[^>]+name="description"[^>]+content="[^"]{20,}"/i, `${path} must render a useful meta description`);
     const canonicalTag = html.match(/<link[^>]*rel="canonical"[^>]*>/i)?.[0] || "";
@@ -98,12 +104,23 @@ try {
     assertJourneyLink("/", "/visit");
     assertJourneyLink("/parent-guide", "/visit");
     assertJourneyLink("/parent-guide", "/admissions/faq");
+    assertJourneyLink("/admissions", "/admissions/pathways/early-years");
+    assertJourneyLink("/admissions/pathways", "/admissions/pathways/early-years");
+    assertJourneyLink("/admissions/pathways/early-years", "/admissions?class=Nursery");
+    assertJourneyLink("/admissions/pathways/early-years", "/parent-guide");
+    assertJourneyLink("/admissions/pathways/early-years", "/visit");
+    assertJourneyLink("/start", "/admissions");
+    assertJourneyLink("/start", "/visit");
     assertFormFields("/admissions", ["parent_name", "mobile", "class", "contact_consent"]);
     assertFormFields("/visit", ["parent_name", "mobile", "preferred_date", "preferred_time", "contact_consent"]);
   } else {
     assertJourneyLink("/", "/institutions");
     assertJourneyLink("/", "/contact");
     assertJourneyLink("/institutions", "/institutions/tagore-bal-niketan");
+    assertJourneyLink("/choose", "/institutions/tagore-vedant-academy");
+    assertJourneyLink("/help", "/choose");
+    assertJourneyLink("/start", "/choose");
+    assertJourneyLink("/start", "/help");
     assertFormFields("/contact", ["name", "mobile", "institution", "message", "consent"]);
   }
   // Crawl same-origin links rendered by the tested pages. This catches accidental
@@ -139,6 +156,17 @@ try {
   const sitemap = await sitemapResponse.text();
   assert.ok(sitemap.includes(expectedHost), "sitemap must use the app's own canonical host");
   assert.ok(!sitemap.includes(app === "tps" ? "www.tieredu.org" : "www.tpsgudhagorji.com"), "sitemap must not mix the other brand's host");
+  const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/gi)].map((match) => new URL(match[1]));
+  assert.ok(sitemapUrls.length > 0, "sitemap must contain at least one indexable route");
+  for (const url of sitemapUrls) {
+    assert.equal(url.host, expectedHost, "every sitemap URL must use the correct brand host");
+    assert.ok(routes.includes(url.pathname), "sitemap route is missing from the smoke-test matrix: " + url.pathname);
+    const response = await fetch(origin + url.pathname, { signal: AbortSignal.timeout(10000) });
+    assert.equal(response.status, 200, "sitemap route must return HTTP 200: " + url.pathname);
+  }
+  for (const excluded of noindexRoutes) {
+    assert.ok(!sitemapUrls.some((url) => url.pathname === excluded), "noindex route must not appear in sitemap: " + excluded);
+  }
 
   console.log(`PASS: ${app.toUpperCase()} production HTTP smoke checks (${routes.length} pages, journey links, enquiry forms, security headers, noindex, robots, sitemap)`);
 } finally {
