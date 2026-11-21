@@ -115,3 +115,8 @@ tsconfig.json
   - TIER: install, typecheck, lint, production build, browser journeys/accessibility, production smoke test, performance lab, and artifact uploads.
   - Artifacts created: `tps-quality-visual-review`, `tier-quality-visual-review`, `tps-performance-lab`, and `tier-performance-lab`. GitHub artifact retention is 14 days (expires 2026-12-05); download/inspect before expiry if visual/performance review is needed.
 - 2026-11-21: Open private PRs #80 (TPS parent decision-centre accessibility; head `a5a6329aeb57d3f7608538abb9bfacb6dea91d78`) and #81 (TIER directory filter accessibility; head `3388b2982814cbe74d78b901c64cb43f22488b82`) remain unmerged. Their exact-head combined commit statuses currently return no status checks. Do not merge until each exact head has successful CI and required security/dependency checks.
+
+- 2026-11-21: To validate private candidate PRs without enabling paid/private runners, created temporary public mirror QA branches and draft PRs containing only the respective single approved changed component (no private history, docs, secrets, or unrelated files):
+  - Private PR #80 candidate component mirrored to public QA PR #1, branch `qa/pr80-tps-accessibility`, head `6698106ba4e7973640c19c7ac4e7bb3d4c5389a4`; run `44876548248`.
+  - Private PR #81 candidate component mirrored to public QA PR #2, branch `qa/pr81-tier-directory-accessibility`, head `a8bbfc19af1ed378887b0257a6d6b450e2b20f26`; run `44876551603`.
+  - Both public QA PRs are draft and must not be merged. They exist only to trigger the free CI workflow. At ledger update, both workflow runs were in progress. Do not merge private PRs #80/#81 until each candidate's corresponding full CI run succeeds and any required security/dependency scans are addressed.
