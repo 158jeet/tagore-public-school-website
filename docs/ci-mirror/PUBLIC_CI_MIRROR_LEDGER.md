@@ -131,3 +131,10 @@ tsconfig.json
 
 - 2026-11-21: PR #81 was merged after the corrected candidate passed both TIER and TPS jobs in free CI run `44877036890`; private merge commit `3919585a60f4e7dd76b44c113582d755dc5aae46`. The initial failed run remains documented above for auditability.
 - 2026-11-21: Master feature register updated in private commit `5fd1c0382b90c23a5362c95393728d96547db175`: TPS-05, TIER-05, SEO-07 and GROW-21 now reflect partial implementation and the remaining owner-input dependencies. PRs #80 and #81 are recorded as merged.
+
+- 2026-11-21: Free CI runs for the three parallel lanes completed successfully on both TPS and TIER jobs:
+  - Run `44877217105` validated PR #83 candidate; both jobs passed. Private PR #83 merged as `1d769fcbd3bd22472a4ec7720aaa2242d52d63db`.
+  - Run `44877238435` validated PR #84 candidate; both jobs passed. Private PR #84 merged as `956cc0a44ec80e0fc1a068205af680a75b1ada1d`.
+  - Run `44877258952` validated PR #85 candidate, including the new `npm run test:seo` step; both jobs passed. Private PR #85 merged as `a7e358d700f09d2f3dc181df6babb05d10129ba1`.
+- 2026-11-21: Master feature register updated in private commit `4e01878f6fec1c1adcc9fce7f6ede6345b4883ec` to record PRs #83–85 merged and PR #86 in validation.
+- 2026-11-21: Started PR #86 for consistent keyboard dismissal/focus restoration across both mobile navigation menus, with browser assertions for Escape handling, expanded state and focus return. Public QA PR #6 run `44877590782` was in progress on exact mirror head `b1569eb7581d5e87c180e50f585573d6b704e7ce`; do not merge private PR #86 until both jobs pass.
