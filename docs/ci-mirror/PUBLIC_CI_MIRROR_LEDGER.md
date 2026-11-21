@@ -12,7 +12,7 @@ The mirror is not a backup, not a development source of truth, and not a confide
 
 | Snapshot | Private source branch | Private source commit | Public target | Public snapshot commit | Status |
 |---|---|---|---|---|---|
-| 001 | main | `f9f6d499fa24de91f9dd13d6caa3bef0210ff481` | `158jeet/atlas-build-lab` | `b8c35ba8af6556939467f55182023989689996ef` | Published; Website CI queued |
+| 001 | main | `f9f6d499fa24de91f9dd13d6caa3bef0210ff481` | `158jeet/atlas-build-lab` | `b8c35ba8af6556939467f55182023989689996ef` | Published; Website CI running; initial quality stages passed |
 
 ## Audit record — snapshot 001
 
@@ -108,4 +108,4 @@ tsconfig.json
 ## Change log
 
 - 2026-11-21: Created this ledger before publishing any application source to the public CI mirror. Confirmed the canonical repository remains private and the public mirror was empty at the start of the audit.
-- 2026-11-21: Published a fresh 62-file current-source snapshot to the public mirror as separate initial commits; the private 174-commit history and all internal `docs/**` files were excluded. Primary CI workflow was added last to avoid triggering it for every file upload. Public snapshot head: `b8c35ba8af6556939467f55182023989689996ef`. Website CI run `44876177550` was queued at the time of ledger update. Dependabot also initiated automatic update runs; two were reported failed and one succeeded, requiring inspection before considering CI healthy.
+- 2026-11-21: Published a fresh 62-file current-source snapshot to the public mirror as separate initial commits; the private 174-commit history and all internal `docs/**` files were excluded. Primary CI workflow was added last to avoid triggering it for every file upload. Public snapshot head: `b8c35ba8af6556939467f55182023989689996ef`. Website CI run `44876177550` was queued at the time of ledger update. Dependabot also initiated automatic update runs; two were reported failed and one succeeded. These are Dependabot update runs, separate from the website CI. The Website CI run is `in_progress`: TPS `npm ci`, typecheck, security/forms/config tests, lint, and build have passed; TIER `npm ci`, typecheck, lint, and build have passed. Both jobs are currently installing browser tooling; browser journeys, smoke tests, and performance audits have not yet completed.
