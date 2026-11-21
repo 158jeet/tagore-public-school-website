@@ -89,8 +89,8 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **SEO-04** Initial structured data implementation.
 - [~] **SEO-05** Legacy URL migration workbook and mapping rules documented; actual URL audit is blocked on legacy exports.
 - [ ] **SEO-06** Implement tested permanent redirects; preserve query parameters only where required and avoid redirect chains/loops.
-- [~] **SEO-07** Automated metadata, canonical, JSON-LD escaping, indexing-gate, sitemap-host and noindex-route checks implemented (PR #85 merged); full route/content/link/alt-text and live indexability audit remains pending.
-- [ ] **SEO-08** Expand schema only where facts are verified (Organization, School/EducationalOrganization, Course/Event where eligible, BreadcrumbList).
+- [~] **SEO-07** Automated metadata, canonical, JSON-LD escaping, indexing-gate, sitemap-host and noindex-route checks implemented (PR #85); route acceptance now covers grade-stage, help and QR pages (PR #95). Full content/link/alt-text and live indexability audit remains pending.
+- [x] **SEO-08** Safe BreadcrumbList JSON-LD added to TPS grade-stage pathways and TIER institution/pathway pages (PR #95); no new unverified organization, school, course or event facts added.
 - [ ] **SEO-09** Local SEO: accurate NAP, map/location details, service area and official profile links.
 - [ ] **SEO-10** Separate Google Search Console properties and sitemap submission for both domains after owner authorization.
 - [ ] **SEO-11** Measure search visibility and qualified enquiries; no ranking guarantees or doorway pages.
@@ -253,7 +253,7 @@ A workstream is complete only when:
 - [x] PR #89 TIER institution comparison merged after exact-source free CI passed both site jobs.
 - [x] PR #91 initial architecture decision record and page-by-page CTA hierarchy merged; no analytics or tracking enabled.
 - [x] PR #94 text-first TPS/TIER QR landing pages merged after exact-source free CI passed both site jobs; QR artwork, print proof and public distribution remain unapproved.
-- [~] PR #95 BreadcrumbList schema and expanded SEO route acceptance coverage are under free CI validation; PR #96 was closed as superseded.
+- [x] PR #95 BreadcrumbList schema and consolidated SEO-07 route acceptance tests merged after both public free-CI site jobs passed; PR #96 was closed as superseded and no duplicate code was merged.
 - [ ] Reconcile institution facts, media permissions and approvals from authorised source documents before publishing claims/assets.
 - [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
 - [ ] Staging and owner acceptance.
