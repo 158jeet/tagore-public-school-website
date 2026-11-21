@@ -62,7 +62,10 @@ try {
     assert.equal(response.headers.get("x-powered-by"), null, `${path} exposes X-Powered-By`);
     const html = await response.text();
     assert.match(html, /<html(?:\s|>)/i, `${path} did not return an HTML document`);
-    assert.match(html, /<meta[^>]+name="robots"[^>]+content="noindex, ?nofollow"/i, `${path} must remain noindex in smoke environment`);
+    const expectedRobots = noindexRoutes.includes(path)
+      ? /<meta[^>]+name="robots"[^>]+content="noindex, ?follow"/i
+      : /<meta[^>]+name="robots"[^>]+content="noindex, ?nofollow"/i;
+    assert.match(html, expectedRobots, `${path} must use the expected smoke-environment robots directive`);
     assert.match(html, /<title>[^<]+<\/title>/i, `${path} must render a page title`);
     assert.match(html, /<meta[^>]+name="description"[^>]+content="[^"]{20,}"/i, `${path} must render a useful meta description`);
     const canonicalTag = html.match(/<link[^>]*rel="canonical"[^>]*>/i)?.[0] || "";
