@@ -89,7 +89,7 @@ This is the canonical scope register for both public websites. Every implementat
 - [x] **SEO-04** Initial structured data implementation.
 - [~] **SEO-05** Legacy URL migration workbook and mapping rules documented; actual URL audit is blocked on legacy exports.
 - [ ] **SEO-06** Implement tested permanent redirects; preserve query parameters only where required and avoid redirect chains/loops.
-- [~] **SEO-07** Automated metadata, canonical, JSON-LD escaping, indexing-gate, sitemap-host and noindex-route checks implemented (PR #85); route acceptance now covers grade-stage, help and QR pages (PR #95). Full content/link/alt-text and live indexability audit remains pending.
+- [~] **SEO-07** Automated metadata, canonical, JSON-LD escaping, indexing-gate, sitemap-host and noindex-route checks implemented (PR #85); route acceptance covers grade-stage, help and QR pages (PR #95), and dynamic canonical metadata is now checked for all five TPS stage pages and five TIER institution profiles (PR #105). Full content/link/alt-text and live indexability audit remains pending.
 - [x] **SEO-08** Safe BreadcrumbList JSON-LD added to TPS grade-stage pathways and TIER institution/pathway pages (PR #95); no new unverified organization, school, course or event facts added.
 - [ ] **SEO-09** Local SEO: accurate NAP, map/location details, service area and official profile links.
 - [ ] **SEO-10** Separate Google Search Console properties and sitemap submission for both domains after owner authorization.
@@ -261,3 +261,5 @@ A workstream is complete only when:
 - [ ] Complete hosting-specific staging/production inventory and test the release/rollback runbook with the hosting owner.
 - [ ] Staging and owner acceptance.
 - [ ] Production launch approval.
+
+- [x] PR #105 expanded SEO metadata acceptance to every generated TPS grade-stage pathway and TIER institution profile; exact-source public free CI run `44882422513` passed both TPS and TIER jobs. Private merge commit: `fb0e3f6352796bca572312bf41b238ccf5425b32`.
