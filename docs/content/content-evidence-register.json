@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "policy": "docs/content/CONTENT-05_EVIDENCE_AND_FRESHNESS_CONTROLS.md",
+  "records": [
+    {
+      "claimId": "TPS-AFF-001",
+      "site": "TPS",
+      "claim": "Official affiliation details — exact wording pending source check",
+      "category": "affiliation",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TPS-CON-001",
+      "site": "TPS",
+      "claim": "Official phone/email routing — confirm preferred channels",
+      "category": "contact",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TIER-INS-001",
+      "site": "TIER",
+      "claim": "Current institution portfolio and operating details",
+      "category": "institution-portfolio",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [],
+      "changeHistory": []
+    }
+  ]
+}
