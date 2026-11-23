@@ -215,6 +215,20 @@ try {
     const url = new URL(page.url());
     assert.equal(url.searchParams.get("class"), "Class 5");
     assert.equal(url.searchParams.get("topic"), "academics");
+    const admissionClass = page.locator('select[name="class"]');
+    const admissionTopic = page.locator('select[name="enquiry_topic"]');
+    assert.equal(await admissionClass.inputValue(), "Class 5", "Parent guide class choice must prefill the admission form");
+    assert.equal(await admissionTopic.inputValue(), "academics", "Parent guide topic choice must prefill the admission form");
+    await page.reload({ waitUntil: "networkidle" });
+    assert.equal(await admissionClass.inputValue(), "Class 5", "Admission class prefill must survive a full page refresh");
+    assert.equal(await admissionTopic.inputValue(), "academics", "Admission topic prefill must survive a full page refresh");
+    await page.goBack({ waitUntil: "networkidle" });
+    assert.equal(new URL(page.url()).pathname, "/parent-guide", "Browser Back must return to the parent decision guide");
+    assert.equal(await page.locator('select').first().inputValue(), "Class 5", "Browser Back must preserve the parent guide class selection");
+    await page.goForward({ waitUntil: "networkidle" });
+    assert.equal(new URL(page.url()).pathname, "/admissions", "Browser Forward must restore the admission enquiry route");
+    assert.equal(await page.locator('select[name="class"]').inputValue(), "Class 5", "Browser Forward must restore the admission class prefill");
+    assert.equal(await page.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Browser Forward must restore the admission topic prefill");
 
     await page.goto(origin + "/admissions", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Submit admission enquiry/i }).click();
@@ -293,6 +307,15 @@ try {
     const partnershipMessage = await page.locator('textarea[name="message"]').inputValue();
     assert.match(partnershipMessage, /Institutional partnership enquiry/, "TIER partnership pathway must prefill enquiry context");
     assert.match(partnershipMessage, /Please add details about your enquiry below/, "TIER pathway prefill must retain an editable prompt");
+    await page.reload({ waitUntil: "networkidle" });
+    const refreshedPartnershipMessage = await page.locator('textarea[name="message"]').inputValue();
+    assert.match(refreshedPartnershipMessage, /Institutional partnership enquiry/, "TIER partnership context must survive a full page refresh");
+    await page.goBack({ waitUntil: "networkidle" });
+    assert.equal(new URL(page.url()).pathname, "/connect", "Browser Back must return to the group connection pathways");
+    await page.goForward({ waitUntil: "networkidle" });
+    assert.equal(new URL(page.url()).pathname, "/contact", "Browser Forward must restore the group contact form");
+    assert.equal(new URL(page.url()).searchParams.get("path"), "partnership", "Browser Forward must preserve the selected enquiry pathway");
+    assert.match(await page.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "Browser Forward must restore the partnership enquiry context");
   }
 
   assert.deepEqual(pageErrors, [], `Browser runtime errors detected: ${pageErrors.join(" | ")}`);
