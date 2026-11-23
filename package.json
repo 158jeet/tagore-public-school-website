@@ -14,7 +14,9 @@
     "test:forms": "node --test tests/form-contract.test.mjs",
     "test:smoke": "node tests/runtime-smoke.mjs",
     "test:browser": "node tests/browser-journeys.mjs",
-    "test:performance": "node tests/performance-audit.mjs"
+    "test:performance": "node tests/performance-audit.mjs",
+    "test:content": "node --test tests/content-governance.test.mjs",
+    "validate:content": "node scripts/content-governance.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",
