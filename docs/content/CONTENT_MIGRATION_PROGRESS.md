@@ -71,3 +71,13 @@ The prototype pages currently reference the original image URLs hosted on the le
 - Updated `.github/workflows/ci.yml` in both repositories to run `npm run media:audit` and `npm run test:media` in the TPS quality job before the normal site checks.
 - This workflow change is the next validation target. Do not describe the media tests as CI-passed until a run on this new workflow commit completes successfully.
 - The canonical private repository's workflow attempts after the visibility change are still failing before usable step/log detail can be retrieved. The public mirror remains the reliable development CI while the private workflow admission issue is investigated.
+
+
+## Verified CI outcome — 2026-11-23 16:23 IST
+
+- Public development mirror Website CI run [#45150956756](https://github.com/158jeet/atlas-build-lab/actions/runs/45150956756) completed successfully on PR #37 head `128d49cda5c66b84c35a40b06411cadf18d63ebe`.
+- The TPS job explicitly executed and passed both `npm run media:audit` and `npm run test:media`, followed by typecheck, security/forms/config/SEO tests, lint, production build, browser/accessibility journeys, production smoke test and performance lab.
+- The TIER job passed typecheck, lint, production build, browser/accessibility journeys, production smoke test and performance lab.
+- Canonical private PR #116 head `d00a982c877e1cb2809ad3182ffe6b6288045237` was attempted by Website CI run #45150964019 and security runs #45150964115, #45150964011 and #45150964170. Every job failed before runner setup, with empty step lists and `runner_id: 0`. This is recorded as runner allocation/admission failure; it is not evidence of code/test failure, and canonical CI remains unverified.
+- Use the passing public mirror run as current validation evidence for the identical website changes. Keep the canonical repository private and the public mirror as the CI/development workspace.
+- Both PRs remain draft/unmerged; no production deployment. Legacy images remain prototype-only until rights, currentness and consent are approved and local media migration is completed.
