@@ -300,22 +300,24 @@ try {
     assert.equal(await page.locator('[name="name"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce contact name");
     assert.equal(await page.locator('[name="mobile"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce mobile");
 
-    await page.goto(origin + "/connect", { waitUntil: "networkidle" });
-    await page.getByRole("heading", { name: /The right conversation starts with the right doorway/i }).waitFor();
-    await page.getByRole("link", { name: /Discuss a partnership/i }).click();
-    await page.waitForFunction(() => location.pathname === "/contact" && location.search === "?path=partnership" && location.hash === "#group-enquiry");
-    const partnershipMessage = await page.locator('textarea[name="message"]').inputValue();
+    const historyPage = await context.newPage();
+    historyPage.on("pageerror", error => pageErrors.push(error.message));
+    await historyPage.goto(origin + "/connect", { waitUntil: "networkidle" });
+    await historyPage.getByRole("heading", { name: /The right conversation starts with the right doorway/i }).waitFor();
+    await historyPage.getByRole("link", { name: /Discuss a partnership/i }).click();
+    await historyPage.waitForURL(url => url.pathname === "/contact" && url.search === "?path=partnership" && url.hash === "#group-enquiry");
+    const partnershipMessage = await historyPage.locator('textarea[name="message"]').inputValue();
     assert.match(partnershipMessage, /Institutional partnership enquiry/, "TIER partnership pathway must prefill enquiry context");
     assert.match(partnershipMessage, /Please add details about your enquiry below/, "TIER pathway prefill must retain an editable prompt");
-    await page.goBack({ waitUntil: "networkidle" });
-    assert.equal(new URL(page.url()).pathname, "/connect", "Browser Back must return to the group connection pathways");
-    await page.goForward({ waitUntil: "networkidle" });
-    assert.equal(new URL(page.url()).pathname, "/contact", "Browser Forward must restore the group contact form");
-    assert.equal(new URL(page.url()).searchParams.get("path"), "partnership", "Browser Forward must preserve the selected enquiry pathway");
-    assert.match(await page.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "Browser Forward must restore the partnership enquiry context");
-    await page.reload({ waitUntil: "networkidle" });
-    const refreshedPartnershipMessage = await page.locator('textarea[name="message"]').inputValue();
-    assert.match(refreshedPartnershipMessage, /Institutional partnership enquiry/, "TIER partnership context must survive a full page refresh");
+    await historyPage.goBack({ waitUntil: "networkidle" });
+    assert.equal(new URL(historyPage.url()).pathname, "/connect", "Browser Back must return to the group connection pathways");
+    await historyPage.goForward({ waitUntil: "networkidle" });
+    assert.equal(new URL(historyPage.url()).pathname, "/contact", "Browser Forward must restore the group contact form");
+    assert.equal(new URL(historyPage.url()).searchParams.get("path"), "partnership", "Browser Forward must preserve the selected enquiry pathway");
+    assert.match(await historyPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "Browser Forward must restore the partnership enquiry context");
+    await historyPage.reload({ waitUntil: "networkidle" });
+    assert.match(await historyPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "TIER partnership context must survive a full page refresh");
+    await historyPage.close();
   }
 
   assert.deepEqual(pageErrors, [], `Browser runtime errors detected: ${pageErrors.join(" | ")}`);
