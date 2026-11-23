@@ -9,7 +9,7 @@ const origin = `http://127.0.0.1:${port}`;
 const expectedHost = app === "tps" ? "www.tpsgudhagorji.com" : "www.tieredu.org";
 const routes = app === "tps"
   ? ["/", "/about", "/admissions", "/parent-guide", "/admissions/faq", "/admissions/parent-checklist", "/admissions/funnel", "/admissions/pathways", "/admissions/pathways/early-years", "/admissions/pathways/primary", "/admissions/pathways/middle", "/admissions/pathways/secondary", "/admissions/pathways/senior-secondary", "/visit", "/visit/guide", "/hostel/guide", "/start"]
-  : ["/", "/about", "/institutions", "/choose", "/help", "/contact", "/connect", "/partnerships", "/institutions/tagore-bal-niketan", "/institutions/tagore-smart-school", "/institutions/tagore-vedant-academy", "/institutions/tagore-pg-college", "/institutions/tagore-hostel", "/start"];
+  : ["/", "/about", "/campus", "/institutions", "/choose", "/help", "/contact", "/connect", "/partnerships", "/institutions/tagore-bal-niketan", "/institutions/tagore-smart-school", "/institutions/tagore-vedant-academy", "/institutions/tagore-pg-college", "/institutions/tagore-hostel", "/start"];
 const noindexRoutes = app === "tps"
   ? ["/admissions/funnel", "/visit/guide", "/hostel/guide", "/start"]
   : ["/connect", "/partnerships", "/start"];
