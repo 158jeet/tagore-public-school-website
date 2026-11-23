@@ -15,7 +15,7 @@ export default function GlobalError({
           <p style={{ fontSize: 17, lineHeight: 1.6 }}>Please try again. You can also return to the school website and continue browsing.</p>
           <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: 12, marginTop: 28 }}>
             <button type="button" onClick={() => reset()} style={{ padding: "13px 20px", border: 0, background: "#263b50", color: "#fff", cursor: "pointer" }}>Try again</button>
-            <a href="/" style={{ padding: "13px 20px", border: "1px solid #9a7838", color: "#263b50", textDecoration: "none" }}>Return to homepage</a>
+            <button type="button" onClick={() => window.location.assign("/")} style={{ padding: "13px 20px", border: "1px solid #9a7838", background: "transparent", color: "#263b50", cursor: "pointer" }}>Return to homepage</button>
           </div>
         </main>
       </body>
