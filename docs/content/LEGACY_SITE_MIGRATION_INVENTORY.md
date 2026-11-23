@@ -38,7 +38,7 @@ Purpose: populate the new TPS and TIER prototypes with material from the institu
 | Campus | https://www.tieredu.org/campus.php | Campus story, higher-education context, labs, library, computer learning, NCC and sports |
 | Hostel | https://www.tieredu.org/hostal.php | Separate boys'/girls' facilities, room types, supervision, extra classes and on-campus support; reverify current conditions |
 | Library | https://www.tieredu.org/library.php | Library and learning resources; full text/media capture pending |
-| Contact | https://www.tieredu.org/contact.php | Main address, phone, email and legacy admission helplines; verify before publication |
+| Contact | https://www.tieredu.org/contact.php | Group office location, 01594-319504 and tagoregg@gmail.com; copied to the prototype as legacy details with an explicit verification notice; old admission helplines remain excluded until routing is confirmed |
 | RBSE school pathway | https://www.tieredu.org/rbse.php | Legacy RBSE Nursery–XII description and co-curricular content; current Bal Niketan/Smart School identity and grade spans must be reconciled |
 | Defence Academy | https://www.tieredu.org/defence.php | Historical NDA, Air Force, Navy and SSB preparation content; do not migrate obsolete fees, age criteria or selection guarantees into Vedant Academy |
 | PG College home | https://www.tieredu.org/pg/ | College history, campus life, admissions, scholarships, NCC, sports, cultural activities, learning centres and placement-cell descriptions |
