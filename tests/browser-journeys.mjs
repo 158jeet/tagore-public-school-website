@@ -68,6 +68,17 @@ try {
   for (const route of routes) {
     const response = await page.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
     assert.equal(response?.status(), 200, `${app.toUpperCase()} browser route ${route} did not return 200`);
+    const missingImageAlt = await page.locator("img:not([alt])").count();
+    assert.equal(missingImageAlt, 0, `${route} contains ${missingImageAlt} image(s) without an alt attribute`);
+    const unnamedControls = await page.evaluate(() => Array.from(document.querySelectorAll("a, button"))
+      .filter(element => {
+        const label = element.getAttribute("aria-label") || element.getAttribute("aria-labelledby");
+        const text = (element.textContent || "").trim();
+        const imageAlt = Array.from(element.querySelectorAll("img[alt]")).map(image => image.getAttribute("alt") || "").join("").trim();
+        return !label && !text && !imageAlt;
+      })
+      .map(element => ({ tag: element.tagName, href: element.getAttribute("href"), className: typeof element.className === "string" ? element.className.slice(0, 80) : "" })));
+    assert.deepEqual(unnamedControls, [], `${route} contains controls without an accessible text or label`);
     if (route === "/start") {
       await page.getByRole("heading", { name: app === "tps" ? /Your next conversation starts here/i : /Start with the information you need/i }).waitFor();
     }
