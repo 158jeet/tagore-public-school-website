@@ -38,6 +38,8 @@ Purpose: populate the new TPS and TIER prototypes with material from the institu
 |---|---|---|
 | Home | https://www.tieredu.org/ | Group story, institution portfolio, admissions pathways and group contacts |
 | Campus | https://www.tieredu.org/campus.php | Campus story, higher-education context, labs, library, computer learning, NCC and sports |
+| Faculty / teacher profile | https://www.tieredu.org/teacher.php | Legacy statement about trained, experienced, subject-specialist teachers and holistic development; no current staff names/counts are copied |
+| Director’s message | https://www.tieredu.org/ | Director’s message attributed to Mr. Veerpal Singh Shekhawat; innovation, excellence and cultural values; current role/title to be confirmed |
 | Co-curricular activities | https://www.tieredu.org/act.php | Legacy sports list (cricket, basketball, volleyball, badminton, table tennis, kabaddi, kho-kho, taekwondo, athletics) and cultural activities (singing, dance, drama, debate); confirm current teams/coaches/schedules |
 | Hostel | https://www.tieredu.org/hostal.php | Separate boys'/girls' facilities, room types, supervision, extra classes and on-campus support; reverify current conditions |
 | Library | https://www.tieredu.org/library.php | Library and learning resources; full text/media capture pending |
