@@ -271,8 +271,9 @@ A workstream is complete only when:
 
 ## 16. CONTENT-05 — factual evidence and freshness automation (2026-11-23)
 
-- [~] **CONTENT-05** Evidence policy, structured starter register, approval-gate validator and targeted Node tests ported from public free-CI mirror PR [#34](https://github.com/158jeet/atlas-build-lab/pull/34) to private branch `content/content-05-evidence-freshness-register`.
-- Public mirror targeted content-governance tests and register validation passed on commit `d0e21685feb74c6e7a9718a696c7af9a1dfcf717`; full TPS/TIER website CI remains a separate check.
-- All three starter claims remain `evidence-needed`; no institution facts are approved or authorised for publication.
-- Private CI must pass before merge. The previously observed private Actions runner/job initialisation issue remains an external validation blocker; no application failure is inferred from jobs that never start.
-- Management must still assign accountable owners and approvers and supply authoritative source evidence. Owner review and any publication approval remain outstanding.
+- [~] **CONTENT-05** Evidence policy, structured JSON register, approval-gate validator, targeted Node tests and free Actions workflow are implemented on private branch `content/content-05-evidence-freshness-register`.
+- The JSON register now contains 14 records: the 3 initial broad placeholders plus 11 page-mapped claims identified by inspecting current TPS/TIER source pages. The additional claims cover TPS history, affiliation identifiers, school profile and admission cycle, plus TIER institution portfolio and programme/residential descriptions.
+- All 14 records remain `evidence-needed`; no owner or approver is assigned and no factual claim is approved for publication. The test suite now asserts that the audited live-claim inventory remains unapproved and page-mapped.
+- Public mirror PR [#34](https://github.com/158jeet/atlas-build-lab/pull/34): latest head `547227e487d2a14e647d6b7d8d3bd6004bac0d18`; targeted governance workflow passed and both TPS/TIER full website-quality jobs passed. This validates the public mirror only.
+- Private PR [#114](https://github.com/158jeet/tagore-public-school-website/pull/114): latest head `2557dcb390cf4530f2de3f1f89e56f1d8626f65a`; five workflows (Website CI, Content governance, CodeQL, dependency audit and secret scanning) all failed within seconds. Job step records are absent and log downloads return `BlobNotFound`; exact cause remains unverified. Keep draft/unmerged until private Actions checks can execute normally.
+- Management must still assign accountable owners and approvers and supply authoritative source evidence. Owner review and publication approval remain outstanding.
