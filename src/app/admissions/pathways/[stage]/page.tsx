@@ -70,7 +70,7 @@ const pathways = {
     stage: "Classes 11–12",
     description: "A focused guide for families exploring the senior secondary years. Discuss the current subject options, board requirements, academic support and longer-term study goals directly with the school.",
     legacyContent: "The current public CBSE disclosure includes Class XII board results for 2025–26. The older TPS About page refers to Science and Commerce streams, but that wording is historical and must not be treated as the current subject catalogue. Ask the school for the approved subject combinations and current intake.",
-    legacySource: "https://www.tpsgudhagorji.com/mandatory-public-disclosure/”,
+    legacySource: "https://www.tpsgudhagorji.com/mandatory-public-disclosure/",
     classes: ["Class 11", "Class 12"],
     questions: [
       "Which subject combinations and eligibility requirements are currently offered?",
