@@ -49,3 +49,12 @@ test("unknown status, malformed dates and duplicate claim IDs fail", () => {
   assert.ok(errors.some((error) => error.includes("real YYYY-MM-DD date")));
   assert.ok(errors.some((error) => error.includes("duplicates")));
 });
+
+test("audited live-claim inventory remains unapproved and maps each claim to a page", async () => {
+  const source = JSON.parse(await readFile(new URL("../docs/content/content-evidence-register.json", import.meta.url), "utf8"));
+  const audited = source.records.filter((record) => record.claimId !== "TPS-AFF-001" && record.claimId !== "TPS-CON-001" && record.claimId !== "TIER-INS-001");
+  assert.ok(audited.length >= 10);
+  assert.ok(audited.every((record) => record.status === "evidence-needed"));
+  assert.ok(audited.every((record) => record.owner === null && record.approver === null));
+  assert.ok(audited.every((record) => record.publicationLocations.length > 0));
+});
