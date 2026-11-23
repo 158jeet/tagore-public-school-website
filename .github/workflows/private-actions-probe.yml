@@ -18,3 +18,13 @@ jobs:
         run: |
           echo "Private GitHub Actions runner was allocated."
           echo "UTC time: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+  runner-probe-ubuntu-24-04:
+    name: Minimal ubuntu-24.04 hosted runner allocation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Confirm ubuntu-24.04 runner allocation
+        run: |
+          echo "Private GitHub Actions ubuntu-24.04 runner was allocated."
+          echo "UTC time: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
