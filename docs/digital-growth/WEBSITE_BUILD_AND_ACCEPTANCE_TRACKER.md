@@ -414,3 +414,13 @@ A workstream is complete only when:
 - [x] **VIS-02** TIER contact card and legacy group office details render in desktop/mobile screenshots.
 - [~] **VIS-03** Mobile screenshot showed the persistent quick-action bar still overlapped one line of the TIER contact introduction. Reduced the contact section's mobile top padding further; public mirror run `45135780006` is pending to validate the final adjustment.
 - [~] **MIG-36** Added current 2026–27 POCSO, Anti-Bullying and Grievance Redressal committee PDF links to TPS Parent Guide. The linked PDFs are not transcribed; current reporting contacts remain for management verification.
+
+
+## Repository operating model — owner-approved 2026-11-23
+
+- Canonical durable source of truth: `158jeet/tagore-public-school-website`. Keep its `main` branch as the protected canonical record; do not merge draft PRs or deploy without owner approval.
+- Public development and free CI mirror: `158jeet/atlas-build-lab`. Continue ordinary development and validation there after the canonical repository is returned to private.
+- Sync rule: after a public-mirror change is tested and reviewed, copy the exact approved commit/content into the canonical repository. If the canonical repository is private and the connected GitHub integration cannot update it, the owner may temporarily make it public for the sync, then immediately restore private visibility once the sync and checks are complete.
+- The public mirror is not the durable source of truth. Keep the canonical repository's source, docs, release records and approved assets current; record the source/mirror commit mapping for every sync.
+- Never put credentials, secrets, private student/parent information, internal records or unapproved identifiable student photos into the public mirror. Public image links are prototype-only until rights/consent and media-localization gates are satisfied.
+- Current temporary visibility exception: canonical repository is public only to complete the present content migration and validate its hosted workflows. Restore it to private after the owner is satisfied with the migration and the sync is complete.
