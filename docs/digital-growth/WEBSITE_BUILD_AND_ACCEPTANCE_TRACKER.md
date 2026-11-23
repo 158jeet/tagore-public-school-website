@@ -405,3 +405,12 @@ A workstream is complete only when:
 - [!] **CI-PRIVATE-03** Evidence isolates the failure to the private repository/account runner-dispatch path, not the application test commands or the shared Website CI YAML. The available GitHub integration cannot read private Actions administration/billing settings, so it cannot establish whether the cause is repository Actions policy, included-compute/spending restriction, account-level restriction or GitHub platform provisioning. Do not label it a confirmed billing issue or repeatedly rerun unchanged jobs.
 - [~] **CI-PRIVATE-04** Next diagnostic: repository owner checks Settings → Actions → General for hosted-runner/action policies and account Settings → Billing & licensing → Usage for Actions compute/spending status; inspect the failed run summary for an explicit rejection annotation. If those are clear, submit the exact run/job IDs to GitHub Support for runner-dispatch telemetry. Public mirror CI remains the no-cost validation path while this is unresolved.
 - [ ] **CI-PRIVATE-05** Restore meaningful private validation before merging the content migration or any other website feature PR. Keep PR #116 draft/unmerged and do not deploy until private validation, owner review and production release gates are satisfied.
+
+
+### Latest full-stack content and mobile review — 2026-11-23
+
+- [x] **MIG-35** Public mirror run `45135171585` passed both TPS and TIER typecheck, lint, tests, production builds, browser/accessibility journeys, smoke tests and lab performance checks.
+- [x] **VIS-01** Screenshot review confirms TPS legacy gallery images render on desktop/mobile; TIER official legacy wordmark renders in the header, group gallery photos render, and the mobile hero uses a location label rather than a decorative monogram.
+- [x] **VIS-02** TIER contact card and legacy group office details render in desktop/mobile screenshots.
+- [~] **VIS-03** Mobile screenshot showed the persistent quick-action bar still overlapped one line of the TIER contact introduction. Reduced the contact section's mobile top padding further; public mirror run `45135780006` is pending to validate the final adjustment.
+- [~] **MIG-36** Added current 2026–27 POCSO, Anti-Bullying and Grievance Redressal committee PDF links to TPS Parent Guide. The linked PDFs are not transcribed; current reporting contacts remain for management verification.
