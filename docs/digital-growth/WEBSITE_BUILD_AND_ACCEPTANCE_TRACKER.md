@@ -378,3 +378,6 @@ A workstream is complete only when:
 - [x] **MIG-29** TIER About page now includes legacy sports and cultural activity themes from `act.php` (cricket, basketball, volleyball, badminton, table tennis, kabaddi, kho-kho, taekwondo, athletics, singing, dance, drama and debate), with current availability/coaches/schedules flagged for confirmation.
 - [x] **MIG-30** TIER About page now includes the Director’s legacy message themes (innovation, excellence, cultural values) and the teacher page’s description of trained, experienced, subject-specialist educators and holistic development.
 - [x] **MIG-31** Current staff names, qualifications, staff counts and allocations are not inferred from legacy copy; they remain pending management confirmation.
+
+
+- [x] **BRAND-06** Follow-up source inspection found the first placeholder-removal edit had targeted an obsolete markup selector. Corrected the actual rendered headers: TPS inline “TPS” circle is now removed, and TIER inline “T” circle is replaced by the exact legacy Tier Edu wordmark. This corrected markup is awaiting the next public mirror CI/screenshot pass.
