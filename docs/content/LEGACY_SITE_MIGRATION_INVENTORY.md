@@ -40,12 +40,12 @@ Purpose: populate the new TPS and TIER prototypes with material from the institu
 | Legacy page | Source URL | Prototype destination / content |
 |---|---|---|
 | Home | https://www.tieredu.org/ | Group story, institution portfolio, admissions pathways and group contacts |
-| Campus | https://www.tieredu.org/campus.php | Campus story, higher-education context, labs, library, computer learning, NCC and sports |
+| Campus | https://www.tieredu.org/campus.php | TIER `/campus` and `/about`: campus story, higher-education context, labs, library, computer learning, NCC and sports |
 | Faculty / teacher profile | https://www.tieredu.org/teacher.php | Legacy statement about trained, experienced, subject-specialist teachers and holistic development; no current staff names/counts are copied |
 | Director’s message | https://www.tieredu.org/ | Director’s message attributed to Mr. Veerpal Singh Shekhawat; innovation, excellence and cultural values; current role/title to be confirmed |
 | Co-curricular activities | https://www.tieredu.org/act.php | Legacy sports list (cricket, basketball, volleyball, badminton, table tennis, kabaddi, kho-kho, taekwondo, athletics) and cultural activities (singing, dance, drama, debate); confirm current teams/coaches/schedules |
 | Hostel | https://www.tieredu.org/hostal.php | Separate boys'/girls' facilities, room types, supervision, extra classes and on-campus support; reverify current conditions |
-| Library | https://www.tieredu.org/library.php | Library and learning resources; full text/media capture pending |
+| Library | https://www.tieredu.org/library.php | TIER `/campus`: books, periodicals, digital-library resources and reading room; current inventory to be confirmed |
 | Contact | https://www.tieredu.org/contact.php | Group office location, 01594-319504 and tagoregg@gmail.com; copied to the prototype as legacy details with an explicit verification notice; old admission helplines remain excluded until routing is confirmed |
 | RBSE school pathway | https://www.tieredu.org/rbse.php | Legacy RBSE Nursery–XII description and co-curricular content; current Bal Niketan/Smart School identity and grade spans must be reconciled |
 | Defence Academy | https://www.tieredu.org/defence.php | Historical NDA, Air Force, Navy and SSB preparation content; do not migrate obsolete fees, age criteria or selection guarantees into Vedant Academy |
@@ -53,7 +53,7 @@ Purpose: populate the new TPS and TIER prototypes with material from the institu
 | PG College courses | https://www.tieredu.org/pg/course.php | Legacy B.Sc., B.A. and B.Com. course reference; current catalogue and affiliation must be checked |
 | PG College mission | https://www.tieredu.org/pg/mission.php | Legacy mission and director/principal messages; verify names and current wording |
 | PG College director message | https://www.tieredu.org/pg/director-message.php | Founder/director message and college philosophy |
-| PG College gallery | https://www.tieredu.org/pg/gal.php | Library, computer centre, labs and campus photographs |
+| PG College gallery | https://www.tieredu.org/pg/gal.php | TIER `/about` and `/campus`: library, computer-centre and NCC photographs |
 | Hostel | https://www.tieredu.org/hostal.php | Separate boys'/girls' facilities, room types, supervision, extra classes, medical and counselling support; reverify current conditions |
 | Library | https://www.tieredu.org/library.php | Library, periodicals, digital library, reading room and computer-centre descriptions |
 | Contact | https://www.tieredu.org/contact.php | Main address, phone, email and legacy admission helplines; verify before publication |
