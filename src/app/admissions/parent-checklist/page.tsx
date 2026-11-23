@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PrintChecklistButton } from "@/components/print-checklist-button";
 
 export const metadata: Metadata = {
   title: "Parent Admission Checklist | Tagore Public School",
@@ -25,13 +26,14 @@ export default function ParentAdmissionChecklistPage() {
           <p className="mt-6 max-w-2xl leading-8 text-white/65">Use these questions while comparing options, speaking with the school team or planning a campus visit. This is a general preparation guide—not an official admission, eligibility or document policy.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/admissions/funnel" className="rounded-full bg-gold px-6 py-3 text-sm font-bold text-navy">Ask an admission question</Link>
-            <Link href="/visit" className="rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white">Request a campus visit</Link>
+            <Link href="/visit" className="rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white print:hidden">Request a campus visit</Link>
+            <PrintChecklistButton />
           </div>
         </div>
       </section>
-      <section className="section-pad bg-cream">
+      <section className="section-pad bg-cream print:bg-white print:py-6">
         <div className="container-shell max-w-4xl">
-          <div className="mb-8 rounded-2xl border border-ink/10 bg-white p-6 text-sm leading-7 text-ink/65">Tip: save this page or print it for your family discussion. Confirm all current requirements, availability, fees and arrangements directly with the school office before making a decision.</div>
+          <div className="mb-8 rounded-2xl border border-ink/10 bg-white p-6 text-sm leading-7 text-ink/65 print:border-0 print:p-0">Tip: save this page or print it for your family discussion. Confirm all current requirements, availability, fees and arrangements directly with the school office before making a decision.</div>
           <div className="space-y-6">
             {sections.map((section) => (
               <article key={section.title} className="rounded-3xl border border-ink/10 bg-white p-7 sm:p-9">

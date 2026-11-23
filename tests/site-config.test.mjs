@@ -73,3 +73,12 @@ test("sitemaps include useful indexable guides and exclude noindex campaign rout
     assert.ok(source.includes("robots: { index: false"), label + " must remain noindex");
   }
 });
+
+
+test("TIER institution comparison can be printed without changing selected comparison data", async () => {
+ const source=await readFile(new URL("../apps/tier/src/components/institution-directory.tsx", import.meta.url), "utf8");
+ assert.ok(source.includes('onClick={() => window.print()}'));
+ assert.ok(source.includes('aria-label="Print selected institution comparison"'));
+ assert.ok(source.includes("current.length < 3"));
+ assert.ok(source.includes("comparedInstitutions.map"));
+});
