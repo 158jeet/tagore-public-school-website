@@ -63,3 +63,11 @@ The prototype pages currently reference the original image URLs hosted on the le
 - Added `npm run media:production-check` as a fail-closed production gate: it exits unsuccessfully while any legacy asset remains unapproved.
 - The audit intentionally does not download or copy images. No image is promoted into a repository media directory until rights, currentness and required consent have been documented.
 - This is governance automation, not completion of local media migration. Production still requires an approved asset register and private media storage.
+
+
+## CI wiring correction — 2026-11-23
+
+- The first successful Website CI run after adding media governance did not yet invoke the new media audit/test scripts; it validated the website jobs only.
+- Updated `.github/workflows/ci.yml` in both repositories to run `npm run media:audit` and `npm run test:media` in the TPS quality job before the normal site checks.
+- This workflow change is the next validation target. Do not describe the media tests as CI-passed until a run on this new workflow commit completes successfully.
+- The canonical private repository's workflow attempts after the visibility change are still failing before usable step/log detail can be retrieved. The public mirror remains the reliable development CI while the private workflow admission issue is investigated.
