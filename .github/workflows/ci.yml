@@ -19,6 +19,10 @@ jobs:
         with:
           node-version: 22
       - run: npm ci
+      - name: Audit legacy media manifest
+        run: npm run media:audit
+      - name: Test media rights and consent safeguards
+        run: npm run test:media
       - run: npm run typecheck
       - run: npm run test:security
       - run: npm run test:forms
