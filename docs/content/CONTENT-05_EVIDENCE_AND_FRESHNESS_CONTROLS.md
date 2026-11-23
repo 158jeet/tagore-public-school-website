@@ -84,7 +84,7 @@ For an urgent correction, remove or qualify the claim first; do not wait for the
 
 ## Starter register
 
-No records below are pre-approved. Populate each row only after source evidence and named owner/reviewer are supplied.
+The structured JSON register at `docs/content/content-evidence-register.json` is the operational inventory. It currently contains 14 records, including page-mapped TPS and TIER claims identified during the source-page audit. All remain `evidence-needed`; none is approved. The summary table below shows the three initial seed categories. Populate and approve individual records only after source evidence and named owner/reviewer are supplied.
 
 | Claim ID | Site / institution | Claim | Source | Owner | Approver | Last verified | Next review due | Status | Publication location |
 |---|---|---|---|---|---|---|---|---|---|
