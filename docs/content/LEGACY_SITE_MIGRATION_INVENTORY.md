@@ -97,6 +97,7 @@ The prototype currently uses image URLs hosted on the two existing official webs
 - The TPS site says 4.5 acres, while the CBSE disclosure lists total campus area as 12,999 square metres; do not publish an area claim until reconciled.
 - The current TPS Principal’s Message and current public CBSE disclosure both list Sachin Joshi. The prototype uses that name with a source link; management should reconfirm it before launch.
 - TIER legacy claims such as 29+ years, 50+ courses, 10,000+ students, 5,000+ graduates and 100+ awards need dated evidence before use.
+- TIER campus-full.php claims a 50-acre group campus while the PG College page describes a 10-acre college site. Do not publish a group/campus acreage until a current site plan or land record reconciles the scope and measurement.
 - The legacy TIER portfolio differs from the new group's six-institution portfolio. Retain the new six-institution structure, but use legacy text/photos only where the institution identity and present-day relevance are clear.
 - Student photographs and testimonials may be used for internal prototype review, but production use requires documented permissions/consent and a safeguarding review.
 - The detailed TPS admission page still shows a 2023–24 label, while the homepage advertises 2026–27. Use the current year only after checking the school office; do not carry forward old fees, age/eligibility, termination or withdrawal wording without a current written policy review.
