@@ -309,19 +309,21 @@ try {
     const partnershipMessage = await historyPage.locator('textarea[name="message"]').inputValue();
     assert.match(partnershipMessage, /Institutional partnership enquiry/, "TIER partnership pathway must prefill enquiry context");
     assert.match(partnershipMessage, /Please add details about your enquiry below/, "TIER pathway prefill must retain an editable prompt");
-    console.log("TIER history after click", await historyPage.evaluate(() => ({ length: history.length, url: location.href })));
     await historyPage.goBack({ waitUntil: "networkidle" });
-    console.log("TIER history after back", await historyPage.evaluate(() => ({ length: history.length, url: location.href })));
     assert.equal(new URL(historyPage.url()).pathname, "/connect", "Browser Back must return to the group connection pathways");
     await historyPage.evaluate(() => window.history.forward());
     await historyPage.waitForURL(url => url.pathname === "/contact" && url.search === "?path=partnership", { timeout: 10000 });
-    console.log("TIER history after forward", await historyPage.evaluate(() => ({ length: history.length, url: location.href })));
     assert.equal(new URL(historyPage.url()).pathname, "/contact", "Browser Forward must restore the group contact form");
     assert.equal(new URL(historyPage.url()).searchParams.get("path"), "partnership", "Browser Forward must preserve the selected enquiry pathway");
     assert.match(await historyPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "Browser Forward must restore the partnership enquiry context");
-    await historyPage.reload({ waitUntil: "networkidle" });
-    assert.match(await historyPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "TIER partnership context must survive a full page refresh");
     await historyPage.close();
+    const refreshPage = await context.newPage();
+    refreshPage.on("pageerror", error => pageErrors.push(error.message));
+    await refreshPage.goto(origin + "/contact?path=partnership#group-enquiry", { waitUntil: "networkidle" });
+    assert.match(await refreshPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "TIER partnership context must prefill on a direct contact-page load");
+    await refreshPage.reload({ waitUntil: "networkidle" });
+    assert.match(await refreshPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "TIER partnership context must survive a full page refresh");
+    await refreshPage.close();
   }
 
   assert.deepEqual(pageErrors, [], `Browser runtime errors detected: ${pageErrors.join(" | ")}`);
