@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "purpose": "Prototype use of authentic public legacy media; migrate approved assets into the private local media library before production.",
+  "tps": [
+    {
+      "id": "tps-campus-aerial",
+      "src": "https://www.tpsgudhagorji.com/wp-content/uploads/2024/01/about-us.png",
+      "alt": "Aerial view of the Tagore Public School campus and school transport",
+      "consentReview": "campus image; confirm currentness and image rights"
+    },
+    {
+      "id": "tps-campus-buses",
+      "src": "https://www.tpsgudhagorji.com/wp-content/uploads/2024/01/DSC_2480-scaled.jpg",
+      "alt": "Tagore Public School campus with school buses",
+      "consentReview": "campus image; confirm currentness and image rights"
+    },
+    {
+      "id": "tps-building",
+      "src": "https://www.tpsgudhagorji.com/wp-content/uploads/2024/01/DSC_2504-scaled.jpg",
+      "alt": "Tagore Public School building",
+      "consentReview": "campus image; confirm currentness and image rights"
+    },
+    {
+      "id": "tps-early-years-play",
+      "src": "https://www.tpsgudhagorji.com/wp-content/uploads/2024/01/MKJ_9359-scaled.jpg",
+      "alt": "Young children using the school play area with a teacher",
+      "consentReview": "identifiable children; written consent required before production"
+    },
+    {
+      "id": "tps-computer-learning",
+      "src": "https://www.tpsgudhagorji.com/wp-content/uploads/2024/01/MKJ_9383-scaled.jpg",
+      "alt": "Students learning in the computer room",
+      "consentReview": "identifiable students; written consent required before production"
+    }
+  ],
+  "tier": [
+    {
+      "id": "tier-campus-aerial",
+      "src": "https://www.tieredu.org/images/bg1.jpg",
+      "alt": "Aerial view of the Tagore Group campus at Gudha Gorji",
+      "consentReview": "campus image; confirm currentness and image rights"
+    },
+    {
+      "id": "tier-campus-panorama",
+      "src": "https://www.tieredu.org/images/bg/main-10.jpg",
+      "alt": "Panoramic view of the Tagore Group campus",
+      "consentReview": "campus image; confirm currentness and image rights"
+    },
+    {
+      "id": "tier-sports-cricket",
+      "src": "https://www.tieredu.org/images/services/1.jpg",
+      "alt": "Students taking part in cricket practice",
+      "consentReview": "identifiable students; written consent required before production"
+    },
+    {
+      "id": "tier-transport",
+      "src": "https://www.tieredu.org/images/services/2.jpg",
+      "alt": "Students boarding a school transport bus",
+      "consentReview": "identifiable students; written consent required before production"
+    },
+    {
+      "id": "tier-computer-learning",
+      "src": "https://www.tieredu.org/images/services/3.jpg",
+      "alt": "Students using computers in a learning room",
+      "consentReview": "identifiable students; written consent required before production"
+    },
+    {
+      "id": "tier-hostel-dining",
+      "src": "https://www.tieredu.org/images/services/4.jpg",
+      "alt": "Students having a meal in the hostel dining area",
+      "consentReview": "identifiable students; written consent required before production"
+    },
+    {
+      "id": "tier-hostel-study",
+      "src": "https://www.tieredu.org/images/bg/hostel6.jpg",
+      "alt": "Students studying in a supervised hostel study room",
+      "consentReview": "identifiable students; written consent required before production"
+    }
+  ]
+}
