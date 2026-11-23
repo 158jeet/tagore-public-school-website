@@ -252,12 +252,14 @@ try {
 
     await page.goto(origin + "/admissions", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Submit admission enquiry/i }).click();
+    assert.equal(await page.evaluate(() => document.activeElement?.getAttribute("name")), "parent_name", "Keyboard submission of an empty admission form must focus the first invalid field");
     assert.equal(await page.locator('[name="parent_name"]').evaluate(el => el.validity.valueMissing), true, "Admission form must enforce required parent name");
     assert.equal(await page.locator('[name="mobile"]').evaluate(el => el.validity.valueMissing), true, "Admission form must enforce required mobile");
     assert.equal(await page.locator('[name="class"]').evaluate(el => el.validity.valueMissing), true, "Admission form must enforce class selection");
 
     await page.goto(origin + "/visit", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Request a campus visit/i }).click();
+    assert.equal(await page.evaluate(() => document.activeElement?.getAttribute("name")), "parent_name", "Keyboard submission of an empty visit form must focus the first invalid field");
     assert.equal(await page.locator('[name="preferred_date"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred date");
     assert.equal(await page.locator('[name="preferred_time"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred time");
 
@@ -317,6 +319,7 @@ try {
 
     await page.goto(origin + "/contact", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Send group enquiry/i }).click();
+    assert.equal(await page.evaluate(() => document.activeElement?.getAttribute("name")), "name", "Keyboard submission of an empty group enquiry must focus the first invalid field");
     assert.equal(await page.locator('[name="name"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce contact name");
     assert.equal(await page.locator('[name="mobile"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce mobile");
 
