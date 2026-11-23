@@ -20,13 +20,13 @@ Purpose: populate the new TPS and TIER prototypes with material from the institu
 | Admission documents | linked from https://www.tpsgudhagorji.com/admission/ | Old admission form, hostel item list and CBSE disclosure PDFs; obtain current approved files before publishing
 | Vision & Mission | https://www.tpsgudhagorji.com/vision-mission/ | Vision, 3-H Head/Heart/Hand, whole-child development; legacy page contains obvious Lorem Ipsum filler in its aims list, which must not be migrated |
 | Chairman's Message | https://www.tpsgudhagorji.com/chairmans-message/ | Founder-chairman history and educational philosophy; long Hindi text to be reviewed before final editorial adaptation |
-| Principal's Message | https://www.tpsgudhagorji.com/principals-message/ | Principal message and school invitation; named principal conflicts with the current CBSE disclosure, so keep name unpublished pending verification |
+| Principal's Message | https://www.tpsgudhagorji.com/principals-message/ | Current public message is attributed to Sachin Joshi; the CBSE disclosure also lists Sachin Joshi, so the name is consistent across these two pages but should still be reconfirmed before launch |
 | Infrastructure | https://www.tpsgudhagorji.com/infrastructure-facility/ | Campus, classrooms, labs and infrastructure; current page has little extractable text |
 | Hostel | https://www.tpsgudhagorji.com/hostel/ | Residential facilities; compare with current TIER hostel page and confirm which facilities apply to TPS |
 | Sports Academy | https://www.tpsgudhagorji.com/sports-acedemy/ | Sports pathways and activities; confirm current offerings |
 | Play School | https://www.tpsgudhagorji.com/play-school/ | Early-years offering; confirm whether it remains part of TPS |
 | Admission | https://www.tpsgudhagorji.com/admission/ | Admission process and downloadable forms; current-year criteria must be checked |
-| Mandatory disclosure | https://www.tpsgudhagorji.com/mandatory-public-disclosure/ | CBSE affiliation 1730360, school code 10705 and statutory disclosures; verify latest PDFs before launch |
+| Mandatory disclosure | https://www.tpsgudhagorji.com/mandatory-public-disclosure/ | CBSE affiliation 1730360, school code 10705, principal Sachin Joshi, 2025–26 Class X/XII results, teacher count and infrastructure snapshot; verify latest PDFs and all figures before launch |
 | Gallery | https://www.tpsgudhagorji.com/gallery/ | Authentic school/campus photographs; each identifiable-person image needs consent/use review |
 | Contact | https://www.tpsgudhagorji.com/contact-us/ | Address, phone and email; phone routing must be confirmed |
 
@@ -88,13 +88,14 @@ The prototype currently uses image URLs hosted on the two existing official webs
 
 - Keep the new website's current information architecture and conversion improvements; migrate legacy substance into the new design rather than copying old layouts.
 - Preserve source wording in an editorial archive where useful; rewrite for clarity without inventing facts.
-- Legacy pages contain inconsistent phone numbers, old admission-year references, possible outdated leadership names, misspellings and unsupported numerical claims. Do not silently promote them as current facts.
+- Legacy pages contain inconsistent phone numbers, a stale 2023–24 label on the detailed admission page while the current homepage advertises 2026–27, misspellings and unsupported numerical claims. Do not silently promote these as current facts.
 - The TPS site says 4.5 acres, while the CBSE disclosure lists total campus area as 12,999 square metres; do not publish an area claim until reconciled.
-- Legacy TPS principal-message name and current disclosure name differ. Do not publish a principal name until management confirms.
+- The current TPS Principal’s Message and current public CBSE disclosure both list Sachin Joshi. The prototype uses that name with a source link; management should reconfirm it before launch.
 - TIER legacy claims such as 29+ years, 50+ courses, 10,000+ students, 5,000+ graduates and 100+ awards need dated evidence before use.
 - The legacy TIER portfolio differs from the new group's six-institution portfolio. Retain the new six-institution structure, but use legacy text/photos only where the institution identity and present-day relevance are clear.
 - Student photographs and testimonials may be used for internal prototype review, but production use requires documented permissions/consent and a safeguarding review.
-- The old TPS admission page is labelled 2023–24. Do not carry its admission-year label, fees, age/eligibility, termination or withdrawal wording into the new site without a current written policy review.
+- The detailed TPS admission page still shows a 2023–24 label, while the homepage advertises 2026–27. Use the current year only after checking the school office; do not carry forward old fees, age/eligibility, termination or withdrawal wording without a current written policy review.
+- The currently published CBSE disclosure lists 2025–26 Class X results of 166/166 (100%) and Class XII results of 93/93 (100%), plus 99 teachers (17 PGT, 43 TGT, 39 PRT). The prototype shows the dated results and teacher count as a source-based snapshot; management must recheck before launch.
 - The old Tagore Olympiad page exposes only a title/image and no programme detail. Do not invent competition formats, dates, awards or registration terms.
 - The old TPS Infrastructure Facility page has no meaningful descriptive copy; only use facility descriptions that are supported by other legacy pages or current management confirmation.
 - Do not migrate old forms, personal data, tracking scripts, outdated PDFs or obsolete contact-routing assumptions into the new sites.
