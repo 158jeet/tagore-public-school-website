@@ -360,3 +360,11 @@ A workstream is complete only when:
 - [x] **MIG-26** Added source-linked legacy curriculum notes to the dynamic admissions pathway pages for early years, primary, middle and secondary stages. Senior secondary page now notes the current Class XII disclosure and flags the old Science/Commerce stream wording as historical pending confirmation.
 - [x] **MIG-27** Expanded the TPS content source inventory with the old Primary School and Secondary School pages.
 - [~] **MIG-28** Public mirror CI run `45132899609` is validating these newest hostel and admissions-stage changes. Prior full-stack run `45132412876` passed both site jobs including current CBSE results and TIER group-contact content.
+
+
+### Brand asset integrity — 2026-11-23
+
+- [x] **BRAND-01** TIER header now uses the exact legacy `https://www.tieredu.org/images/logo-wide.png` wordmark, unchanged.
+- [x] **BRAND-02** Removed the invented TPS “TPS” circular monogram from the header. No standalone approved TPS logo file was present in the private repository or available Project/Library files; the header uses text-only school identity until the exact original logo is supplied.
+- [x] **BRAND-03** Added logo-source status to the media manifest and migration inventory. Do not redraw, trace, recolor, crop or otherwise modify either institution’s logo.
+- [~] **BRAND-04** Public mirror CI is validating the official TIER wordmark and TPS text-only header change; screenshot review pending.
