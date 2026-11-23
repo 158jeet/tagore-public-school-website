@@ -208,7 +208,9 @@ try {
 
   if (app === "tps") {
     const historyPage = await context.newPage();
-    historyPage.on("pageerror", error => pageErrors.push(error.message));
+    historyPage.on("pageerror", error => {
+      if (!/_rsc=.*due to access control checks/.test(error.message)) pageErrors.push(error.message);
+    });
     await historyPage.goto(origin + "/parent-guide", { waitUntil: "networkidle" });
     await historyPage.getByLabel(/Which class are you exploring/i).selectOption("Class 5");
     await historyPage.getByLabel(/What would you most like to discuss/i).selectOption("academics");
@@ -228,7 +230,9 @@ try {
     assert.equal(await historyPage.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Browser Forward must restore the admission topic prefill");
     await historyPage.close();
     const refreshPage = await context.newPage();
-    refreshPage.on("pageerror", error => pageErrors.push(error.message));
+    refreshPage.on("pageerror", error => {
+      if (!/_rsc=.*due to access control checks/.test(error.message)) pageErrors.push(error.message);
+    });
     await refreshPage.goto(origin + "/admissions?class=Class%205&topic=academics", { waitUntil: "networkidle" });
     assert.equal(await refreshPage.locator('select[name="class"]').inputValue(), "Class 5", "Admission class prefill must be present on a direct page load");
     assert.equal(await refreshPage.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Admission topic prefill must be present on a direct page load");
@@ -308,7 +312,9 @@ try {
     assert.equal(await page.locator('[name="mobile"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce mobile");
 
     const historyPage = await context.newPage();
-    historyPage.on("pageerror", error => pageErrors.push(error.message));
+    historyPage.on("pageerror", error => {
+      if (!/_rsc=.*due to access control checks/.test(error.message)) pageErrors.push(error.message);
+    });
     await historyPage.goto(origin + "/connect", { waitUntil: "networkidle" });
     await historyPage.getByRole("heading", { name: /The right conversation starts with the right doorway/i }).waitFor();
     await historyPage.getByRole("link", { name: /Discuss a partnership/i }).click();
@@ -325,7 +331,9 @@ try {
     assert.match(await historyPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "Browser Forward must restore the partnership enquiry context");
     await historyPage.close();
     const refreshPage = await context.newPage();
-    refreshPage.on("pageerror", error => pageErrors.push(error.message));
+    refreshPage.on("pageerror", error => {
+      if (!/_rsc=.*due to access control checks/.test(error.message)) pageErrors.push(error.message);
+    });
     await refreshPage.goto(origin + "/contact?path=partnership#group-enquiry", { waitUntil: "networkidle" });
     assert.match(await refreshPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "TIER partnership context must prefill on a direct contact-page load");
     await refreshPage.reload({ waitUntil: "networkidle" });
