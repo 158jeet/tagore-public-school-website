@@ -335,3 +335,12 @@ A workstream is complete only when:
 - [x] **MIG-22** Added the existing TIER group-office address, 01594-319504 and tagoregg@gmail.com to the TIER contact prototype, explicitly labelled as legacy details requiring current routing verification.
 - [x] **MIG-23** Source inventory records the detailed TPS admission page's stale 2023–24 label against the homepage's 2026–27 promotion; only current-year content is retained in the prototype and school-office confirmation is required.
 - [~] **MIG-24** Latest public full-stack CI run `45131819043` is in browser journeys / performance checks. It includes the expanded TPS results and facilities sections, TIER profile pages, responsive layout and legacy group contact card once these changes are mirrored.
+
+
+### Consolidated review target — 2026-11-23
+
+- Private PR #116 has been retargeted to `main` and now contains the full-stack migration (first homepage pass plus deeper TPS/TIER pages), so it is the single canonical review target: `https://github.com/158jeet/tagore-public-school-website/pull/116`.
+- PR #115 remains open as the first staged implementation record; #116 contains the complete stack.
+- Public mirror PR #37 targets `main` and validates the complete stack. Latest public run `45132412876` is currently running TPS and TIER production builds after the additional CBSE outcome and group-contact updates.
+- Prior complete stack run `45131819043` passed both site jobs and screenshot review. Its screenshots confirm TPS images render and TIER gallery renders.
+- No merge, deployment, DNS change or live integration has occurred.
