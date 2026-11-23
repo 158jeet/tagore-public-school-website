@@ -344,3 +344,11 @@ A workstream is complete only when:
 - Public mirror PR #37 targets `main` and validates the complete stack. Latest public run `45132412876` is currently running TPS and TIER production builds after the additional CBSE outcome and group-contact updates.
 - Prior complete stack run `45131819043` passed both site jobs and screenshot review. Its screenshots confirm TPS images render and TIER gallery renders.
 - No merge, deployment, DNS change or live integration has occurred.
+
+
+### Hosted-runner label comparison — 2026-11-23
+
+- Extended the isolated probe to test both `ubuntu-latest` and `ubuntu-24.04` with one shell-only echo step each.
+- Run `45132784384`: both jobs failed before any steps; job IDs `137551889495` and `137551889801` return empty step lists.
+- The failure is not specific to the `ubuntu-latest` image label. Together with the original probe, this isolates the blocker to private-repository hosted-runner allocation/admission or account/repository policy/billing. The available GitHub API connection does not expose the exact rejection annotation or billing usage.
+- Required owner-side check remains: account Settings → Billing and licensing → Usage (Actions included compute / spending budget), then repository Settings → Actions → General. If both are clear, escalate both probe run IDs to GitHub Support.
