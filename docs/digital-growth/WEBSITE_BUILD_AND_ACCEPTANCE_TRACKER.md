@@ -352,3 +352,11 @@ A workstream is complete only when:
 - Run `45132784384`: both jobs failed before any steps; job IDs `137551889495` and `137551889801` return empty step lists.
 - The failure is not specific to the `ubuntu-latest` image label. Together with the original probe, this isolates the blocker to private-repository hosted-runner allocation/admission or account/repository policy/billing. The available GitHub API connection does not expose the exact rejection annotation or billing usage.
 - Required owner-side check remains: account Settings → Billing and licensing → Usage (Actions included compute / spending budget), then repository Settings → Actions → General. If both are clear, escalate both probe run IDs to GitHub Support.
+
+
+### TPS residential and stage-curriculum migration — 2026-11-23
+
+- [x] **MIG-25** Added the legacy TPS hostel description to `/hostel/guide`: separate boys'/girls' accommodation, triple/quadruple rooms, attached washrooms/balconies in many rooms, centrally air-cooled accommodation, house-in-charge/superintendent supervision, extra classes, medical and counselling support. Every detail is explicitly marked as legacy and subject to current verification.
+- [x] **MIG-26** Added source-linked legacy curriculum notes to the dynamic admissions pathway pages for early years, primary, middle and secondary stages. Senior secondary page now notes the current Class XII disclosure and flags the old Science/Commerce stream wording as historical pending confirmation.
+- [x] **MIG-27** Expanded the TPS content source inventory with the old Primary School and Secondary School pages.
+- [~] **MIG-28** Public mirror CI run `45132899609` is validating these newest hostel and admissions-stage changes. Prior full-stack run `45132412876` passed both site jobs including current CBSE results and TIER group-contact content.
