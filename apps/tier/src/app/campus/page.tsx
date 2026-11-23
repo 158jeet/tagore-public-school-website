@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-json-ld";
 
 export const metadata = {
@@ -80,7 +81,7 @@ export default function CampusPage() {
             <div className="eyebrow" style={{ color: "var(--gold)" }}>Residential life</div>
             <h2>Hostel routines, supervision and student support.</h2>
             <p>The legacy hostel page describes separate boys’ and girls’ accommodation, triple- and quadruple-occupancy rooms, attached washrooms and balconies in many rooms, centrally air-cooled accommodation, house-in-charge supervision, extra academic classes, and medical and counselling support. Every facility, staffing arrangement, safeguarding process and emergency protocol must be reconfirmed with the current hostel team.</p>
-            <a href="/institutions/tagore-hostel" style={{ display: "inline-block", marginTop: 14, fontSize: 12, fontWeight: 700, color: "var(--navy)" }}>Review the Tagore Hostel profile ↗</a>
+            <Link href="/institutions/tagore-hostel" style={{ display: "inline-block", marginTop: 14, fontSize: 12, fontWeight: 700, color: "var(--navy)" }}>Review the Tagore Hostel profile ↗</Link>
           </div>
         </div>
       </section>
