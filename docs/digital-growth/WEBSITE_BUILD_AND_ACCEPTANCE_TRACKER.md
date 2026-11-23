@@ -381,3 +381,10 @@ A workstream is complete only when:
 
 
 - [x] **BRAND-06** Follow-up source inspection found the first placeholder-removal edit had targeted an obsolete markup selector. Corrected the actual rendered headers: TPS inline “TPS” circle is now removed, and TIER inline “T” circle is replaced by the exact legacy Tier Edu wordmark. This corrected markup is awaiting the next public mirror CI/screenshot pass.
+
+
+### TPS safeguarding content migration — 2026-11-23
+
+- [x] **MIG-32** Parent Guide now links the current 2026–27 Child Protection (POCSO), Anti-Bullying and Grievance Redressal Committee PDFs from the existing TPS website.
+- [x] **MIG-33** Committee member names and phone numbers were not copied into new page text; the original official PDFs remain linked and the page tells families to confirm current reporting contacts with the school.
+- [x] **MIG-34** Source inventory now records the three current committee documents and their verification requirements.
