@@ -54,3 +54,12 @@ The prototype pages currently reference the original image URLs hosted on the le
 **Prototype image placement:** legacy photographs are visible through their existing source URLs.
 
 **Not complete for production:** local image copying/optimization, permission and consent verification, factual refresh, management approval, final visual review and deployment. The team can review the populated prototype now, but these gates must not be represented as completed.
+
+## Media governance automation — 2026-11-23
+
+- Added `scripts/audit-legacy-media.mjs` and `tests/legacy-media-manifest.test.mjs` to both the public development mirror and canonical repository branch.
+- Added `npm run media:audit` to report every legacy asset, source host, missing metadata, and whether identifiable-person consent is required.
+- Added `npm run test:media` to validate unique IDs, HTTPS source URLs, descriptive alt text, rights/consent notes and explicit consent gating.
+- Added `npm run media:production-check` as a fail-closed production gate: it exits unsuccessfully while any legacy asset remains unapproved.
+- The audit intentionally does not download or copy images. No image is promoted into a repository media directory until rights, currentness and required consent have been documented.
+- This is governance automation, not completion of local media migration. Production still requires an approved asset register and private media storage.
