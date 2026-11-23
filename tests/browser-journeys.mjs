@@ -125,7 +125,11 @@ try {
       const artifactDir = path.join(root, "artifacts", "visual-qa", app);
       await mkdir(artifactDir, { recursive: true });
       const slug = route === "/" ? "home" : route.slice(1).replaceAll("/", "-");
-      await page.screenshot({ path: path.join(artifactDir, `${slug}-mobile-390.png`), fullPage: true, animations: "disabled" });
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.screenshot({ path: path.join(artifactDir, `${slug}-mobile-390-viewport.png`), fullPage: false, animations: "disabled" });
+      const hideFixedMobileActions = await page.addStyleTag({ content: ".mobile-quick-actions{display:none!important} body{padding-bottom:0!important}" });
+      await page.screenshot({ path: path.join(artifactDir, `${slug}-mobile-390-full.png`), fullPage: true, animations: "disabled" });
+      await hideFixedMobileActions.evaluate(element => element.remove());
       await page.setViewportSize({ width: 1440, height: 1000 });
       await page.screenshot({ path: path.join(artifactDir, `${slug}-desktop-1440.png`), fullPage: true, animations: "disabled" });
       await page.setViewportSize({ width: 390, height: 844 });
