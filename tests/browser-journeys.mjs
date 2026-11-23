@@ -207,28 +207,35 @@ try {
   }
 
   if (app === "tps") {
-    await page.goto(origin + "/parent-guide", { waitUntil: "networkidle" });
-    await page.getByLabel(/Which class are you exploring/i).selectOption("Class 5");
-    await page.getByLabel(/What would you most like to discuss/i).selectOption("academics");
-    await page.getByRole("link", { name: /Continue to admission enquiry/i }).click();
-    await page.waitForURL(/\/admissions\?/);
-    const url = new URL(page.url());
+    const historyPage = await context.newPage();
+    historyPage.on("pageerror", error => pageErrors.push(error.message));
+    await historyPage.goto(origin + "/parent-guide", { waitUntil: "networkidle" });
+    await historyPage.getByLabel(/Which class are you exploring/i).selectOption("Class 5");
+    await historyPage.getByLabel(/What would you most like to discuss/i).selectOption("academics");
+    await historyPage.getByRole("link", { name: /Continue to admission enquiry/i }).click();
+    await historyPage.waitForURL(/\/admissions\?/);
+    const url = new URL(historyPage.url());
     assert.equal(url.searchParams.get("class"), "Class 5");
     assert.equal(url.searchParams.get("topic"), "academics");
-    const admissionClass = page.locator('select[name="class"]');
-    const admissionTopic = page.locator('select[name="enquiry_topic"]');
-    assert.equal(await admissionClass.inputValue(), "Class 5", "Parent guide class choice must prefill the admission form");
-    assert.equal(await admissionTopic.inputValue(), "academics", "Parent guide topic choice must prefill the admission form");
-    await page.goBack({ waitUntil: "networkidle" });
-    assert.equal(new URL(page.url()).pathname, "/parent-guide", "Browser Back must return to the parent decision guide");
-    assert.equal(await page.locator('select').first().inputValue(), "Class 5", "Browser Back must preserve the parent guide class selection");
-    await page.goForward({ waitUntil: "networkidle" });
-    assert.equal(new URL(page.url()).pathname, "/admissions", "Browser Forward must restore the admission enquiry route");
-    assert.equal(await page.locator('select[name="class"]').inputValue(), "Class 5", "Browser Forward must restore the admission class prefill");
-    assert.equal(await page.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Browser Forward must restore the admission topic prefill");
-    await page.reload({ waitUntil: "networkidle" });
-    assert.equal(await page.locator('select[name="class"]').inputValue(), "Class 5", "Admission class prefill must survive a full page refresh");
-    assert.equal(await page.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Admission topic prefill must survive a full page refresh");
+    assert.equal(await historyPage.locator('select[name="class"]').inputValue(), "Class 5", "Parent guide class choice must prefill the admission form");
+    assert.equal(await historyPage.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Parent guide topic choice must prefill the admission form");
+    await historyPage.goBack({ waitUntil: "networkidle" });
+    assert.equal(new URL(historyPage.url()).pathname, "/parent-guide", "Browser Back must return to the parent decision guide");
+    assert.equal(await historyPage.locator('select').first().inputValue(), "Class 5", "Browser Back must preserve the parent guide class selection");
+    await historyPage.goForward({ waitUntil: "networkidle" });
+    assert.equal(new URL(historyPage.url()).pathname, "/admissions", "Browser Forward must restore the admission enquiry route");
+    assert.equal(await historyPage.locator('select[name="class"]').inputValue(), "Class 5", "Browser Forward must restore the admission class prefill");
+    assert.equal(await historyPage.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Browser Forward must restore the admission topic prefill");
+    await historyPage.close();
+    const refreshPage = await context.newPage();
+    refreshPage.on("pageerror", error => pageErrors.push(error.message));
+    await refreshPage.goto(origin + "/admissions?class=Class%205&topic=academics", { waitUntil: "networkidle" });
+    assert.equal(await refreshPage.locator('select[name="class"]').inputValue(), "Class 5", "Admission class prefill must be present on a direct page load");
+    assert.equal(await refreshPage.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Admission topic prefill must be present on a direct page load");
+    await refreshPage.reload({ waitUntil: "networkidle" });
+    assert.equal(await refreshPage.locator('select[name="class"]').inputValue(), "Class 5", "Admission class prefill must survive a full page refresh");
+    assert.equal(await refreshPage.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Admission topic prefill must survive a full page refresh");
+    await refreshPage.close();
 
     await page.goto(origin + "/admissions", { waitUntil: "networkidle" });
     await page.getByRole("button", { name: /Submit admission enquiry/i }).click();
