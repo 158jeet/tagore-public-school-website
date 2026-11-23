@@ -113,16 +113,19 @@ export function InstitutionDirectory() {
         )}
       </div>
       {comparedInstitutions.length > 0 && (
-        <section className="compare-panel" aria-labelledby="compare-heading">
+        <section className="compare-panel print:break-inside-avoid" aria-labelledby="compare-heading">
           <div className="compare-panel-heading">
             <div>
               <p className="eyebrow">Side-by-side view</p>
               <h2 id="compare-heading">Compare pathways</h2>
               <p aria-live="polite">{comparedInstitutions.length} of 3 comparison places selected</p>
             </div>
-            <button type="button" className="compare-clear" onClick={() => setComparison([])}>Clear comparison</button>
+            <div className="flex flex-wrap gap-2 print:hidden">
+              <button type="button" className="compare-clear" onClick={() => setComparison([])}>Clear comparison</button>
+              <button type="button" className="compare-clear" onClick={() => window.print()} aria-label="Print selected institution comparison">Print comparison</button>
+            </div>
           </div>
-          <div className="compare-table-wrap" role="region" aria-label="Institution comparison" tabIndex={0}>
+          <div className="compare-table-wrap print:overflow-visible" role="region" aria-label="Institution comparison" tabIndex={0}>
             <table className="compare-table">
               <thead><tr><th scope="col">Published detail</th>{comparedInstitutions.map((item) => <th scope="col" key={item.name}>{item.name}</th>)}</tr></thead>
               <tbody>
