@@ -368,3 +368,6 @@ A workstream is complete only when:
 - [x] **BRAND-02** Removed the invented TPS “TPS” circular monogram from the header. No standalone approved TPS logo file was present in the private repository or available Project/Library files; the header uses text-only school identity until the exact original logo is supplied.
 - [x] **BRAND-03** Added logo-source status to the media manifest and migration inventory. Do not redraw, trace, recolor, crop or otherwise modify either institution’s logo.
 - [~] **BRAND-04** Public mirror CI is validating the official TIER wordmark and TPS text-only header change; screenshot review pending.
+
+
+- [x] **BRAND-05** Removed the decorative “TG” hero monogram from TIER and replaced it with a Gudha Gorji location label, so no recreated mark is presented as an institutional logo.
