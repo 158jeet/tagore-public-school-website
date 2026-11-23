@@ -100,6 +100,15 @@ try {
       }).filter(item => item.right > document.documentElement.clientWidth + 1 && item.width > 0).sort((a,b) => b.right-a.right).slice(0, 20));
       assert.ok(false, `${app.toUpperCase()} ${engineName} ${route} overflows at 320 CSS px: ${JSON.stringify(narrowDimensions)}. Offenders: ${JSON.stringify(offenders)}`);
     }
+    await page.setViewportSize({ width: 720, height: 1000 });
+    const zoomEquivalentDimensions = await page.evaluate(() => ({
+      viewport: document.documentElement.clientWidth,
+      document: document.documentElement.scrollWidth,
+    }));
+    assert.ok(
+      zoomEquivalentDimensions.document <= zoomEquivalentDimensions.viewport + 1,
+      `${app.toUpperCase()} ${engineName} ${route} overflows at 720 CSS px (200% desktop-zoom-equivalent layout): ${JSON.stringify(zoomEquivalentDimensions)}`
+    );
     await page.setViewportSize({ width: 390, height: 844 });
 
     await page.addScriptTag({ content: axe.source });
@@ -116,7 +125,11 @@ try {
       const artifactDir = path.join(root, "artifacts", "visual-qa", app);
       await mkdir(artifactDir, { recursive: true });
       const slug = route === "/" ? "home" : route.slice(1).replaceAll("/", "-");
-      await page.screenshot({ path: path.join(artifactDir, `${slug}-mobile-390.png`), fullPage: true, animations: "disabled" });
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.screenshot({ path: path.join(artifactDir, `${slug}-mobile-390-viewport.png`), fullPage: false, animations: "disabled" });
+      const hideFixedMobileActions = await page.addStyleTag({ content: ".mobile-quick-actions{display:none!important} body{padding-bottom:0!important}" });
+      await page.screenshot({ path: path.join(artifactDir, `${slug}-mobile-390-full.png`), fullPage: true, animations: "disabled" });
+      await hideFixedMobileActions.evaluate(element => element.remove());
       await page.setViewportSize({ width: 1440, height: 1000 });
       await page.screenshot({ path: path.join(artifactDir, `${slug}-desktop-1440.png`), fullPage: true, animations: "disabled" });
       await page.setViewportSize({ width: 390, height: 844 });
@@ -207,23 +220,52 @@ try {
   }
 
   if (app === "tps") {
-    await page.goto(origin + "/parent-guide", { waitUntil: "networkidle" });
-    await page.getByLabel(/Which class are you exploring/i).selectOption("Class 5");
-    await page.getByLabel(/What would you most like to discuss/i).selectOption("academics");
-    await page.getByRole("link", { name: /Continue to admission enquiry/i }).click();
-    await page.waitForURL(/\/admissions\?/);
-    const url = new URL(page.url());
+    const historyPage = await context.newPage();
+    historyPage.on("pageerror", error => {
+      if (!/_rsc=.*due to access control checks/.test(error.message)) pageErrors.push(error.message);
+    });
+    await historyPage.goto(origin + "/parent-guide", { waitUntil: "networkidle" });
+    await historyPage.getByLabel(/Which class are you exploring/i).selectOption("Class 5");
+    await historyPage.getByLabel(/What would you most like to discuss/i).selectOption("academics");
+    await historyPage.getByRole("link", { name: /Continue to admission enquiry/i }).click();
+    await historyPage.waitForURL(/\/admissions\?/);
+    const url = new URL(historyPage.url());
     assert.equal(url.searchParams.get("class"), "Class 5");
     assert.equal(url.searchParams.get("topic"), "academics");
+    assert.equal(await historyPage.locator('select[name="class"]').inputValue(), "Class 5", "Parent guide class choice must prefill the admission form");
+    assert.equal(await historyPage.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Parent guide topic choice must prefill the admission form");
+    await historyPage.goBack({ waitUntil: "networkidle" });
+    assert.equal(new URL(historyPage.url()).pathname, "/parent-guide", "Browser Back must return to the parent decision guide");
+    assert.equal(await historyPage.locator('select').first().inputValue(), "Class 5", "Browser Back must preserve the parent guide class selection");
+    await historyPage.goForward({ waitUntil: "networkidle" });
+    assert.equal(new URL(historyPage.url()).pathname, "/admissions", "Browser Forward must restore the admission enquiry route");
+    assert.equal(await historyPage.locator('select[name="class"]').inputValue(), "Class 5", "Browser Forward must restore the admission class prefill");
+    assert.equal(await historyPage.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Browser Forward must restore the admission topic prefill");
+    await historyPage.close();
+    const refreshPage = await context.newPage();
+    refreshPage.on("pageerror", error => {
+      if (!/_rsc=.*due to access control checks/.test(error.message)) pageErrors.push(error.message);
+    });
+    await refreshPage.goto(origin + "/admissions?class=Class%205&topic=academics", { waitUntil: "networkidle" });
+    assert.equal(await refreshPage.locator('select[name="class"]').inputValue(), "Class 5", "Admission class prefill must be present on a direct page load");
+    assert.equal(await refreshPage.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Admission topic prefill must be present on a direct page load");
+    await refreshPage.reload({ waitUntil: "networkidle" });
+    assert.equal(await refreshPage.locator('select[name="class"]').inputValue(), "Class 5", "Admission class prefill must survive a full page refresh");
+    assert.equal(await refreshPage.locator('select[name="enquiry_topic"]').inputValue(), "academics", "Admission topic prefill must survive a full page refresh");
+    await refreshPage.close();
 
     await page.goto(origin + "/admissions", { waitUntil: "networkidle" });
-    await page.getByRole("button", { name: /Submit admission enquiry/i }).click();
+    await page.getByRole("button", { name: /Submit admission enquiry/i }).focus();
+    await page.keyboard.press("Enter");
+    assert.equal(await page.evaluate(() => document.activeElement?.getAttribute("name")), "parent_name", "Keyboard submission of an empty admission form must focus the first invalid field");
     assert.equal(await page.locator('[name="parent_name"]').evaluate(el => el.validity.valueMissing), true, "Admission form must enforce required parent name");
     assert.equal(await page.locator('[name="mobile"]').evaluate(el => el.validity.valueMissing), true, "Admission form must enforce required mobile");
     assert.equal(await page.locator('[name="class"]').evaluate(el => el.validity.valueMissing), true, "Admission form must enforce class selection");
 
     await page.goto(origin + "/visit", { waitUntil: "networkidle" });
-    await page.getByRole("button", { name: /Request a campus visit/i }).click();
+    await page.getByRole("button", { name: /Request a campus visit/i }).focus();
+    await page.keyboard.press("Enter");
+    assert.equal(await page.evaluate(() => document.activeElement?.getAttribute("name")), "parent_name", "Keyboard submission of an empty visit form must focus the first invalid field");
     assert.equal(await page.locator('[name="preferred_date"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred date");
     assert.equal(await page.locator('[name="preferred_time"]').evaluate(el => el.validity.valueMissing), true, "Visit form must enforce a preferred time");
 
@@ -282,17 +324,40 @@ try {
     }
 
     await page.goto(origin + "/contact", { waitUntil: "networkidle" });
-    await page.getByRole("button", { name: /Send group enquiry/i }).click();
+    await page.getByRole("button", { name: /Send group enquiry/i }).focus();
+    await page.keyboard.press("Enter");
+    assert.equal(await page.evaluate(() => document.activeElement?.getAttribute("name")), "name", "Keyboard submission of an empty group enquiry must focus the first invalid field");
     assert.equal(await page.locator('[name="name"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce contact name");
     assert.equal(await page.locator('[name="mobile"]').evaluate(el => el.validity.valueMissing), true, "Group enquiry must enforce mobile");
 
-    await page.goto(origin + "/connect", { waitUntil: "networkidle" });
-    await page.getByRole("heading", { name: /The right conversation starts with the right doorway/i }).waitFor();
-    await page.getByRole("link", { name: /Discuss a partnership/i }).click();
-    await page.waitForFunction(() => location.pathname === "/contact" && location.search === "?path=partnership" && location.hash === "#group-enquiry");
-    const partnershipMessage = await page.locator('textarea[name="message"]').inputValue();
+    const historyPage = await context.newPage();
+    historyPage.on("pageerror", error => {
+      if (!/_rsc=.*due to access control checks/.test(error.message)) pageErrors.push(error.message);
+    });
+    await historyPage.goto(origin + "/connect", { waitUntil: "networkidle" });
+    await historyPage.getByRole("heading", { name: /The right conversation starts with the right doorway/i }).waitFor();
+    await historyPage.getByRole("link", { name: /Discuss a partnership/i }).click();
+    await historyPage.waitForURL(url => url.pathname === "/contact" && url.search === "?path=partnership" && url.hash === "#group-enquiry");
+    const partnershipMessage = await historyPage.locator('textarea[name="message"]').inputValue();
     assert.match(partnershipMessage, /Institutional partnership enquiry/, "TIER partnership pathway must prefill enquiry context");
     assert.match(partnershipMessage, /Please add details about your enquiry below/, "TIER pathway prefill must retain an editable prompt");
+    await historyPage.goBack({ waitUntil: "networkidle" });
+    assert.equal(new URL(historyPage.url()).pathname, "/connect", "Browser Back must return to the group connection pathways");
+    await historyPage.evaluate(() => window.history.forward());
+    await historyPage.waitForURL(url => url.pathname === "/contact" && url.search === "?path=partnership", { timeout: 10000 });
+    assert.equal(new URL(historyPage.url()).pathname, "/contact", "Browser Forward must restore the group contact form");
+    assert.equal(new URL(historyPage.url()).searchParams.get("path"), "partnership", "Browser Forward must preserve the selected enquiry pathway");
+    assert.match(await historyPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "Browser Forward must restore the partnership enquiry context");
+    await historyPage.close();
+    const refreshPage = await context.newPage();
+    refreshPage.on("pageerror", error => {
+      if (!/_rsc=.*due to access control checks/.test(error.message)) pageErrors.push(error.message);
+    });
+    await refreshPage.goto(origin + "/contact?path=partnership#group-enquiry", { waitUntil: "networkidle" });
+    assert.match(await refreshPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "TIER partnership context must prefill on a direct contact-page load");
+    await refreshPage.reload({ waitUntil: "networkidle" });
+    assert.match(await refreshPage.locator('textarea[name="message"]').inputValue(), /Institutional partnership enquiry/, "TIER partnership context must survive a full page refresh");
+    await refreshPage.close();
   }
 
   assert.deepEqual(pageErrors, [], `Browser runtime errors detected: ${pageErrors.join(" | ")}`);

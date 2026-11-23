@@ -137,8 +137,8 @@ try {
     }
   }
   for (const target of internalTargets) {
-    const response = await fetch(origin + target, { redirect: "follow", signal: AbortSignal.timeout(10000) });
-    assert.equal(response.status, 200, `${app.toUpperCase()} internal link ${target} returned ${response.status}`);
+    const response = await fetch(origin + target, { redirect: "manual", signal: AbortSignal.timeout(10000) });
+    assert.equal(response.status, 200, `${app.toUpperCase()} internal link ${target} returned ${response.status}; unexpected redirect target: ${response.headers.get("location") || "none"}`);
   }
 
   const missingRoute = "/__tagore_smoke_missing_route__";
@@ -166,8 +166,8 @@ try {
   for (const url of sitemapUrls) {
     assert.equal(url.host, expectedHost, "every sitemap URL must use the correct brand host");
     assert.ok(routes.includes(url.pathname), "sitemap route is missing from the smoke-test matrix: " + url.pathname);
-    const response = await fetch(origin + url.pathname, { signal: AbortSignal.timeout(10000) });
-    assert.equal(response.status, 200, "sitemap route must return HTTP 200: " + url.pathname);
+    const response = await fetch(origin + url.pathname, { redirect: "manual", signal: AbortSignal.timeout(10000) });
+    assert.equal(response.status, 200, "sitemap route must return HTTP 200 without a redirect: " + url.pathname + " (location: " + (response.headers.get("location") || "none") + ")");
   }
   for (const excluded of noindexRoutes) {
     assert.ok(!sitemapUrls.some((url) => url.pathname === excluded), "noindex route must not appear in sitemap: " + excluded);
