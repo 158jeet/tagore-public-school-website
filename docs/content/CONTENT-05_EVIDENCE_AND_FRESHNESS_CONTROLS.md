@@ -69,7 +69,7 @@ A claim may be published only when all of the following are true:
 - Publication locations are listed.
 - Any required privacy, legal, safeguarding or media-consent review is complete.
 
-Build-time validation should eventually fail for missing required fields, invalid dates, expired approvals and unknown statuses. This specification does not claim that such automation exists yet.
+Automated validation is implemented in `scripts/content-governance.mjs` and exercised by `tests/content-governance.test.mjs`. The targeted `Content governance` GitHub Actions workflow runs both the test suite and the live register validation. This is a governance CI gate; it does not itself approve claims or replace management review.
 
 ## Stale-claim response
 
