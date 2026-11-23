@@ -102,3 +102,9 @@ The prototype currently uses image URLs hosted on the two existing official webs
 - The old TPS Infrastructure Facility page has no meaningful descriptive copy; only use facility descriptions that are supported by other legacy pages or current management confirmation.
 - Do not migrate old forms, personal data, tracking scripts, outdated PDFs or obsolete contact-routing assumptions into the new sites.
 - Management review remains required for current admissions, fees, staff/leadership, results, policies, disclosures, contact routing, photos and testimonials.
+
+## Brand asset reconciliation
+
+- TIER official legacy wordmark: https://www.tieredu.org/images/logo-wide.png (Tier Edu / “Moulds Minds in Millions”). The prototype header uses this exact existing image, not a recreated mark.
+- TPS standalone transparent logo: no standalone file was present in the private repository or available Project/Library files during this pass. The legacy website exposes a composite banner containing the school emblem, but that banner is not substituted for a standalone logo. The prototype TPS header no longer shows the invented “TPS” monogram; it uses the school name as text until the exact approved logo file is available.
+- Do not redraw, trace, recolor, crop or otherwise modify either institution’s logo. If the approved TPS transparent logo is supplied by management, place the exact original file in the private media library and update the header asset reference.
