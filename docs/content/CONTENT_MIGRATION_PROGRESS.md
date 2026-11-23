@@ -10,7 +10,7 @@ Populate the new Tagore Public School (TPS) and Tagore Group (TIER) prototypes w
 
 | Source website | Legacy material | New prototype destination | Status |
 |---|---|---|---|
-| TPS | School history, 2004 origin, school identity, founder-chairman philosophy, 3-H Head/Heart/Hand and principal message | Home and About | Migrated as source-derived summaries with links to originals |
+| TPS | School history, 2004 origin, school identity, founder-chairman philosophy, 3-H Head/Heart/Hand and principal message | Home and About | Migrated; full founder-chairman Hindi and principal English messages are preserved in expandable source-copy sections |
 | TPS | Early-years, primary, middle and secondary learning descriptions | Admissions pathway pages | Migrated; current curriculum and class structure require confirmation |
 | TPS | Admission process and family questions | Admissions, FAQ, funnel and parent checklist | Migrated as a modern enquiry journey; obsolete 2023–24 criteria and forms intentionally excluded |
 | TPS | Hostel rooms, supervision, academic support, medical and counselling descriptions | Hostel family guide | Migrated with explicit current-verification warnings |
