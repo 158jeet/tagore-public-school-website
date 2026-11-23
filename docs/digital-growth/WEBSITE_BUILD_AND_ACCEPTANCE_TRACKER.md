@@ -371,3 +371,10 @@ A workstream is complete only when:
 
 
 - [x] **BRAND-05** Removed the decorative “TG” hero monogram from TIER and replaced it with a Gudha Gorji location label, so no recreated mark is presented as an institutional logo.
+
+
+### TIER leadership, faculty and co-curricular migration — 2026-11-23
+
+- [x] **MIG-29** TIER About page now includes legacy sports and cultural activity themes from `act.php` (cricket, basketball, volleyball, badminton, table tennis, kabaddi, kho-kho, taekwondo, athletics, singing, dance, drama and debate), with current availability/coaches/schedules flagged for confirmation.
+- [x] **MIG-30** TIER About page now includes the Director’s legacy message themes (innovation, excellence, cultural values) and the teacher page’s description of trained, experienced, subject-specialist educators and holistic development.
+- [x] **MIG-31** Current staff names, qualifications, staff counts and allocations are not inferred from legacy copy; they remain pending management confirmation.
