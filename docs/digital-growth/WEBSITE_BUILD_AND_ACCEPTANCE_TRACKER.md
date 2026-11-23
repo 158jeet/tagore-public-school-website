@@ -325,3 +325,13 @@ A workstream is complete only when:
 - Private website PR checks continue to fail before step execution; no code failure can be inferred.
 - Exact root cause still unconfirmed. Account Actions usage/budget and repository Settings → Actions → General must be checked; if clear, GitHub Support needs the minimal probe run/job IDs.
 - Public mirror standard-hosted-runner CI is the current working validation path. No PR has been merged and no production deployment has occurred.
+
+
+### Additional current-source migration — 2026-11-23
+
+- [x] **MIG-19** Added a dated 2025–26 CBSE disclosure snapshot to the TPS homepage: Class X 166/166 (100%), Class XII 93/93 (100%) and 99 teachers. The page links to the current public disclosure and explicitly asks management to recheck the figures before launch.
+- [x] **MIG-20** Added a concise Principal’s Message section to TPS About. Current public Principal’s Message and CBSE disclosure both list Sachin Joshi; the source inventory was corrected so it no longer claims a name conflict.
+- [x] **MIG-21** Corrected the TPS establishment copy to year 2004 only; no unsupported day/month is shown.
+- [x] **MIG-22** Added the existing TIER group-office address, 01594-319504 and tagoregg@gmail.com to the TIER contact prototype, explicitly labelled as legacy details requiring current routing verification.
+- [x] **MIG-23** Source inventory records the detailed TPS admission page's stale 2023–24 label against the homepage's 2026–27 promotion; only current-year content is retained in the prototype and school-office confirmation is required.
+- [~] **MIG-24** Latest public full-stack CI run `45131819043` is in browser journeys / performance checks. It includes the expanded TPS results and facilities sections, TIER profile pages, responsive layout and legacy group contact card once these changes are mirrored.
