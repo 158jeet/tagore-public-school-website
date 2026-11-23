@@ -288,3 +288,12 @@ A workstream is complete only when:
 - New private PR #115 head `a6a57387` independently reproduces the same pattern across all six checks: TPS quality, TIER quality, CodeQL, dependency audits and secret scanning. All jobs report no steps; logs are unavailable.
 - This rules out a failure unique to the CONTENT-05 files, but does not establish whether the cause is Actions quota, repository settings, runner provisioning or a GitHub-side issue. No setting/billing cause is confirmed.
 - Keep #114 and #115 draft/unmerged; validate source and tests on the public CI mirror while private Actions is investigated. No production deployment.
+
+
+### Minimal private Actions runner probe — 2026-11-23
+
+- Created isolated diagnostic branch `diagnostics/private-actions-runner-probe` from private `main`, with a new workflow containing only `runs-on: ubuntu-latest` and one shell `echo` step; no checkout, Node, dependencies, secrets or third-party actions.
+- Run `45130979954`, job `137546155613`, completed as failure before any step; step list is empty and log download returns Azure `BlobNotFound`.
+- This reproduces the same failure with a minimal workflow and therefore rules out the website code, dependency installation, CodeQL/secret-scan workflow logic and the CONTENT-05 workflow as the cause.
+- Current evidence localizes the blocker to private-repository GitHub Actions admission/hosted-runner allocation or account/repository policy/billing. The exact rejection reason is not exposed by the available GitHub connector; no quota, spending-limit, payment, repository setting or GitHub incident cause is confirmed.
+- Public mirror standard-hosted-runner CI continues to execute real steps, so use that as the validation path while checking the private account's Billing & licensing → Usage / Actions budget and repository Settings → Actions → General. If those are clean, send GitHub Support the minimal probe run/job IDs above and the matching PR #115 runs.
