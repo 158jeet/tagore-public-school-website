@@ -267,3 +267,33 @@ A workstream is complete only when:
 - [x] PR #106 added branded 404 recovery pages to TPS and TIER and extended production smoke assertions to check 404 status, heading and recovery links. Exact-source public free CI run `44882581805` passed both site jobs. Private merge commit: `46b0e470fc1ed183b5d5428a675f553e6001aaa1`.
 
 - [x] PR #104 expanded Playwright and axe browser acceptance to every current public TPS/TIER route, including all grade-stage and institution profile pages. Exact-source public free CI run `44882641431` passed both site jobs. Private merge commit: `ed94d88812b7344918ce7eea5a0a34b71512d258`.
+
+
+## 18. Legacy website content and media migration — 2026-11-23
+
+- [x] **MIG-01** Identified the current public source websites: TPS `https://www.tpsgudhagorji.com/` and Tagore Group `https://www.tieredu.org/`.
+- [x] **MIG-02** Added a page-by-page legacy source/destination inventory at `docs/content/LEGACY_SITE_MIGRATION_INVENTORY.md`.
+- [x] **MIG-03** Added `docs/content/legacy-media-manifest.json` with authentic legacy image URLs, alt text and explicit production consent-review flags.
+- [x] **MIG-04** TPS homepage prototype now uses the legacy campus photograph, campus/play-area/computer-learning photographs, the school's 2004 origin and its legacy 3-H Head/Heart/Hand educational philosophy.
+- [x] **MIG-05** TIER homepage prototype now uses a legacy aerial campus photograph, campus/sports/computer/hostel photographs and the legacy institutional origin/campus story.
+- [~] **MIG-06** The images are referenced from the existing public legacy hosts for prototype review. Downloading approved originals into the private media library, image optimization, responsive variants and image rights/consent verification remain open.
+- [~] **MIG-07** Remaining legacy pages to migrate into their corresponding new routes include TPS Why Tagore, Vision/Mission, founder-chairman message, principal message, infrastructure, hostel, sports academy, play school, admission, statutory disclosure and gallery; TIER campus, hostel, library, course/admission and institution profiles.
+- [!] **MIG-08** Reconcile legacy inconsistencies before production: TPS principal name conflict, old phone routing, 4.5-acre claim versus CBSE disclosure's 12,999 sq m, old admission-year labels, TIER historical course/portfolio labels and unsupported TIER numeric claims. Identifiable student images require documented consent before public launch.
+- [~] **MIG-09** Private PR #115 created as a draft for the first populated prototype pass. CI currently fails before any job steps on all six checks; do not treat this as an application-code failure or acceptance result until runner/Actions execution is restored.
+
+### Private Actions diagnostic comparison — 2026-11-23
+
+- Private PR #45's head `797c4e9e` had six successful checks on 2026-11-20: TPS quality, TIER quality, CodeQL, both dependency audits and secret scanning.
+- Private PR #114 head `7f992ad3` has five workflow groups failing within seconds with empty job step lists and unavailable job logs (`BlobNotFound`).
+- New private PR #115 head `a6a57387` independently reproduces the same pattern across all six checks: TPS quality, TIER quality, CodeQL, dependency audits and secret scanning. All jobs report no steps; logs are unavailable.
+- This rules out a failure unique to the CONTENT-05 files, but does not establish whether the cause is Actions quota, repository settings, runner provisioning or a GitHub-side issue. No setting/billing cause is confirmed.
+- Keep #114 and #115 draft/unmerged; validate source and tests on the public CI mirror while private Actions is investigated. No production deployment.
+
+
+### Minimal private Actions runner probe — 2026-11-23
+
+- Created isolated diagnostic branch `diagnostics/private-actions-runner-probe` from private `main`, with a new workflow containing only `runs-on: ubuntu-latest` and one shell `echo` step; no checkout, Node, dependencies, secrets or third-party actions.
+- Run `45130979954`, job `137546155613`, completed as failure before any step; step list is empty and log download returns Azure `BlobNotFound`.
+- This reproduces the same failure with a minimal workflow and therefore rules out the website code, dependency installation, CodeQL/secret-scan workflow logic and the CONTENT-05 workflow as the cause.
+- Current evidence localizes the blocker to private-repository GitHub Actions admission/hosted-runner allocation or account/repository policy/billing. The exact rejection reason is not exposed by the available GitHub connector; no quota, spending-limit, payment, repository setting or GitHub incident cause is confirmed.
+- Public mirror standard-hosted-runner CI continues to execute real steps, so use that as the validation path while checking the private account's Billing & licensing → Usage / Actions budget and repository Settings → Actions → General. If those are clean, send GitHub Support the minimal probe run/job IDs above and the matching PR #115 runs.
