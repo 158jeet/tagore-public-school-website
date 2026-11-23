@@ -9,8 +9,7 @@ export default function Error({
   reset: () => void;
 }) {
   return (
-    <main>
-      <section className="hero">
+    <section className="hero">
         <div className="shell" style={{ padding: "100px 0" }}>
           <div className="eyebrow" style={{ color: "var(--gold)" }}>TEMPORARY SERVICE ISSUE</div>
           <h1 className="serif" style={{ fontSize: "clamp(42px, 6vw, 68px)", maxWidth: 820 }}>
@@ -25,7 +24,6 @@ export default function Error({
             <Link className="button" href="/admissions">Admissions information ↗</Link>
           </div>
         </div>
-      </section>
-    </main>
+    </section>
   );
 }
