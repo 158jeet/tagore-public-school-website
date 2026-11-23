@@ -75,6 +75,42 @@
       "src": "https://www.tieredu.org/images/bg/hostel6.jpg",
       "alt": "Students studying in a supervised hostel study room",
       "consentReview": "identifiable students; written consent required before production"
+    },
+    {
+      "id": "tier-hostel-exterior",
+      "src": "https://www.tieredu.org/images/bg/hostel5.jpg",
+      "alt": "Tagore hostel building and grounds",
+      "consentReview": "campus image; verify current hostel location and image rights"
+    },
+    {
+      "id": "tier-hostel-dining-legacy",
+      "src": "https://www.tieredu.org/images/bg/hostel1.jpg",
+      "alt": "Students having a meal in the hostel dining area",
+      "consentReview": "identifiable students; written consent required before production"
+    },
+    {
+      "id": "tier-pg-college-building",
+      "src": "https://www.tieredu.org/pg/images/photodune-675615-happy-university-girl-s-520x378.jpg",
+      "alt": "Tagore PG College building",
+      "consentReview": "campus image; verify current building and image rights"
+    },
+    {
+      "id": "tier-pg-library",
+      "src": "https://www.tieredu.org/pg/images/slide11.jpg",
+      "alt": "Students using the Tagore PG College library",
+      "consentReview": "identifiable students; written consent required before production"
+    },
+    {
+      "id": "tier-pg-computer-centre",
+      "src": "https://www.tieredu.org/pg/images/Slide2.jpg",
+      "alt": "Students working in the Tagore PG College computer centre",
+      "consentReview": "identifiable students; written consent required before production"
+    },
+    {
+      "id": "tier-pg-ncc",
+      "src": "https://www.tieredu.org/pg/images/slide4.jpg",
+      "alt": "NCC activity at Tagore PG College",
+      "consentReview": "identifiable persons; written consent required before production"
     }
   ]
 }
