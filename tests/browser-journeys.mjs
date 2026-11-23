@@ -100,6 +100,15 @@ try {
       }).filter(item => item.right > document.documentElement.clientWidth + 1 && item.width > 0).sort((a,b) => b.right-a.right).slice(0, 20));
       assert.ok(false, `${app.toUpperCase()} ${engineName} ${route} overflows at 320 CSS px: ${JSON.stringify(narrowDimensions)}. Offenders: ${JSON.stringify(offenders)}`);
     }
+    await page.setViewportSize({ width: 720, height: 1000 });
+    const zoomEquivalentDimensions = await page.evaluate(() => ({
+      viewport: document.documentElement.clientWidth,
+      document: document.documentElement.scrollWidth,
+    }));
+    assert.ok(
+      zoomEquivalentDimensions.document <= zoomEquivalentDimensions.viewport + 1,
+      `${app.toUpperCase()} ${engineName} ${route} overflows at 720 CSS px (200% desktop-zoom-equivalent layout): ${JSON.stringify(zoomEquivalentDimensions)}`
+    );
     await page.setViewportSize({ width: 390, height: 844 });
 
     await page.addScriptTag({ content: axe.source });
