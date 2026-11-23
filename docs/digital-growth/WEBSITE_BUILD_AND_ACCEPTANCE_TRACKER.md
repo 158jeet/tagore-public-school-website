@@ -267,3 +267,13 @@ A workstream is complete only when:
 - [x] PR #106 added branded 404 recovery pages to TPS and TIER and extended production smoke assertions to check 404 status, heading and recovery links. Exact-source public free CI run `44882581805` passed both site jobs. Private merge commit: `46b0e470fc1ed183b5d5428a675f553e6001aaa1`.
 
 - [x] PR #104 expanded Playwright and axe browser acceptance to every current public TPS/TIER route, including all grade-stage and institution profile pages. Exact-source public free CI run `44882641431` passed both site jobs. Private merge commit: `ed94d88812b7344918ce7eea5a0a34b71512d258`.
+
+
+## 16. CONTENT-05 — factual evidence and freshness automation (2026-11-23)
+
+- [~] **CONTENT-05** Evidence policy, structured JSON register, approval-gate validator, targeted Node tests and free Actions workflow are implemented on private branch `content/content-05-evidence-freshness-register`.
+- The JSON register now contains 14 records: the 3 initial broad placeholders plus 11 page-mapped claims identified by inspecting current TPS/TIER source pages. The additional claims cover TPS history, affiliation identifiers, school profile and admission cycle, plus TIER institution portfolio and programme/residential descriptions.
+- All 14 records remain `evidence-needed`; no owner or approver is assigned and no factual claim is approved for publication. The test suite now asserts that the audited live-claim inventory remains unapproved and page-mapped.
+- Public mirror PR [#34](https://github.com/158jeet/atlas-build-lab/pull/34): latest head `547227e487d2a14e647d6b7d8d3bd6004bac0d18`; targeted governance workflow passed and both TPS/TIER full website-quality jobs passed. This validates the public mirror only.
+- Private PR [#114](https://github.com/158jeet/tagore-public-school-website/pull/114): latest head `2557dcb390cf4530f2de3f1f89e56f1d8626f65a`; five workflows (Website CI, Content governance, CodeQL, dependency audit and secret scanning) all failed within seconds. Job step records are absent and log downloads return `BlobNotFound`; exact cause remains unverified. Keep draft/unmerged until private Actions checks can execute normally.
+- Management must still assign accountable owners and approvers and supply authoritative source evidence. Owner review and publication approval remain outstanding.

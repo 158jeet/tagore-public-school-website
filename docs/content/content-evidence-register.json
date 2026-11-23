@@ -1,0 +1,280 @@
+{
+  "version": 1,
+  "policy": "docs/content/CONTENT-05_EVIDENCE_AND_FRESHNESS_CONTROLS.md",
+  "records": [
+    {
+      "claimId": "TPS-AFF-001",
+      "site": "TPS",
+      "claim": "Official affiliation details — exact wording pending source check",
+      "category": "affiliation",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TPS-CON-001",
+      "site": "TPS",
+      "claim": "Official phone/email routing — confirm preferred channels",
+      "category": "contact",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TIER-INS-001",
+      "site": "TIER",
+      "claim": "Current institution portfolio and operating details",
+      "category": "institution-portfolio",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TPS-HIST-001",
+      "site": "TPS",
+      "claim": "Established in 2004",
+      "category": "history",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "src/app/about/page.tsx"
+      ],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TPS-AFF-002",
+      "site": "TPS",
+      "claim": "CBSE affiliation number 1730360",
+      "category": "affiliation",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "src/app/about/page.tsx"
+      ],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TPS-AFF-003",
+      "site": "TPS",
+      "claim": "CBSE school code 10705",
+      "category": "affiliation",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "src/app/about/page.tsx"
+      ],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TPS-ADM-001",
+      "site": "TPS",
+      "claim": "Admissions 2026–27 cycle is currently offered",
+      "category": "admissions",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "src/app/admissions/page.tsx"
+      ],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TPS-CAT-001",
+      "site": "TPS",
+      "claim": "English-medium, co-educational, residential-cum-day school",
+      "category": "institution-profile",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "src/app/about/page.tsx"
+      ],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TIER-PORT-002",
+      "site": "TIER",
+      "claim": "Current group portfolio comprises six named institutions",
+      "category": "institution-portfolio",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "apps/tier/src/app/page.tsx"
+      ],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TIER-PROG-001",
+      "site": "TIER",
+      "claim": "Tagore Bal Niketan offers RBSE senior secondary education in Hindi and English medium",
+      "category": "programme",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "apps/tier/src/app/page.tsx"
+      ],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TIER-PROG-002",
+      "site": "TIER",
+      "claim": "Tagore Smart School serves foundational and primary schooling (RBSE K–5)",
+      "category": "programme",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "apps/tier/src/app/page.tsx"
+      ],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TIER-PROG-003",
+      "site": "TIER",
+      "claim": "Tagore Vedant Academy offers pre-foundation, MNS preparation and IIT-JEE/NEET learning pathways",
+      "category": "programme",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "apps/tier/src/app/page.tsx"
+      ],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TIER-PROG-004",
+      "site": "TIER",
+      "claim": "Tagore PG College offers higher-education college programmes",
+      "category": "programme",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "apps/tier/src/app/page.tsx"
+      ],
+      "changeHistory": []
+    },
+    {
+      "claimId": "TIER-RES-001",
+      "site": "TIER",
+      "claim": "Tagore Hostel provides residential support within the Tagore education ecosystem",
+      "category": "residential",
+      "sourceTitle": null,
+      "sourceRef": null,
+      "sourceAuthority": null,
+      "sourceDate": null,
+      "evidenceExcerpt": null,
+      "owner": null,
+      "approver": null,
+      "lastVerified": null,
+      "nextReviewDue": null,
+      "status": "evidence-needed",
+      "publicationLocations": [
+        "apps/tier/src/app/page.tsx"
+      ],
+      "changeHistory": []
+    }
+  ]
+}
