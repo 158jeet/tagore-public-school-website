@@ -14,6 +14,8 @@ Purpose: populate the new TPS and TIER prototypes with material from the institu
 |---|---|---|
 | Home | https://www.tpsgudhagorji.com/ | Home, school identity, overview, learning paths, campus and admissions |
 | About | https://www.tpsgudhagorji.com/about/ | About / school story; established 2004; English-medium, co-educational, residential-cum-day profile |
+| Primary School | https://www.tpsgudhagorji.com/primary-school/ | Primary curriculum, subjects, reading/writing, arts, group work and parent progress communication; current structure to be confirmed |
+| Secondary School | https://www.tpsgudhagorji.com/secondary-school/ | Middle/secondary subjects, third-language reference, theme-based assemblies and continuous assessment; current CBSE subject structure to be confirmed |
 | Why Tagore | https://www.tpsgudhagorji.com/why-tagore/ | Labs, sports grounds, transport, hostel accommodation and qualified team; old “29 years” experience claim is time-sensitive and must not be reused without a current date/evidence |
 | Tagore Olympiad | https://www.tpsgudhagorji.com/tagore-olympiad/ | Legacy site links an Olympiad page but exposes no readable programme details; confirm whether the event is currently active and obtain rules/calendar/results from the school |
 | Admission norms | https://www.tpsgudhagorji.com/admission/ | Legacy general norms include no-guarantee wording and formal admission steps; old session label is 2023–24 and withdrawal/termination clauses need current legal/management review before reuse |
