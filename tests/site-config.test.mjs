@@ -105,7 +105,7 @@ for (const [app, path, brand] of [
     assert.ok(source.includes("reset: () => void"), app + " global error must accept the retry callback");
     assert.ok(source.includes("onClick={() => reset()}"), app + " global error must provide retry");
     assert.ok(source.includes(brand), app + " global error must identify the site");
-    assert.ok(source.includes('href="/"'), app + " global error must provide a homepage recovery link");
+    assert.ok(source.includes('window.location.assign("/")'), app + " global error must provide a homepage recovery action");
     assert.ok(!source.includes("error.message"), app + " must not expose exception messages");
     assert.ok(!source.includes("error.stack"), app + " must not expose stack traces");
     assert.ok(!source.includes("globals.css"), app + " global error must not depend on root-layout CSS");
