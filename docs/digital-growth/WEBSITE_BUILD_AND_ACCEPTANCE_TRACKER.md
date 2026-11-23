@@ -267,3 +267,25 @@ A workstream is complete only when:
 - [x] PR #106 added branded 404 recovery pages to TPS and TIER and extended production smoke assertions to check 404 status, heading and recovery links. Exact-source public free CI run `44882581805` passed both site jobs. Private merge commit: `46b0e470fc1ed183b5d5428a675f553e6001aaa1`.
 
 - [x] PR #104 expanded Playwright and axe browser acceptance to every current public TPS/TIER route, including all grade-stage and institution profile pages. Exact-source public free CI run `44882641431` passed both site jobs. Private merge commit: `ed94d88812b7344918ce7eea5a0a34b71512d258`.
+
+
+## Parallel delivery lanes — 2026-11-23
+
+The free public CI mirror `158jeet/atlas-build-lab` is being used to validate independent website workstreams concurrently. The private repository remains canonical; mirror changes must be ported here after review and successful validation. No feature branch is merged or deployed solely because its mirror CI passes.
+
+| Lane | Scope | Public mirror PR | Current validation |
+|---|---|---|---|
+| QA-08 | TPS/TIER route-level and root-level error recovery | [#30](https://github.com/158jeet/atlas-build-lab/pull/30) | Route-level contracts passed run #45120961769; root fallback lint correction pushed, full rerun pending |
+| TPS conversion UX | Printable parent admission checklist | [#31](https://github.com/158jeet/atlas-build-lab/pull/31) | Independent TPS/TIER CI run #45125825243 pending |
+| TIER conversion UX | Printable selected-institution comparison | [#32](https://github.com/158jeet/atlas-build-lab/pull/32) | Initial run #45125830824 exposed a test-helper issue; corrected and rerun pending |
+| SEO/accessibility | Expand route journeys; audit missing image alt attributes and unnamed controls | [#33](https://github.com/158jeet/atlas-build-lab/pull/33) | Initial run #45125836508 exposed a test syntax error; corrected and rerun pending |
+
+Parallelism is across isolated branches and PRs. The existing CI workflow runs TPS and TIER jobs independently for each PR; branch-specific concurrency groups prevent one feature lane from cancelling another. Keep changes scoped to their lane to reduce merge conflicts.
+
+Acceptance gates for every lane:
+- Both applicable site quality jobs pass, including build and browser/smoke suites.
+- Review changes and confirm no unverified institution claims, unsafe collection, or third-party paid dependency was introduced.
+- Port the accepted patch to a private-repository branch and validate against private checks where available.
+- Update this register; owner review is required before merge/deployment.
+
+This delivery board records active work, not completed acceptance. The SEO/accessibility and print UX lanes are exploratory implementations until their CI and owner review pass.
