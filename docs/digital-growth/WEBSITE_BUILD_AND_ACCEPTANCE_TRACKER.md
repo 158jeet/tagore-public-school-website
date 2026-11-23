@@ -267,3 +267,5 @@ A workstream is complete only when:
 - [x] PR #106 added branded 404 recovery pages to TPS and TIER and extended production smoke assertions to check 404 status, heading and recovery links. Exact-source public free CI run `44882581805` passed both site jobs. Private merge commit: `46b0e470fc1ed183b5d5428a675f553e6001aaa1`.
 
 - [x] PR #104 expanded Playwright and axe browser acceptance to every current public TPS/TIER route, including all grade-stage and institution profile pages. Exact-source public free CI run `44882641431` passed both site jobs. Private merge commit: `ed94d88812b7344918ce7eea5a0a34b71512d258`.
+
+- [ ] QA-08 (PR #111 / mirror PR #30): branded route-level error recovery and automated static contracts pass mirror CI run `45120961769`; added self-contained TPS/TIER root `global-error.tsx` fallbacks and static safety contracts in follow-up commits. Awaiting mirror validation of the root fallbacks; automated runtime-trigger coverage and broader external broken-link audit remain open. Private CI continues to fail before any job steps; root cause is unconfirmed. No merge or deployment.
