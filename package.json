@@ -14,7 +14,10 @@
     "test:forms": "node --test tests/form-contract.test.mjs",
     "test:smoke": "node tests/runtime-smoke.mjs",
     "test:browser": "node tests/browser-journeys.mjs",
-    "test:performance": "node tests/performance-audit.mjs"
+    "test:performance": "node tests/performance-audit.mjs",
+    "test:media": "node --test tests/legacy-media-manifest.test.mjs",
+    "media:audit": "node scripts/audit-legacy-media.mjs",
+    "media:production-check": "node scripts/audit-legacy-media.mjs --strict-production"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",
@@ -29,7 +32,6 @@
     "@types/react-dom": "^19.1.9",
     "autoprefixer": "^10.4.21",
     "eslint": "^9.36.0",
-    "eslint-config-next": "^15.5.29",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.9.2",
