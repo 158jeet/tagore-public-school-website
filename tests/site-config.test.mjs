@@ -73,3 +73,41 @@ test("sitemaps include useful indexable guides and exclude noindex campaign rout
     assert.ok(source.includes("robots: { index: false"), label + " must remain noindex");
   }
 });
+
+for (const [app, path, recoveryLinks] of [
+  ["TPS", "../src/app/error.tsx", ["/", "/admissions"]],
+  ["TIER", "../apps/tier/src/app/error.tsx", ["/", "/institutions", "/contact"]],
+]) {
+  test(app + ": branded route error boundary provides retry and safe recovery without leaking exception details", async () => {
+    const source = await readFile(new URL(path, import.meta.url), "utf8");
+    assert.ok(source.includes('"use client"'), app + " error boundary must be a client component");
+    assert.ok(source.includes("reset: () => void"), app + " error boundary must accept Next.js reset");
+    assert.ok(source.includes("onClick={() => reset()}"), app + " error boundary must expose a working retry action");
+    assert.ok(source.includes("TEMPORARY SERVICE ISSUE"), app + " error boundary must show a visitor-safe status");
+    for (const href of recoveryLinks) {
+      assert.ok(source.includes('href="' + href + '"'), app + " error boundary is missing recovery link " + href);
+    }
+    assert.ok(!source.includes("error.message"), app + " must not display raw exception messages");
+    assert.ok(!source.includes("error.stack"), app + " must not display stack traces");
+  });
+}
+
+
+for (const [app, path, brand] of [
+  ["TPS", "../src/app/global-error.tsx", "TAGORE PUBLIC SCHOOL"],
+  ["TIER", "../apps/tier/src/app/global-error.tsx", "TAGORE GROUP"],
+]) {
+  test(app + ": root-layout global error fallback is self-contained and safe", async () => {
+    const source = await readFile(new URL(path, import.meta.url), "utf8");
+    assert.ok(source.includes('"use client"'), app + " global error must be a client component");
+    assert.ok(source.includes('<html lang="en">'), app + " global error must provide the document root");
+    assert.ok(source.includes("<body"), app + " global error must provide the document body");
+    assert.ok(source.includes("reset: () => void"), app + " global error must accept the retry callback");
+    assert.ok(source.includes("onClick={() => reset()}"), app + " global error must provide retry");
+    assert.ok(source.includes(brand), app + " global error must identify the site");
+    assert.ok(source.includes('window.location.assign("/")'), app + " global error must provide a homepage recovery action");
+    assert.ok(!source.includes("error.message"), app + " must not expose exception messages");
+    assert.ok(!source.includes("error.stack"), app + " must not expose stack traces");
+    assert.ok(!source.includes("globals.css"), app + " global error must not depend on root-layout CSS");
+  });
+}
