@@ -36,7 +36,23 @@ Purpose: populate the new TPS and TIER prototypes with material from the institu
 | Hostel | https://www.tieredu.org/hostal.php | Separate boys'/girls' facilities, room types, supervision, extra classes and on-campus support; reverify current conditions |
 | Library | https://www.tieredu.org/library.php | Library and learning resources; full text/media capture pending |
 | Contact | https://www.tieredu.org/contact.php | Main address, phone, email and legacy admission helplines; verify before publication |
+| RBSE school pathway | https://www.tieredu.org/rbse.php | Legacy RBSE Nursery–XII description and co-curricular content; current Bal Niketan/Smart School identity and grade spans must be reconciled |
+| Defence Academy | https://www.tieredu.org/defence.php | Historical NDA, Air Force, Navy and SSB preparation content; do not migrate obsolete fees, age criteria or selection guarantees into Vedant Academy |
+| PG College home | https://www.tieredu.org/pg/ | College history, campus life, admissions, scholarships, NCC, sports, cultural activities, learning centres and placement-cell descriptions |
+| PG College courses | https://www.tieredu.org/pg/course.php | Legacy B.Sc., B.A. and B.Com. course reference; current catalogue and affiliation must be checked |
+| PG College mission | https://www.tieredu.org/pg/mission.php | Legacy mission and director/principal messages; verify names and current wording |
+| PG College director message | https://www.tieredu.org/pg/director-message.php | Founder/director message and college philosophy |
+| PG College gallery | https://www.tieredu.org/pg/gal.php | Library, computer centre, labs and campus photographs |
+| Hostel | https://www.tieredu.org/hostal.php | Separate boys'/girls' facilities, room types, supervision, extra classes, medical and counselling support; reverify current conditions |
+| Library | https://www.tieredu.org/library.php | Library, periodicals, digital library, reading room and computer-centre descriptions |
+| Contact | https://www.tieredu.org/contact.php | Main address, phone, email and legacy admission helplines; verify before publication |
 | Courses / admissions | linked from https://www.tieredu.org/ | College, B.Ed., school, defence/sports academy and other legacy course routes; reconcile against the current six-institution portfolio |
+
+## Additional legacy websites linked by TIER
+
+- https://www.tagorenimbi.org/ is linked by the old TIER site as Tagore Public School, Nimbi Jodhan. It is a separate campus/school and must not be mixed into the Gudha Gorji TPS website or current six-institution TIER profile without an explicit portfolio decision.
+- https://www.tpsgudhagorji.org/ is linked by the old TIER site as Tagore Senior Secondary School / RBSE school in Gudha Gorji, but the site could not be fetched during this audit. Preserve it as an unresolved source, not as verified current copy.
+- https://tagorepgcollege.com/ appeared as a possible newer Tagore PG College website in search results, but direct retrieval failed during this pass. Confirm domain ownership and current status before treating it as authoritative.
 
 ## Authentic legacy media references
 
@@ -57,7 +73,13 @@ The prototype currently uses image URLs hosted on the two existing official webs
 - Transport: https://www.tieredu.org/images/services/2.jpg
 - Computer learning: https://www.tieredu.org/images/services/3.jpg
 - Hostel / dining: https://www.tieredu.org/images/services/4.jpg
+- Hostel exterior: https://www.tieredu.org/images/bg/hostel5.jpg
+- Hostel dining: https://www.tieredu.org/images/bg/hostel1.jpg
 - Hostel study: https://www.tieredu.org/images/bg/hostel6.jpg
+- PG College building: https://www.tieredu.org/pg/images/photodune-675615-happy-university-girl-s-520x378.jpg
+- PG College library: https://www.tieredu.org/pg/images/slide11.jpg
+- PG College computer centre: https://www.tieredu.org/pg/images/Slide2.jpg
+- PG College NCC activity: https://www.tieredu.org/pg/images/slide4.jpg
 
 ## Reconciliation and publication safeguards
 
