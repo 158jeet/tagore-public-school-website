@@ -14,7 +14,10 @@ Purpose: populate the new TPS and TIER prototypes with material from the institu
 |---|---|---|
 | Home | https://www.tpsgudhagorji.com/ | Home, school identity, overview, learning paths, campus and admissions |
 | About | https://www.tpsgudhagorji.com/about/ | About / school story; established 2004; English-medium, co-educational, residential-cum-day profile |
-| Why Tagore | https://www.tpsgudhagorji.com/why-tagore/ | Learning approach, facilities, qualified team and school strengths |
+| Why Tagore | https://www.tpsgudhagorji.com/why-tagore/ | Labs, sports grounds, transport, hostel accommodation and qualified team; old “29 years” experience claim is time-sensitive and must not be reused without a current date/evidence |
+| Tagore Olympiad | https://www.tpsgudhagorji.com/tagore-olympiad/ | Legacy site links an Olympiad page but exposes no readable programme details; confirm whether the event is currently active and obtain rules/calendar/results from the school |
+| Admission norms | https://www.tpsgudhagorji.com/admission/ | Legacy general norms include no-guarantee wording and formal admission steps; old session label is 2023–24 and withdrawal/termination clauses need current legal/management review before reuse |
+| Admission documents | linked from https://www.tpsgudhagorji.com/admission/ | Old admission form, hostel item list and CBSE disclosure PDFs; obtain current approved files before publishing
 | Vision & Mission | https://www.tpsgudhagorji.com/vision-mission/ | Vision, 3-H Head/Heart/Hand, whole-child development; legacy page contains obvious Lorem Ipsum filler in its aims list, which must not be migrated |
 | Chairman's Message | https://www.tpsgudhagorji.com/chairmans-message/ | Founder-chairman history and educational philosophy; long Hindi text to be reviewed before final editorial adaptation |
 | Principal's Message | https://www.tpsgudhagorji.com/principals-message/ | Principal message and school invitation; named principal conflicts with the current CBSE disclosure, so keep name unpublished pending verification |
@@ -91,5 +94,8 @@ The prototype currently uses image URLs hosted on the two existing official webs
 - TIER legacy claims such as 29+ years, 50+ courses, 10,000+ students, 5,000+ graduates and 100+ awards need dated evidence before use.
 - The legacy TIER portfolio differs from the new group's six-institution portfolio. Retain the new six-institution structure, but use legacy text/photos only where the institution identity and present-day relevance are clear.
 - Student photographs and testimonials may be used for internal prototype review, but production use requires documented permissions/consent and a safeguarding review.
+- The old TPS admission page is labelled 2023–24. Do not carry its admission-year label, fees, age/eligibility, termination or withdrawal wording into the new site without a current written policy review.
+- The old Tagore Olympiad page exposes only a title/image and no programme detail. Do not invent competition formats, dates, awards or registration terms.
+- The old TPS Infrastructure Facility page has no meaningful descriptive copy; only use facility descriptions that are supported by other legacy pages or current management confirmation.
 - Do not migrate old forms, personal data, tracking scripts, outdated PDFs or obsolete contact-routing assumptions into the new sites.
 - Management review remains required for current admissions, fees, staff/leadership, results, policies, disclosures, contact routing, photos and testimonials.
