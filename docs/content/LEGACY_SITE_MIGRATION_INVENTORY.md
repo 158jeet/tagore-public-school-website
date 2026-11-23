@@ -51,7 +51,7 @@ Purpose: populate the new TPS and TIER prototypes with material from the institu
 | Defence Academy | https://www.tieredu.org/defence.php | Historical NDA, Air Force, Navy and SSB preparation content; do not migrate obsolete fees, age criteria or selection guarantees into Vedant Academy |
 | PG College home | https://www.tieredu.org/pg/ | College history, campus life, admissions, scholarships, NCC, sports, cultural activities, learning centres and placement-cell descriptions |
 | PG College courses | https://www.tieredu.org/pg/course.php | Legacy B.Sc., B.A. and B.Com. course reference; current catalogue and affiliation must be checked |
-| PG College mission | https://www.tieredu.org/pg/mission.php | Legacy mission and director/principal messages; verify names and current wording |
+| PG College mission | https://www.tieredu.org/pg/mission.php | TIER `/campus` and `/about`: professional learning, leadership, cultural values, research and societal contribution; current approved mission and leadership wording require confirmation |
 | PG College director message | https://www.tieredu.org/pg/director-message.php | Founder/director message and college philosophy |
 | PG College gallery | https://www.tieredu.org/pg/gal.php | TIER `/about` and `/campus`: library, computer-centre and NCC photographs |
 | Hostel | https://www.tieredu.org/hostal.php | Separate boys'/girls' facilities, room types, supervision, extra classes, medical and counselling support; reverify current conditions |
