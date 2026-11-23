@@ -112,5 +112,17 @@
       "alt": "NCC activity at Tagore PG College",
       "consentReview": "identifiable persons; written consent required before production"
     }
-  ]
+  ],
+  "brandAssets": {
+    "tier": {
+      "src": "https://www.tieredu.org/images/logo-wide.png",
+      "alt": "Tier Edu — Moulds Minds in Millions",
+      "status": "official legacy wordmark; used unchanged in prototype"
+    },
+    "tps": {
+      "src": null,
+      "alt": "Tagore Public School logo",
+      "status": "standalone approved asset not found in current repo or available Library; text-only header until exact file supplied"
+    }
+  }
 }
