@@ -297,3 +297,31 @@ A workstream is complete only when:
 - This reproduces the same failure with a minimal workflow and therefore rules out the website code, dependency installation, CodeQL/secret-scan workflow logic and the CONTENT-05 workflow as the cause.
 - Current evidence localizes the blocker to private-repository GitHub Actions admission/hosted-runner allocation or account/repository policy/billing. The exact rejection reason is not exposed by the available GitHub connector; no quota, spending-limit, payment, repository setting or GitHub incident cause is confirmed.
 - Public mirror standard-hosted-runner CI continues to execute real steps, so use that as the validation path while checking the private account's Billing & licensing → Usage / Actions budget and repository Settings → Actions → General. If those are clean, send GitHub Support the minimal probe run/job IDs above and the matching PR #115 runs.
+
+
+## 19. Deeper legacy content migration and visual review — 2026-11-23
+
+- [x] **MIG-10** TPS About page now carries the legacy school origin, 3-H Head/Heart/Hand philosophy, founder-chairman source link, CBSE affiliation/school identifiers and authentic campus / early-years / computer-learning photos.
+- [x] **MIG-11** TIER About page now carries the Gudha Gorji origin story under Mr. Veerpal Singh Shekhawat and legacy campus / PG College building / library / computer-centre / NCC imagery.
+- [x] **MIG-12** TIER institution profiles now contain legacy-derived material for Bal Niketan, Smart School, Vedant Academy, PG College and Hostel. Historical content is separated from current programme claims and management review notes.
+- [x] **MIG-13** Source inventory now includes TPS Why Tagore, Olympiad, admissions policy/document references; TIER RBSE, Defence Academy, PG College courses/mission/director/gallery, hostel and library pages; separate Nimbi Jodhan and inaccessible legacy RBSE site references.
+- [x] **MIG-14** Media manifest expanded with PG College library/computer/NCC and hostel photos. All identifiable-person images require consent review before production.
+- [x] **MIG-15** TPS homepage now includes a facilities/enrichment section covering labs, sports, transport, residential support, Olympiad and qualified-team themes from legacy content, explicitly marked for current confirmation.
+- [~] **MIG-16** TPS legacy gallery photos initially did not render in the full-page screenshot when using fill-only sizing. Replaced those gallery images with explicit dimensions and eager loading. PR #37 visual capture is pending to confirm the fix.
+- [x] **MIG-17** TIER homepage screenshot review confirmed the legacy campus, sports, computer-learning and hostel images render on desktop and mobile. Formal visual sign-off remains open.
+- [~] **MIG-18** Localizing/optimizing approved images into private repository assets, final content reconciliation, management review and production approval remain open.
+
+### Current migration review branches / PRs
+
+- Private PR #115 (first populated TPS/TIER homepage pass): `https://github.com/158jeet/tagore-public-school-website/pull/115`, draft/unmerged.
+- Private PR #116 (deeper TPS About, TIER About and institution profile migration, stacked on #115): `https://github.com/158jeet/tagore-public-school-website/pull/116`, draft/unmerged.
+- Public mirror PR #37 (full-stack CI mirror against public main): `https://github.com/158jeet/atlas-build-lab/pull/37`, draft/unmerged.
+- Public mirror CI run `45130775950` passed both TPS and TIER quality jobs for the first homepage/photo pass. Visual artifacts were inspected: TIER campus gallery renders; TPS hero renders but its lower gallery was blank, which was corrected with explicit image dimensions/eager loading.
+- Latest public mirror run `45131819043` is validating the expanded stack including the TPS gallery fix and new facilities section; final result pending at this tracker update.
+
+### Private Actions diagnostic status
+
+- Minimal private runner probe branch `diagnostics/private-actions-runner-probe`, commit `e2381eeb`, run `45130979954`, job `137546155613`: one shell echo step only, but it failed before any step, empty step list, Azure BlobNotFound logs.
+- Private website PR checks continue to fail before step execution; no code failure can be inferred.
+- Exact root cause still unconfirmed. Account Actions usage/budget and repository Settings → Actions → General must be checked; if clear, GitHub Support needs the minimal probe run/job IDs.
+- Public mirror standard-hosted-runner CI is the current working validation path. No PR has been merged and no production deployment has occurred.
