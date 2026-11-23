@@ -267,3 +267,12 @@ A workstream is complete only when:
 - [x] PR #106 added branded 404 recovery pages to TPS and TIER and extended production smoke assertions to check 404 status, heading and recovery links. Exact-source public free CI run `44882581805` passed both site jobs. Private merge commit: `46b0e470fc1ed183b5d5428a675f553e6001aaa1`.
 
 - [x] PR #104 expanded Playwright and axe browser acceptance to every current public TPS/TIER route, including all grade-stage and institution profile pages. Exact-source public free CI run `44882641431` passed both site jobs. Private merge commit: `ed94d88812b7344918ce7eea5a0a34b71512d258`.
+
+
+## 16. CONTENT-05 — factual evidence and freshness automation (2026-11-23)
+
+- [~] **CONTENT-05** Evidence policy, structured starter register, approval-gate validator and targeted Node tests ported from public free-CI mirror PR [#34](https://github.com/158jeet/atlas-build-lab/pull/34) to private branch `content/content-05-evidence-freshness-register`.
+- Public mirror targeted content-governance tests and register validation passed on commit `d0e21685feb74c6e7a9718a696c7af9a1dfcf717`; full TPS/TIER website CI remains a separate check.
+- All three starter claims remain `evidence-needed`; no institution facts are approved or authorised for publication.
+- Private CI must pass before merge. The previously observed private Actions runner/job initialisation issue remains an external validation blocker; no application failure is inferred from jobs that never start.
+- Management must still assign accountable owners and approvers and supply authoritative source evidence. Owner review and any publication approval remain outstanding.
