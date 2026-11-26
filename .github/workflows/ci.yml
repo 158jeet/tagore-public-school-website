@@ -47,7 +47,7 @@ jobs:
           SMOKE_APP: tps
       - name: Upload TPS performance report
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: tps-performance-lab
           path: artifacts/performance/tps-lab.json
@@ -55,7 +55,7 @@ jobs:
           retention-days: 14
       - name: Upload visual review screenshots
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: ${{ github.job }}-visual-review
           path: artifacts/visual-qa/
@@ -101,7 +101,7 @@ jobs:
           SMOKE_APP: tier
       - name: Upload TIER performance report
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: tier-performance-lab
           path: artifacts/performance/tier-lab.json
@@ -109,7 +109,7 @@ jobs:
           retention-days: 14
       - name: Upload visual review screenshots
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: ${{ github.job }}-visual-review
           path: artifacts/visual-qa/
