@@ -10,6 +10,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  basePath: "/tps",
   poweredByHeader: false,
   reactStrictMode: true,
   async headers() {

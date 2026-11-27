@@ -10,7 +10,8 @@ assert.ok(app === "tps" || app === "tier", "Set SMOKE_APP to tps or tier");
 const root = process.cwd();
 const appDir = app === "tier" ? path.join(root, "apps", "tier") : root;
 const port = Number(process.env.PERFORMANCE_PORT || (app === "tps" ? 3580 : 3680));
-const origin = `http://127.0.0.1:${port}`;
+const basePath = app === "tier" ? "/tier" : "/tps";
+const origin = `http://127.0.0.1:${port}${basePath}`;
 const routes = app === "tps" ? ["/", "/parent-guide", "/admissions", "/visit"] : ["/", "/institutions", "/contact"];
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
   cwd: appDir,

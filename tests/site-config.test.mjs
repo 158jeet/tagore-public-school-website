@@ -18,6 +18,8 @@ for (const [app, url] of files) {
       "Strict-Transport-Security",
       "Content-Security-Policy-Report-Only",
     ]) assert.ok(source.includes(header), app + " is missing " + header);
+    const expectedBasePath = app === "TPS" ? 'basePath: "/tps"' : 'basePath: "/tier"';
+    assert.ok(source.includes(expectedBasePath), app + " must retain production base path " + expectedBasePath);
     assert.ok(source.includes("poweredByHeader: false"), app + " must suppress the X-Powered-By header");
     assert.ok(!source.includes("Content-Security-Policy\""), app + " must not silently enforce an unreviewed CSP");
   });

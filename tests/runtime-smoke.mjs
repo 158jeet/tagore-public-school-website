@@ -5,7 +5,9 @@ import assert from "node:assert/strict";
 const app = process.env.SMOKE_APP;
 assert.ok(app === "tps" || app === "tier", "Set SMOKE_APP to tps or tier");
 const port = Number(process.env.SMOKE_PORT || (app === "tps" ? 3180 : 3280));
-const origin = `http://127.0.0.1:${port}`;
+const basePath = app === "tier" ? "/tier" : "/tps";
+const rootOrigin = `http://127.0.0.1:${port}`;
+const origin = `${rootOrigin}${basePath}`;
 const expectedHost = app === "tps" ? "www.tpsgudhagorji.com" : "www.tieredu.org";
 const routes = app === "tps"
   ? ["/", "/about", "/admissions", "/parent-guide", "/admissions/faq", "/admissions/parent-checklist", "/admissions/funnel", "/admissions/pathways", "/admissions/pathways/early-years", "/admissions/pathways/primary", "/admissions/pathways/middle", "/admissions/pathways/secondary", "/admissions/pathways/senior-secondary", "/visit", "/visit/guide", "/hostel/guide", "/start"]
@@ -89,7 +91,8 @@ try {
   function assertJourneyLink(from, to) {
     const html = pageHtml.get(from);
     assert.ok(html, "Journey source page was not smoke-tested: " + from);
-    assert.ok(html.includes('href="' + to + '"') || html.includes("href='" + to + "'"), app.toUpperCase() + " journey link missing: " + from + " → " + to);
+    const expected = basePath + (to === "/" ? "" : to);
+    assert.ok(html.includes('href="' + expected + '"') || html.includes("href='" + expected + "'"), app.toUpperCase() + " journey link missing: " + from + " → " + expected);
   }
 
   function assertFormFields(path, fields) {
@@ -132,12 +135,12 @@ try {
       if (!rawHref || rawHref.startsWith("#")) continue;
       let target;
       try { target = new URL(rawHref, origin + sourcePath); } catch { continue; }
-      if (target.origin !== origin || target.pathname.startsWith("/_next/")) continue;
+      if (target.origin !== rootOrigin || target.pathname.startsWith(basePath + "/_next/")) continue;
       internalTargets.add(target.pathname + target.search);
     }
   }
   for (const target of internalTargets) {
-    const response = await fetch(origin + target, { redirect: "follow", signal: AbortSignal.timeout(10000) });
+    const response = await fetch(rootOrigin + target, { redirect: "follow", signal: AbortSignal.timeout(10000) });
     assert.equal(response.status, 200, `${app.toUpperCase()} internal link ${target} returned ${response.status}`);
   }
 
@@ -147,7 +150,8 @@ try {
   const missingHtml = await missingResponse.text();
   assert.match(missingHtml, /<h1[^>]*>Page not found<\/h1>/i, `${app.toUpperCase()} 404 page must render its branded not-found heading`);
   for (const destination of app === "tps" ? ["/", "/admissions"] : ["/", "/institutions", "/contact"]) {
-    assert.ok(missingHtml.includes(`href="${destination}"`), `${app.toUpperCase()} 404 page must provide navigation to ${destination}`);
+    const expectedDestination = basePath + (destination === "/" ? "" : destination);
+    assert.ok(missingHtml.includes(`href="${expectedDestination}"`), `${app.toUpperCase()} 404 page must provide navigation to ${expectedDestination}`);
   }
 
   const robotsResponse = await fetch(origin + "/robots.txt", { signal: AbortSignal.timeout(10000) });
