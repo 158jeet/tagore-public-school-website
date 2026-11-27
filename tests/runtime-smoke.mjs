@@ -18,7 +18,6 @@ const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "star
   cwd: process.cwd(),
   env: { ...process.env, SITE_INDEXING_ENABLED: "false", PORT: String(port), HOSTNAME: "127.0.0.1" },
   stdio: ["ignore", "pipe", "pipe"],
-  shell: process.platform === "win32",
 });
 let serverOutput = "";
 server.stdout.on("data", (chunk) => { serverOutput += chunk.toString(); });
