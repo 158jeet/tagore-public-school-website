@@ -1,6 +1,6 @@
 # Legacy content migration progress
 
-Updated: 2026-11-23
+Updated: 2026-11-27
 
 ## Delivery objective
 
@@ -65,19 +65,13 @@ The prototype pages currently reference the original image URLs hosted on the le
 - This is governance automation, not completion of local media migration. Production still requires an approved asset register and private media storage.
 
 
-## CI wiring correction — 2026-11-23
+## Canonical CI and repository status — 2026-11-27
 
-- The first successful Website CI run after adding media governance did not yet invoke the new media audit/test scripts; it validated the website jobs only.
-- Updated `.github/workflows/ci.yml` in both repositories to run `npm run media:audit` and `npm run test:media` in the TPS quality job before the normal site checks.
-- This workflow change is the next validation target. Do not describe the media tests as CI-passed until a run on this new workflow commit completes successfully.
-- The canonical private repository's workflow attempts after the visibility change are still failing before usable step/log detail can be retrieved. The public mirror remains the reliable development CI while the private workflow admission issue is investigated.
-
-
-## Verified CI outcome — 2026-11-23 16:23 IST
-
-- Public development mirror Website CI run [#45150956756](https://github.com/158jeet/atlas-build-lab/actions/runs/45150956756) completed successfully on PR #37 head `128d49cda5c66b84c35a40b06411cadf18d63ebe`.
-- The TPS job explicitly executed and passed both `npm run media:audit` and `npm run test:media`, followed by typecheck, security/forms/config/SEO tests, lint, production build, browser/accessibility journeys, production smoke test and performance lab.
-- The TIER job passed typecheck, lint, production build, browser/accessibility journeys, production smoke test and performance lab.
-- Canonical private PR #116 head `d00a982c877e1cb2809ad3182ffe6b6288045237` was attempted by Website CI run #45150964019 and security runs #45150964115, #45150964011 and #45150964170. Every job failed before runner setup, with empty step lists and `runner_id: 0`. This is recorded as runner allocation/admission failure; it is not evidence of code/test failure, and canonical CI remains unverified.
-- Use the passing public mirror run as current validation evidence for the identical website changes. Keep the canonical repository private and the public mirror as the CI/development workspace.
-- Both PRs remain draft/unmerged; no production deployment. Legacy images remain prototype-only until rights, currentness and consent are approved and local media migration is completed.
+- The canonical repository `158jeet/tagore-public-school-website` is now public and is the single source of truth. The earlier notes below describing it as private and recommending the public mirror as the CI workspace are historical and superseded.
+- Canonical Website CI run [#45160508800](https://github.com/158jeet/tagore-public-school-website/actions/runs/45160508800) completed successfully on PR #116 head `10580b063bb8b34b21dccefeed18e5f706008ce2`. Both TPS and TIER jobs passed.
+- TPS CI executed and passed the media manifest audit and rights/consent safeguard tests, typecheck, security, forms, configuration, SEO, lint, production build, browser journeys/accessibility, production-server smoke test and performance lab; visual-review and performance artifacts were uploaded.
+- TIER CI passed typecheck, lint, production build, browser journeys/accessibility, production-server smoke test and performance lab; visual-review and performance artifacts were uploaded.
+- Canonical CodeQL [#45160508785](https://github.com/158jeet/tagore-public-school-website/actions/runs/45160508785), Secret Scanning [#45160508822](https://github.com/158jeet/tagore-public-school-website/actions/runs/45160508822) and Dependency Security Audit [#45160509005](https://github.com/158jeet/tagore-public-school-website/actions/runs/45160509005) all completed successfully.
+- Public mirror Website CI [#45160514353](https://github.com/158jeet/atlas-build-lab/actions/runs/45160514353) also passed both website jobs. Continue development on the canonical repository; do not create additional copies.
+- PR #116 remains draft, open and unmerged. No production deployment has occurred.
+- Passing CI does not complete production readiness: management fact verification, approved exact logo assets, media rights/currentness and child-consent approvals, local optimized image storage, privacy/legal review, provider-backed enquiry delivery, hosting/DNS/secrets configuration, production security checks and final owner sign-off remain outstanding.
