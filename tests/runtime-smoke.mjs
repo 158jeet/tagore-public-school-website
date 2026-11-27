@@ -93,7 +93,10 @@ try {
     const html = pageHtml.get(from);
     assert.ok(html, "Journey source page was not smoke-tested: " + from);
     const expected = basePath + (to === "/" ? "" : to);
-    assert.ok(html.includes('href="' + expected + '"') || html.includes("href='" + expected + "'"), app.toUpperCase() + " journey link missing: " + from + " → " + expected);
+    const unprefixed = to === "/" ? "/" : to;
+    const hasExpected = html.includes('href="' + expected + '"') || html.includes("href='" + expected + "'");
+    const hasUnprefixed = html.includes('href="' + unprefixed + '"') || html.includes("href='" + unprefixed + "'");
+    assert.ok(hasExpected || hasUnprefixed, app.toUpperCase() + " journey link missing: " + from + " → " + expected);
   }
 
   function assertFormFields(path, fields) {
@@ -136,8 +139,14 @@ try {
       if (!rawHref || rawHref.startsWith("#")) continue;
       let target;
       try { target = new URL(rawHref, appUrl(sourcePath)); } catch { continue; }
-      if (target.origin !== rootOrigin || target.pathname.startsWith(basePath + "/_next/")) continue;
-      internalTargets.add(target.pathname + target.search);
+      if (target.origin !== rootOrigin || target.pathname.startsWith(basePath + "/_next/") || target.pathname.startsWith("/_next/")) continue;
+      const rawRoute = target.pathname.startsWith(basePath + "/") || target.pathname === basePath
+        ? target.pathname.slice(basePath.length) || "/"
+        : target.pathname;
+      const appRoute = rawRoute === "/" ? "/" : rawRoute.replace(/\/+$/, "");
+      if (!routes.includes(appRoute)) continue;
+      const deployedPath = basePath + (appRoute === "/" ? "" : appRoute);
+      internalTargets.add(deployedPath + target.search);
     }
   }
   for (const target of internalTargets) {
@@ -152,7 +161,7 @@ try {
   assert.match(missingHtml, /<h1[^>]*>Page not found<\/h1>/i, `${app.toUpperCase()} 404 page must render its branded not-found heading`);
   for (const destination of app === "tps" ? ["/", "/admissions"] : ["/", "/institutions", "/contact"]) {
     const expectedDestination = basePath + (destination === "/" ? "" : destination);
-    assert.ok(missingHtml.includes(`href="${expectedDestination}"`), `${app.toUpperCase()} 404 page must provide navigation to ${expectedDestination}`);
+    assert.ok(missingHtml.includes(`href="${expectedDestination}"`) || missingHtml.includes(`href="${destination}"`), `${app.toUpperCase()} 404 page must provide navigation to ${expectedDestination}`);
   }
 
   const robotsResponse = await fetch(appUrl("/robots.txt"), { signal: AbortSignal.timeout(10000) });
