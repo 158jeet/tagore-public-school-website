@@ -29,7 +29,7 @@ export function ParentDecisionCentre() {
   if (schoolClass) params.set("class", schoolClass);
   if (topic) params.set("topic", topic);
   const query = params.toString();
-  const enquiryHref = query ? "/admissions?" + query : "/admissions";
+  const enquiryHref = query ? "/tps/admissions?" + query : "/tps/admissions";
   const selectedTopic = topics.find((item) => item.value === topic);
 
   return (
@@ -83,7 +83,7 @@ export function ParentDecisionCentre() {
           <a href={enquiryHref} className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-6 py-4 text-sm font-bold text-navy transition hover:bg-navy hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy">
             Continue to admission enquiry <ArrowUpRight size={17} />
           </a>
-          <a href="/visit" className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-ink/15 px-6 py-4 text-sm font-semibold text-navy transition hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy">
+          <a href="/tps/visit" className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-ink/15 px-6 py-4 text-sm font-semibold text-navy transition hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy">
             <CalendarDays size={17} /> Request a campus visit
           </a>
           <p className="mt-5 text-[11px] leading-5 text-ink/45">This guide does not indicate seat availability or confirm admission. The school team will confirm current eligibility, fees, options and availability. Please do not share sensitive identity or medical documents online.</p>

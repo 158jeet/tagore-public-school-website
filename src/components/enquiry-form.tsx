@@ -21,7 +21,7 @@ export function EnquiryForm({ initialClass = "", initialTopic = "" }: EnquiryFor
  async function submit(event:FormEvent<HTMLFormElement>){
   event.preventDefault();const form=event.currentTarget;const data=Object.fromEntries(new FormData(form).entries());data.form_started_at=formStartedAt;
   setBusy(true);setStatus("");setSuccess(false);
-  try{const response=await fetch("/api/enquiry",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const result=await response.json();if(!response.ok)throw new Error(result.message||"We could not submit your enquiry.");form.reset();setSuccess(true);}
+  try{const response=await fetch("/tps/api/enquiry",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});const result=await response.json();if(!response.ok)throw new Error(result.message||"We could not submit your enquiry.");form.reset();setSuccess(true);}
   catch(error){setStatus(error instanceof Error?error.message:"We could not submit your enquiry right now. Please contact the school by phone or WhatsApp.");}
   finally{setBusy(false);}
  }
@@ -35,7 +35,7 @@ export function EnquiryForm({ initialClass = "", initialTopic = "" }: EnquiryFor
   </div>
   <label className="mt-5 flex items-start gap-3 text-xs leading-5 text-ink/60"><input required type="checkbox" name="contact_consent" value="yes" className="mt-1 accent-[#c79b45]"/><span>I agree that the school may contact me about this enquiry. I understand this is not an admission confirmation.</span></label>
   <button disabled={busy} className="mt-7 w-full rounded-full bg-gold px-6 py-4 text-sm font-bold text-navy hover:bg-navy hover:text-white disabled:opacity-60">{busy?"Sending enquiry…":"Submit admission enquiry"}</button>
-  {success?<div role="status" aria-live="polite" className="form-success-panel mt-5"><p className="font-semibold text-navy">Your enquiry has been sent.</p><p className="mt-2 text-sm leading-6 text-ink/70">The school team can use the contact details you provided to follow up. This message is not an admission offer or seat confirmation.</p><div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold"><a className="text-navy underline underline-offset-4" href="/admissions/faq">Read admissions FAQs</a><a className="text-navy underline underline-offset-4" href="/visit">Request a campus visit</a></div></div>:status&&<p role="alert" aria-live="assertive" className="form-error-panel mt-4 text-sm">{status}</p>}
+  {success?<div role="status" aria-live="polite" className="form-success-panel mt-5"><p className="font-semibold text-navy">Your enquiry has been sent.</p><p className="mt-2 text-sm leading-6 text-ink/70">The school team can use the contact details you provided to follow up. This message is not an admission offer or seat confirmation.</p><div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold"><a className="text-navy underline underline-offset-4" href="/tps/admissions/faq">Read admissions FAQs</a><a className="text-navy underline underline-offset-4" href="/tps/visit">Request a campus visit</a></div></div>:status&&<p role="alert" aria-live="assertive" className="form-error-panel mt-4 text-sm">{status}</p>}
   <p className="mt-4 text-[11px] leading-5 text-ink/45">Please do not submit sensitive identity or medical documents through this form.</p>
  </form>;
 }

@@ -8,7 +8,7 @@ export function GroupEnquiryForm({ initialMessage = "" }: GroupEnquiryFormProps)
  async function submit(event:FormEvent<HTMLFormElement>){
   event.preventDefault(); const form=event.currentTarget; const body=Object.fromEntries(new FormData(form).entries());body.form_started_at=formStartedAt;
   setBusy(true);setStatus("");setSuccess(false);
-  try{const response=await fetch("/api/enquiry",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const result=await response.json();if(!response.ok)throw new Error(result.message||"The enquiry service is not configured yet.");form.reset();setSuccess(true);}
+  try{const response=await fetch("/tier/api/enquiry",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const result=await response.json();if(!response.ok)throw new Error(result.message||"The enquiry service is not configured yet.");form.reset();setSuccess(true);}
   catch(error){setStatus(error instanceof Error?error.message:"We could not submit the enquiry. Please use the group social channels for now.");}
   finally{setBusy(false);}
  }
