@@ -13,6 +13,7 @@ const appDir = app === "tier" ? path.join(root, "apps", "tier") : root;
 const port = Number(process.env.BROWSER_PORT || (app === "tps" ? 3380 : 3480));
 const basePath = app === "tier" ? "/tier" : "/tps";
 const origin = `http://127.0.0.1:${port}${basePath}`;
+const appUrl = route => origin + (route === "/" ? "" : route);
 const routes = app === "tps"
   ? ["/", "/about", "/parent-guide", "/admissions", "/admissions/funnel", "/admissions/faq", "/admissions/parent-checklist", "/admissions/pathways", "/admissions/pathways/early-years", "/admissions/pathways/primary", "/admissions/pathways/middle", "/admissions/pathways/secondary", "/admissions/pathways/senior-secondary", "/visit", "/visit/guide", "/hostel/guide", "/start"]
   : ["/", "/about", "/choose", "/institutions", "/institutions/tagore-bal-niketan", "/institutions/tagore-smart-school", "/institutions/tagore-vedant-academy", "/institutions/tagore-pg-college", "/institutions/tagore-hostel", "/contact", "/connect", "/partnerships", "/help", "/start"];
@@ -67,7 +68,7 @@ try {
   }
 
   for (const route of routes) {
-    const response = await page.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
+    const response = await page.goto(appUrl(route), { waitUntil: "networkidle", timeout: 30000 });
     assert.equal(response?.status(), 200, `${app.toUpperCase()} browser route ${route} did not return 200`);
     if (route === "/start") {
       await page.getByRole("heading", { name: app === "tps" ? /Your next conversation starts here/i : /Start with the information you need/i }).waitFor();
@@ -185,7 +186,7 @@ try {
       const mobileContext = await mobileBrowser.newContext({ ...profile.descriptor, reducedMotion: "reduce" });
       const mobilePage = await mobileContext.newPage();
       for (const route of routes) {
-        const response = await mobilePage.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
+        const response = await mobilePage.goto(appUrl(route), { waitUntil: "networkidle", timeout: 30000 });
         assert.equal(response?.status(), 200, `${app.toUpperCase()} ${profile.name} route ${route} did not return 200`);
         const dimensions = await mobilePage.evaluate(() => ({
           viewport: document.documentElement.clientWidth,

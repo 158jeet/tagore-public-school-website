@@ -8,6 +8,7 @@ const port = Number(process.env.SMOKE_PORT || (app === "tps" ? 3180 : 3280));
 const basePath = app === "tier" ? "/tier" : "/tps";
 const rootOrigin = `http://127.0.0.1:${port}`;
 const origin = `${rootOrigin}${basePath}`;
+const appUrl = route => origin + (route === "/" ? "" : route);
 const expectedHost = app === "tps" ? "www.tpsgudhagorji.com" : "www.tieredu.org";
 const routes = app === "tps"
   ? ["/", "/about", "/admissions", "/parent-guide", "/admissions/faq", "/admissions/parent-checklist", "/admissions/funnel", "/admissions/pathways", "/admissions/pathways/early-years", "/admissions/pathways/primary", "/admissions/pathways/middle", "/admissions/pathways/secondary", "/admissions/pathways/senior-secondary", "/visit", "/visit/guide", "/hostel/guide", "/start"]
@@ -52,7 +53,7 @@ try {
   assert.ok(ready, `Next.js server did not become ready.\n${serverOutput}`);
 
   for (const path of routes) {
-    const response = await fetch(origin + path, { redirect: "manual", signal: AbortSignal.timeout(10000) });
+    const response = await fetch(appUrl(path), { redirect: "manual", signal: AbortSignal.timeout(10000) });
     assert.equal(response.status, 200, `${app.toUpperCase()} route ${path} returned ${response.status}`);
     for (const [header, expected] of [
       ["x-content-type-options", "nosniff"],
@@ -84,7 +85,7 @@ try {
 
   const pageHtml = new Map();
   for (const path of routes) {
-    const response = await fetch(origin + path, { signal: AbortSignal.timeout(10000) });
+    const response = await fetch(appUrl(path), { signal: AbortSignal.timeout(10000) });
     pageHtml.set(path, await response.text());
   }
 
@@ -134,7 +135,7 @@ try {
       const rawHref = match[1];
       if (!rawHref || rawHref.startsWith("#")) continue;
       let target;
-      try { target = new URL(rawHref, origin + sourcePath); } catch { continue; }
+      try { target = new URL(rawHref, appUrl(sourcePath)); } catch { continue; }
       if (target.origin !== rootOrigin || target.pathname.startsWith(basePath + "/_next/")) continue;
       internalTargets.add(target.pathname + target.search);
     }
@@ -145,7 +146,7 @@ try {
   }
 
   const missingRoute = "/__tagore_smoke_missing_route__";
-  const missingResponse = await fetch(origin + missingRoute, { redirect: "manual", signal: AbortSignal.timeout(10000) });
+  const missingResponse = await fetch(appUrl(missingRoute), { redirect: "manual", signal: AbortSignal.timeout(10000) });
   assert.equal(missingResponse.status, 404, `${app.toUpperCase()} unknown route must return HTTP 404`);
   const missingHtml = await missingResponse.text();
   assert.match(missingHtml, /<h1[^>]*>Page not found<\/h1>/i, `${app.toUpperCase()} 404 page must render its branded not-found heading`);
@@ -154,13 +155,13 @@ try {
     assert.ok(missingHtml.includes(`href="${expectedDestination}"`), `${app.toUpperCase()} 404 page must provide navigation to ${expectedDestination}`);
   }
 
-  const robotsResponse = await fetch(origin + "/robots.txt", { signal: AbortSignal.timeout(10000) });
+  const robotsResponse = await fetch(appUrl("/robots.txt"), { signal: AbortSignal.timeout(10000) });
   assert.equal(robotsResponse.status, 200);
   const robots = await robotsResponse.text();
   assert.match(robots, /Disallow:\s*\//i, "staging robots.txt must disallow crawling");
   assert.ok(robots.includes(expectedHost), "robots.txt must advertise the correct canonical host sitemap");
 
-  const sitemapResponse = await fetch(origin + "/sitemap.xml", { signal: AbortSignal.timeout(10000) });
+  const sitemapResponse = await fetch(appUrl("/sitemap.xml"), { signal: AbortSignal.timeout(10000) });
   assert.equal(sitemapResponse.status, 200);
   const sitemap = await sitemapResponse.text();
   assert.ok(sitemap.includes(expectedHost), "sitemap must use the app's own canonical host");
@@ -170,7 +171,7 @@ try {
   for (const url of sitemapUrls) {
     assert.equal(url.host, expectedHost, "every sitemap URL must use the correct brand host");
     assert.ok(routes.includes(url.pathname), "sitemap route is missing from the smoke-test matrix: " + url.pathname);
-    const response = await fetch(origin + url.pathname, { signal: AbortSignal.timeout(10000) });
+    const response = await fetch(appUrl(url.pathname), { signal: AbortSignal.timeout(10000) });
     assert.equal(response.status, 200, "sitemap route must return HTTP 200: " + url.pathname);
   }
   for (const excluded of noindexRoutes) {

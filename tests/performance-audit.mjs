@@ -12,6 +12,7 @@ const appDir = app === "tier" ? path.join(root, "apps", "tier") : root;
 const port = Number(process.env.PERFORMANCE_PORT || (app === "tps" ? 3580 : 3680));
 const basePath = app === "tier" ? "/tier" : "/tps";
 const origin = `http://127.0.0.1:${port}${basePath}`;
+const appUrl = route => origin + (route === "/" ? "" : route);
 const routes = app === "tps" ? ["/", "/parent-guide", "/admissions", "/visit"] : ["/", "/institutions", "/contact"];
 const server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
   cwd: appDir,
@@ -76,7 +77,7 @@ try {
             }
           });
           const page = await context.newPage();
-          const response = await page.goto(origin + route, { waitUntil: "networkidle", timeout: 30000 });
+          const response = await page.goto(appUrl(route), { waitUntil: "networkidle", timeout: 30000 });
           assert.equal(response?.status(), 200, `${app.toUpperCase()} performance route ${route} failed at ${viewport.name}`);
           await page.waitForTimeout(1500);
           const metrics = await page.evaluate(() => {
