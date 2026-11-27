@@ -3,8 +3,8 @@
 @tailwind utilities;
 :root { color-scheme: light; }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: #f7f9fc; color: #1b2b43; }
+html { scroll-behavior: smooth; overflow-x: clip; }
+body { margin: 0; max-width: 100%; overflow-x: clip; background: #f7f9fc; color: #1b2b43; }
 ::selection { background: #4167df; color: #ffffff; }
 .container-shell { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
 .eyebrow { letter-spacing: .18em; text-transform: uppercase; font-size: .68rem; font-weight: 700; }
