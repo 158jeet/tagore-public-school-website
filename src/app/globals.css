@@ -29,7 +29,7 @@ body { margin: 0; background: #f7f9fc; color: #1b2b43; }
   }
   .mobile-quick-action:focus-visible{outline:3px solid #4167df;outline-offset:3px}
   .mobile-quick-action-primary{background:#152b4a;color:#fff}
-  .mobile-quick-action-secondary{border:1px solid rgba(16,42,67,.2);background:#fff;color:#102a43}
+  .mobile-quick-action-secondary{border:1px solid rgba(21,43,74,.18);background:#fff;color:#152b4a}
   body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
 }
 @media(prefers-reduced-motion:reduce){.mobile-quick-action{transition:none}}
@@ -39,7 +39,7 @@ body { margin: 0; background: #f7f9fc; color: #1b2b43; }
 .form-success-panel{border:1px solid #2f765a35;border-radius:16px;background:#eef7f3;padding:18px}
 .form-error-panel{border:1px solid #a13d3d35;border-radius:14px;background:#fff3f1;padding:14px;color:#8d3030;line-height:1.6}
 
-/* WCAG AA text contrast: keep the heritage palette while using accessible foreground tones. */
+/* WCAG AA text contrast for the refreshed blue-and-teal palette. */
 .text-ink\/75 { color: #34465a !important; }
 .text-ink\/70 { color: #405065 !important; }
 .text-ink\/65,
