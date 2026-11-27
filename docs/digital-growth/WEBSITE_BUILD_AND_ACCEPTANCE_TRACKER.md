@@ -267,3 +267,160 @@ A workstream is complete only when:
 - [x] PR #106 added branded 404 recovery pages to TPS and TIER and extended production smoke assertions to check 404 status, heading and recovery links. Exact-source public free CI run `44882581805` passed both site jobs. Private merge commit: `46b0e470fc1ed183b5d5428a675f553e6001aaa1`.
 
 - [x] PR #104 expanded Playwright and axe browser acceptance to every current public TPS/TIER route, including all grade-stage and institution profile pages. Exact-source public free CI run `44882641431` passed both site jobs. Private merge commit: `ed94d88812b7344918ce7eea5a0a34b71512d258`.
+
+
+## 18. Legacy website content and media migration — 2026-11-23
+
+- [x] **MIG-01** Identified the current public source websites: TPS `https://www.tpsgudhagorji.com/` and Tagore Group `https://www.tieredu.org/`.
+- [x] **MIG-02** Added a page-by-page legacy source/destination inventory at `docs/content/LEGACY_SITE_MIGRATION_INVENTORY.md`.
+- [x] **MIG-03** Added `docs/content/legacy-media-manifest.json` with authentic legacy image URLs, alt text and explicit production consent-review flags.
+- [x] **MIG-04** TPS homepage prototype now uses the legacy campus photograph, campus/play-area/computer-learning photographs, the school's 2004 origin and its legacy 3-H Head/Heart/Hand educational philosophy.
+- [x] **MIG-05** TIER homepage prototype now uses a legacy aerial campus photograph, campus/sports/computer/hostel photographs and the legacy institutional origin/campus story.
+- [~] **MIG-06** The images are referenced from the existing public legacy hosts for prototype review. Downloading approved originals into the private media library, image optimization, responsive variants and image rights/consent verification remain open.
+- [~] **MIG-07** Remaining legacy pages to migrate into their corresponding new routes include TPS Why Tagore, Vision/Mission, founder-chairman message, principal message, infrastructure, hostel, sports academy, play school, admission, statutory disclosure and gallery; TIER campus, hostel, library, course/admission and institution profiles.
+- [!] **MIG-08** Reconcile legacy inconsistencies before production: TPS principal name conflict, old phone routing, 4.5-acre claim versus CBSE disclosure's 12,999 sq m, old admission-year labels, TIER historical course/portfolio labels and unsupported TIER numeric claims. Identifiable student images require documented consent before public launch.
+- [~] **MIG-09** Private PR #115 created as a draft for the first populated prototype pass. CI currently fails before any job steps on all six checks; do not treat this as an application-code failure or acceptance result until runner/Actions execution is restored.
+
+### Private Actions diagnostic comparison — 2026-11-23
+
+- Private PR #45's head `797c4e9e` had six successful checks on 2026-11-20: TPS quality, TIER quality, CodeQL, both dependency audits and secret scanning.
+- Private PR #114 head `7f992ad3` has five workflow groups failing within seconds with empty job step lists and unavailable job logs (`BlobNotFound`).
+- New private PR #115 head `a6a57387` independently reproduces the same pattern across all six checks: TPS quality, TIER quality, CodeQL, dependency audits and secret scanning. All jobs report no steps; logs are unavailable.
+- This rules out a failure unique to the CONTENT-05 files, but does not establish whether the cause is Actions quota, repository settings, runner provisioning or a GitHub-side issue. No setting/billing cause is confirmed.
+- Keep #114 and #115 draft/unmerged; validate source and tests on the public CI mirror while private Actions is investigated. No production deployment.
+
+
+### Minimal private Actions runner probe — 2026-11-23
+
+- Created isolated diagnostic branch `diagnostics/private-actions-runner-probe` from private `main`, with a new workflow containing only `runs-on: ubuntu-latest` and one shell `echo` step; no checkout, Node, dependencies, secrets or third-party actions.
+- Run `45130979954`, job `137546155613`, completed as failure before any step; step list is empty and log download returns Azure `BlobNotFound`.
+- This reproduces the same failure with a minimal workflow and therefore rules out the website code, dependency installation, CodeQL/secret-scan workflow logic and the CONTENT-05 workflow as the cause.
+- Current evidence localizes the blocker to private-repository GitHub Actions admission/hosted-runner allocation or account/repository policy/billing. The exact rejection reason is not exposed by the available GitHub connector; no quota, spending-limit, payment, repository setting or GitHub incident cause is confirmed.
+- Public mirror standard-hosted-runner CI continues to execute real steps, so use that as the validation path while checking the private account's Billing & licensing → Usage / Actions budget and repository Settings → Actions → General. If those are clean, send GitHub Support the minimal probe run/job IDs above and the matching PR #115 runs.
+
+
+## 19. Deeper legacy content migration and visual review — 2026-11-23
+
+- [x] **MIG-10** TPS About page now carries the legacy school origin, 3-H Head/Heart/Hand philosophy, founder-chairman source link, CBSE affiliation/school identifiers and authentic campus / early-years / computer-learning photos.
+- [x] **MIG-11** TIER About page now carries the Gudha Gorji origin story under Mr. Veerpal Singh Shekhawat and legacy campus / PG College building / library / computer-centre / NCC imagery.
+- [x] **MIG-12** TIER institution profiles now contain legacy-derived material for Bal Niketan, Smart School, Vedant Academy, PG College and Hostel. Historical content is separated from current programme claims and management review notes.
+- [x] **MIG-13** Source inventory now includes TPS Why Tagore, Olympiad, admissions policy/document references; TIER RBSE, Defence Academy, PG College courses/mission/director/gallery, hostel and library pages; separate Nimbi Jodhan and inaccessible legacy RBSE site references.
+- [x] **MIG-14** Media manifest expanded with PG College library/computer/NCC and hostel photos. All identifiable-person images require consent review before production.
+- [x] **MIG-15** TPS homepage now includes a facilities/enrichment section covering labs, sports, transport, residential support, Olympiad and qualified-team themes from legacy content, explicitly marked for current confirmation.
+- [~] **MIG-16** TPS legacy gallery photos initially did not render in the full-page screenshot when using fill-only sizing. Replaced those gallery images with explicit dimensions and eager loading. PR #37 visual capture is pending to confirm the fix.
+- [x] **MIG-17** TIER homepage screenshot review confirmed the legacy campus, sports, computer-learning and hostel images render on desktop and mobile. Formal visual sign-off remains open.
+- [~] **MIG-18** Localizing/optimizing approved images into private repository assets, final content reconciliation, management review and production approval remain open.
+
+### Current migration review branches / PRs
+
+- Private PR #115 (first populated TPS/TIER homepage pass): `https://github.com/158jeet/tagore-public-school-website/pull/115`, draft/unmerged.
+- Private PR #116 (deeper TPS About, TIER About and institution profile migration, stacked on #115): `https://github.com/158jeet/tagore-public-school-website/pull/116`, draft/unmerged.
+- Public mirror PR #37 (full-stack CI mirror against public main): `https://github.com/158jeet/atlas-build-lab/pull/37`, draft/unmerged.
+- Public mirror CI run `45130775950` passed both TPS and TIER quality jobs for the first homepage/photo pass. Visual artifacts were inspected: TIER campus gallery renders; TPS hero renders but its lower gallery was blank, which was corrected with explicit image dimensions/eager loading.
+- Latest public mirror run `45131819043` is validating the expanded stack including the TPS gallery fix and new facilities section; final result pending at this tracker update.
+
+### Private Actions diagnostic status
+
+- Minimal private runner probe branch `diagnostics/private-actions-runner-probe`, commit `e2381eeb`, run `45130979954`, job `137546155613`: one shell echo step only, but it failed before any step, empty step list, Azure BlobNotFound logs.
+- Private website PR checks continue to fail before step execution; no code failure can be inferred.
+- Exact root cause still unconfirmed. Account Actions usage/budget and repository Settings → Actions → General must be checked; if clear, GitHub Support needs the minimal probe run/job IDs.
+- Public mirror standard-hosted-runner CI is the current working validation path. No PR has been merged and no production deployment has occurred.
+
+
+### Additional current-source migration — 2026-11-23
+
+- [x] **MIG-19** Added a dated 2025–26 CBSE disclosure snapshot to the TPS homepage: Class X 166/166 (100%), Class XII 93/93 (100%) and 99 teachers. The page links to the current public disclosure and explicitly asks management to recheck the figures before launch.
+- [x] **MIG-20** Added a concise Principal’s Message section to TPS About. Current public Principal’s Message and CBSE disclosure both list Sachin Joshi; the source inventory was corrected so it no longer claims a name conflict.
+- [x] **MIG-21** Corrected the TPS establishment copy to year 2004 only; no unsupported day/month is shown.
+- [x] **MIG-22** Added the existing TIER group-office address, 01594-319504 and tagoregg@gmail.com to the TIER contact prototype, explicitly labelled as legacy details requiring current routing verification.
+- [x] **MIG-23** Source inventory records the detailed TPS admission page's stale 2023–24 label against the homepage's 2026–27 promotion; only current-year content is retained in the prototype and school-office confirmation is required.
+- [~] **MIG-24** Latest public full-stack CI run `45131819043` is in browser journeys / performance checks. It includes the expanded TPS results and facilities sections, TIER profile pages, responsive layout and legacy group contact card once these changes are mirrored.
+
+
+### Consolidated review target — 2026-11-23
+
+- Private PR #116 has been retargeted to `main` and now contains the full-stack migration (first homepage pass plus deeper TPS/TIER pages), so it is the single canonical review target: `https://github.com/158jeet/tagore-public-school-website/pull/116`.
+- PR #115 remains open as the first staged implementation record; #116 contains the complete stack.
+- Public mirror PR #37 targets `main` and validates the complete stack. Latest public run `45132412876` is currently running TPS and TIER production builds after the additional CBSE outcome and group-contact updates.
+- Prior complete stack run `45131819043` passed both site jobs and screenshot review. Its screenshots confirm TPS images render and TIER gallery renders.
+- No merge, deployment, DNS change or live integration has occurred.
+
+
+### Hosted-runner label comparison — 2026-11-23
+
+- Extended the isolated probe to test both `ubuntu-latest` and `ubuntu-24.04` with one shell-only echo step each.
+- Run `45132784384`: both jobs failed before any steps; job IDs `137551889495` and `137551889801` return empty step lists.
+- The failure is not specific to the `ubuntu-latest` image label. Together with the original probe, this isolates the blocker to private-repository hosted-runner allocation/admission or account/repository policy/billing. The available GitHub API connection does not expose the exact rejection annotation or billing usage.
+- Required owner-side check remains: account Settings → Billing and licensing → Usage (Actions included compute / spending budget), then repository Settings → Actions → General. If both are clear, escalate both probe run IDs to GitHub Support.
+
+
+### TPS residential and stage-curriculum migration — 2026-11-23
+
+- [x] **MIG-25** Added the legacy TPS hostel description to `/hostel/guide`: separate boys'/girls' accommodation, triple/quadruple rooms, attached washrooms/balconies in many rooms, centrally air-cooled accommodation, house-in-charge/superintendent supervision, extra classes, medical and counselling support. Every detail is explicitly marked as legacy and subject to current verification.
+- [x] **MIG-26** Added source-linked legacy curriculum notes to the dynamic admissions pathway pages for early years, primary, middle and secondary stages. Senior secondary page now notes the current Class XII disclosure and flags the old Science/Commerce stream wording as historical pending confirmation.
+- [x] **MIG-27** Expanded the TPS content source inventory with the old Primary School and Secondary School pages.
+- [~] **MIG-28** Public mirror CI run `45132899609` is validating these newest hostel and admissions-stage changes. Prior full-stack run `45132412876` passed both site jobs including current CBSE results and TIER group-contact content.
+
+
+### Brand asset integrity — 2026-11-23
+
+- [x] **BRAND-01** TIER header now uses the exact legacy `https://www.tieredu.org/images/logo-wide.png` wordmark, unchanged.
+- [x] **BRAND-02** Removed the invented TPS “TPS” circular monogram from the header. No standalone approved TPS logo file was present in the private repository or available Project/Library files; the header uses text-only school identity until the exact original logo is supplied.
+- [x] **BRAND-03** Added logo-source status to the media manifest and migration inventory. Do not redraw, trace, recolor, crop or otherwise modify either institution’s logo.
+- [~] **BRAND-04** Public mirror CI is validating the official TIER wordmark and TPS text-only header change; screenshot review pending.
+
+
+- [x] **BRAND-05** Removed the decorative “TG” hero monogram from TIER and replaced it with a Gudha Gorji location label, so no recreated mark is presented as an institutional logo.
+
+
+### TIER leadership, faculty and co-curricular migration — 2026-11-23
+
+- [x] **MIG-29** TIER About page now includes legacy sports and cultural activity themes from `act.php` (cricket, basketball, volleyball, badminton, table tennis, kabaddi, kho-kho, taekwondo, athletics, singing, dance, drama and debate), with current availability/coaches/schedules flagged for confirmation.
+- [x] **MIG-30** TIER About page now includes the Director’s legacy message themes (innovation, excellence, cultural values) and the teacher page’s description of trained, experienced, subject-specialist educators and holistic development.
+- [x] **MIG-31** Current staff names, qualifications, staff counts and allocations are not inferred from legacy copy; they remain pending management confirmation.
+
+
+- [x] **BRAND-06** Follow-up source inspection found the first placeholder-removal edit had targeted an obsolete markup selector. Corrected the actual rendered headers: TPS inline “TPS” circle is now removed, and TIER inline “T” circle is replaced by the exact legacy Tier Edu wordmark. This corrected markup is awaiting the next public mirror CI/screenshot pass.
+
+
+### TPS safeguarding content migration — 2026-11-23
+
+- [x] **MIG-32** Parent Guide now links the current 2026–27 Child Protection (POCSO), Anti-Bullying and Grievance Redressal Committee PDFs from the existing TPS website.
+- [x] **MIG-33** Committee member names and phone numbers were not copied into new page text; the original official PDFs remain linked and the page tells families to confirm current reporting contacts with the school.
+- [x] **MIG-34** Source inventory now records the three current committee documents and their verification requirements.
+
+
+## 17. Legacy content migration and private validation diagnosis (2026-11-23)
+
+- [x] **MIG-01** Source-page inventory created for the current TPS source website (`tpsgudhagorji.com`) and TIER source website (`tieredu.org`): `docs/content/LEGACY_SITE_MIGRATION_INVENTORY.md`.
+- [x] **MIG-02** Structured media manifest created at `docs/content/legacy-media-manifest.json`; current prototype uses authentic legacy-hosted images, with each identifiable-person image marked for consent review.
+- [x] **MIG-03** First populated TPS pass: homepage, about/story, founder/principal messages, campus imagery, hostel family guide, parent guide, admissions stage content and dated CBSE disclosure snapshot.
+- [x] **MIG-04** First populated TIER pass: homepage, about/history, campus/college/library/computer/NCC imagery, sports/cultural activities, Director's message, faculty philosophy, contact and five institution profiles.
+- [x] **MIG-05** Reconciliation notes record stale or conflicting facts, legacy contact routing, historic numerical claims, separate Nimbi Jodhan campus, the unresolved RBSE source and TPS logo gap. Exact TIER wordmark is reused unchanged; no logo is redrawn.
+- [~] **MIG-06** External legacy image URLs are prototype-only. Copy approved originals to the private media library, optimize responsive local variants and verify image rights/consent before production.
+- [~] **MIG-07** Management review remains pending for current facilities, admission criteria, fees, phone/email routing, leadership, results, policies, image consent and final institutional naming.
+- [x] **MIG-08** Public mirror PR #37 validates the current migration code. Latest run **#45134444297** passed both TPS and TIER jobs, including typecheck, lint, production builds, browser journeys/accessibility, HTTP smoke tests and performance-lab steps. This is validation of the mirror branch, not production acceptance.
+- [!] **CI-PRIVATE-01** Private canonical PR #116 (branch `content/legacy-institution-profiles`) has the same Website CI workflow blob as the public mirror (`8e8129ae071a81613ba4799a9a9dbf1611ef0e1b`). Latest private runs on head `924c6bc5ab29ef47834ee49ada37801881bf33a7`: Website CI #45134792429, CodeQL #45134792433, Secret Scanning #45134792447, Dependency Security Audit #45134792471.
+- [!] **CI-PRIVATE-02** The latest private Website CI jobs #137558382751 and #137558382996 completed in 2–3 seconds with `runner_id=0`, blank `runner_name`, empty `steps=[]`, and no runner assignment. All four workflow groups fail before any job step. Earlier tests on `ubuntu-latest` and the current `ubuntu-24.04` both show the same pre-runner failure. Job-log downloads return `BlobNotFound` because no job log was produced.
+- [!] **CI-PRIVATE-03** Evidence isolates the failure to the private repository/account runner-dispatch path, not the application test commands or the shared Website CI YAML. The available GitHub integration cannot read private Actions administration/billing settings, so it cannot establish whether the cause is repository Actions policy, included-compute/spending restriction, account-level restriction or GitHub platform provisioning. Do not label it a confirmed billing issue or repeatedly rerun unchanged jobs.
+- [~] **CI-PRIVATE-04** Next diagnostic: repository owner checks Settings → Actions → General for hosted-runner/action policies and account Settings → Billing & licensing → Usage for Actions compute/spending status; inspect the failed run summary for an explicit rejection annotation. If those are clear, submit the exact run/job IDs to GitHub Support for runner-dispatch telemetry. Public mirror CI remains the no-cost validation path while this is unresolved.
+- [ ] **CI-PRIVATE-05** Restore meaningful private validation before merging the content migration or any other website feature PR. Keep PR #116 draft/unmerged and do not deploy until private validation, owner review and production release gates are satisfied.
+
+
+### Latest full-stack content and mobile review — 2026-11-23
+
+- [x] **MIG-35** Public mirror run `45135171585` passed both TPS and TIER typecheck, lint, tests, production builds, browser/accessibility journeys, smoke tests and lab performance checks.
+- [x] **VIS-01** Screenshot review confirms TPS legacy gallery images render on desktop/mobile; TIER official legacy wordmark renders in the header, group gallery photos render, and the mobile hero uses a location label rather than a decorative monogram.
+- [x] **VIS-02** TIER contact card and legacy group office details render in desktop/mobile screenshots.
+- [~] **VIS-03** Mobile screenshot showed the persistent quick-action bar still overlapped one line of the TIER contact introduction. Reduced the contact section's mobile top padding further; public mirror run `45135780006` is pending to validate the final adjustment.
+- [~] **MIG-36** Added current 2026–27 POCSO, Anti-Bullying and Grievance Redressal committee PDF links to TPS Parent Guide. The linked PDFs are not transcribed; current reporting contacts remain for management verification.
+
+
+## Repository operating model — owner-approved 2026-11-23
+
+- Canonical durable source of truth: `158jeet/tagore-public-school-website`. Keep its `main` branch as the protected canonical record; do not merge draft PRs or deploy without owner approval.
+- Public development and free CI mirror: `158jeet/atlas-build-lab`. Continue ordinary development and validation there after the canonical repository is returned to private.
+- Sync rule: after a public-mirror change is tested and reviewed, copy the exact approved commit/content into the canonical repository. If the canonical repository is private and the connected GitHub integration cannot update it, the owner may temporarily make it public for the sync, then immediately restore private visibility once the sync and checks are complete.
+- The public mirror is not the durable source of truth. Keep the canonical repository's source, docs, release records and approved assets current; record the source/mirror commit mapping for every sync.
+- Never put credentials, secrets, private student/parent information, internal records or unapproved identifiable student photos into the public mirror. Public image links are prototype-only until rights/consent and media-localization gates are satisfied.
+- Current temporary visibility exception: canonical repository is public only to complete the present content migration and validate its hosted workflows. Restore it to private after the owner is satisfied with the migration and the sync is complete.

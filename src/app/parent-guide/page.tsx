@@ -40,6 +40,21 @@ export default function ParentGuidePage() {
           </article>
         </div>
       </section>
+      <section className="section-pad bg-white">
+        <div className="container-shell">
+          <div className="max-w-3xl">
+            <p className="eyebrow text-gold">Student safety and accountability</p>
+            <h2 className="mt-4 font-serif text-4xl text-navy">Protection, anti-bullying and grievance channels.</h2>
+            <p className="mt-5 leading-8 text-ink/65">The existing TPS website publishes committee documents for the 2026–27 session covering child protection (POCSO), anti-bullying and grievance redressal. Families can review the published documents and ask the school office about the current reporting process and designated contact route.</p>
+          </div>
+          <div className="mt-9 grid gap-4 md:grid-cols-3">
+            <a href="https://www.tpsgudhagorji.com/wp-content/uploads/2026/06/Child-Protection-Committee-POSCO.pdf" target="_blank" rel="noreferrer" className="rounded-3xl border border-ink/10 bg-cream p-7"><p className="eyebrow text-gold">01 · Child protection</p><h3 className="mt-3 font-serif text-2xl text-navy">POCSO Committee</h3><p className="mt-3 text-sm leading-7 text-ink/60">View the published child-protection committee document for 2026–27 ↗</p></a>
+            <a href="https://www.tpsgudhagorji.com/wp-content/uploads/2026/06/Anti-Bullying-Committee.pdf" target="_blank" rel="noreferrer" className="rounded-3xl border border-ink/10 bg-cream p-7"><p className="eyebrow text-gold">02 · Student wellbeing</p><h3 className="mt-3 font-serif text-2xl text-navy">Anti-Bullying Committee</h3><p className="mt-3 text-sm leading-7 text-ink/60">View the published anti-bullying committee document for 2026–27 ↗</p></a>
+            <a href="https://www.tpsgudhagorji.com/wp-content/uploads/2026/06/Grievance-Redressal-Committee.pdf" target="_blank" rel="noreferrer" className="rounded-3xl border border-ink/10 bg-cream p-7"><p className="eyebrow text-gold">03 · Accountability</p><h3 className="mt-3 font-serif text-2xl text-navy">Grievance Redressal</h3><p className="mt-3 text-sm leading-7 text-ink/60">View the published grievance redressal committee document for 2026–27 ↗</p></a>
+          </div>
+          <p className="mt-7 text-xs leading-6 text-ink/50">The linked documents contain member names and contact numbers. The school must confirm that the committee lists, phone numbers and reporting procedure are still current before these links are promoted as the active safeguarding route.</p>
+        </div>
+      </section>
     </>
   );
 }

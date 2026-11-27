@@ -29,6 +29,20 @@ export default function HostelFamilyGuidePage() {
           </div>
         </div>
       </section>
+      <section className="section-pad bg-white">
+        <div className="container-shell">
+          <div className="max-w-3xl">
+            <p className="eyebrow text-gold">Existing TPS hostel description</p>
+            <h2 className="mt-5 font-serif text-4xl text-navy">A residential environment with routines, supervision and support.</h2>
+            <p className="mt-6 leading-8 text-ink/70">The existing Tagore Public School website describes separate hostel facilities for boys and girls, triple- and quadruple-occupancy rooms, attached washrooms and balconies in many rooms, and centrally air-cooled accommodation.</p>
+            <p className="mt-5 leading-8 text-ink/70">It also describes house-in-charge supervision, hostel superintendents overseeing daily routines, additional classes for difficult subjects, an on-campus medical facility and male and female psychological counsellors.</p>
+          </div>
+          <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {["Separate boys’ and girls’ accommodation","Triple- and quadruple-occupancy rooms","Attached washrooms and balconies in many rooms","House-in-charge and superintendent supervision","Additional academic support classes","On-campus medical and counselling support"].map((item,index)=><article key={item} className="rounded-2xl border border-ink/10 bg-cream p-6"><p className="eyebrow text-gold">0{index+1}</p><p className="mt-3 text-sm font-semibold leading-6 text-navy">{item}</p></article>)}
+          </div>
+          <div className="mt-7 rounded-2xl border border-amber-300 bg-cream p-6 text-sm leading-7 text-ink/70"><strong className="text-navy">Prototype note:</strong> These details are carried forward from the legacy TPS hostel page for management review. They are not a guarantee of current room types, staffing, medical arrangements or availability. Families should obtain current written policies and visit the hostel before deciding. <a className="ml-1 font-semibold text-navy underline underline-offset-2" href="https://www.tpsgudhagorji.com/hostel/" target="_blank" rel="noreferrer">View original hostel page ↗</a></div>
+        </div>
+      </section>
       <section className="section-pad bg-cream">
         <div className="container-shell grid gap-5 md:grid-cols-2">
           {topics.map((topic) => <article key={topic.title} className="rounded-3xl border border-ink/10 bg-white p-7"><h2 className="font-serif text-2xl text-navy">{topic.title}</h2><ul className="mt-5 space-y-3">{topic.items.map((item) => <li key={item} className="flex gap-3 text-sm leading-7 text-ink/70"><span aria-hidden="true" className="mt-2 h-2 w-2 shrink-0 rounded-full bg-gold" />{item}</li>)}</ul></article>)}

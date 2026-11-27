@@ -9,6 +9,8 @@ const pathways = {
     title: "Early years admissions pathway",
     stage: "Nursery · LKG · UKG",
     description: "A helpful starting point for families exploring the first school experience. Use these prompts to discuss transition, everyday routines and the kind of support your child may need.",
+    legacyContent: "The existing TPS Play School page describes age-appropriate activities that support social, emotional and cognitive growth, with a nurturing environment, experienced educators, vibrant classrooms and an early foundation for lifelong learning.",
+    legacySource: "https://www.tpsgudhagorji.com/play-school/",
     classes: ["Nursery", "LKG", "UKG"],
     questions: [
       "What age and document requirements apply for the class being considered?",
@@ -22,6 +24,8 @@ const pathways = {
     title: "Primary school admissions pathway",
     stage: "Classes 1–5",
     description: "Prepare for a conversation about the primary years. Ask how learning expectations, classroom routines, feedback and home–school communication are explained for the class you are considering.",
+    legacyContent: "The existing TPS Primary School page describes reading, creative writing, recitation, art and craft, dance and music, science and mathematics, group work and regular parent progress updates. It lists English, Hindi, EVS and Mathematics as core subjects, with Computer from Class 2 and supporting subjects such as GK, music, dance, art, yoga and physical education. The school must confirm the current subject and assessment structure.",
+    legacySource: "https://www.tpsgudhagorji.com/primary-school/",
     classes: ["Class 1", "Class 2", "Class 3", "Class 4", "Class 5"],
     questions: [
       "Which subjects and learning expectations apply to this class and academic year?",
@@ -35,6 +39,8 @@ const pathways = {
     title: "Middle school admissions pathway",
     stage: "Classes 6–8",
     description: "Use this guide to explore the transition into the middle grades. The questions focus on subject learning, study habits, assessment and how families can stay informed.",
+    legacyContent: "The existing TPS Secondary School page describes the middle-level core subjects as English, Hindi, Mathematics, Science, Social Science and Computer, with Sanskrit under the third-language formula. It also describes theme-based assemblies and continuous assessment. Confirm the current language options, subjects and assessment policy with the school.",
+    legacySource: "https://www.tpsgudhagorji.com/secondary-school/",
     classes: ["Class 6", "Class 7", "Class 8"],
     questions: [
       "Which subjects, languages and academic requirements apply to the class?",
@@ -48,6 +54,8 @@ const pathways = {
     title: "Secondary school admissions pathway",
     stage: "Classes 9–10",
     description: "For families considering the secondary grades, use these prompts to understand the current academic requirements, assessment approach and planning expectations before making a decision.",
+    legacyContent: "The existing TPS Secondary School page lists English, Hindi, Mathematics, Science and Social Science as core subjects at secondary level, with Computer offered as an additional subject. It also describes theme-based assemblies focused on human values and continuous assessment. Current CBSE subject offerings and assessment rules must be confirmed for the relevant academic year.",
+    legacySource: "https://www.tpsgudhagorji.com/secondary-school/",
     classes: ["Class 9", "Class 10"],
     questions: [
       "Which board, subjects and current academic-year requirements apply?",
@@ -61,6 +69,8 @@ const pathways = {
     title: "Senior secondary admissions pathway",
     stage: "Classes 11–12",
     description: "A focused guide for families exploring the senior secondary years. Discuss the current subject options, board requirements, academic support and longer-term study goals directly with the school.",
+    legacyContent: "The current public CBSE disclosure includes Class XII board results for 2025–26. The older TPS About page refers to Science and Commerce streams, but that wording is historical and must not be treated as the current subject catalogue. Ask the school for the approved subject combinations and current intake.",
+    legacySource: "https://www.tpsgudhagorji.com/mandatory-public-disclosure/",
     classes: ["Class 11", "Class 12"],
     questions: [
       "Which subject combinations and eligibility requirements are currently offered?",
@@ -104,6 +114,14 @@ export default async function AdmissionsPathwayPage({ params }: { params: Promis
           <h1 className="mt-5 max-w-4xl font-serif text-5xl leading-tight sm:text-6xl">{pathway.title}</h1>
           <p className="mt-7 max-w-3xl text-base leading-8 text-white/70">{pathway.description}</p>
           <p className="mt-5 max-w-3xl text-xs leading-6 text-white/55">This guide helps you prepare questions. It does not confirm class availability, eligibility, fees, facilities or admission.</p>
+        </div>
+      </section>
+      <section className="section-pad bg-white">
+        <div className="container-shell max-w-4xl">
+          <p className="eyebrow text-gold">From the existing school website</p>
+          <h2 className="mt-4 font-serif text-3xl text-navy">Legacy curriculum information for review.</h2>
+          <p className="mt-5 text-sm leading-8 text-ink/70">{pathway.legacyContent}</p>
+          <p className="mt-5 text-xs leading-6 text-ink/50">This is migrated source material, not a guarantee of the current academic-year programme. Please confirm details with the school before publication. <a href={pathway.legacySource} target="_blank" rel="noreferrer" className="font-semibold text-navy underline underline-offset-2">View original source ↗</a></p>
         </div>
       </section>
       <section className="section-pad bg-cream">
