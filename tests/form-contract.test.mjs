@@ -15,7 +15,7 @@ test("TPS admission form fields are accepted by the TPS API", async () => {
   for (const field of ["parent_name", "mobile", "email", "class", "enquiry_topic", "contact_consent", "form_started_at", "website"]) {
     assert.ok(api.includes(`data.${field}`) || api.includes(`data["${field}"]`) || api.includes(`data['${field}']`), `TPS API does not validate/use ${field}`);
   }
-  assert.ok(form.includes('fetch("/api/enquiry"'));
+  assert.ok(form.includes('fetch("/tps/api/enquiry"'));
 });
 
 test("TPS campus visit form supplies the visit-specific API fields", async () => {
@@ -41,5 +41,5 @@ test("TIER group enquiry form fields are accepted by the TIER API", async () => 
     assert.ok(form.includes(`name="${field}"`), `TIER form is missing ${field}`);
     assert.ok(api.includes(`data.${field}`), `TIER API does not validate/use ${field}`);
   }
-  assert.ok(form.includes('fetch("/api/enquiry"'));
+  assert.ok(form.includes('fetch("/tier/api/enquiry"'));
 });
